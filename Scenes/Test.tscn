@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://yqn5d4gf6t1n"]
+
+[ext_resource type="PackedScene" uid="uid://dohwih04sjau3" path="res://Characters/Cantrip/Cantrip.tscn" id="1_ko2s7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsjds"]
+size = Vector2(188, 20)
+
+[node name="Test" type="Node2D" unique_id=1511965733]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=109059500]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1375911452]
+position = Vector2(49, 62)
+shape = SubResource("RectangleShape2D_gsjds")
+debug_color = Color(0.9592126, 1.92523e-07, 0.525549, 0.41960785)
+
+[node name="CharacterBody2D" parent="." unique_id=1378327142 instance=ExtResource("1_ko2s7")]
