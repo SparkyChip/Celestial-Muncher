@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://csie2cx8um630"]
+
+[ext_resource type="PackedScene" uid="uid://db1dhbudv51qt" path="res://Characters/Cantrip/Player_Cantrip.tscn" id="1_skmq4"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_fp8aa"]
+
+[node name="Test_World" type="Node2D" unique_id=1140070816]
+
+[node name="C_PlayerBody" parent="." unique_id=2113687282 instance=ExtResource("1_skmq4")]
+position = Vector2(34, 9)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=284990320]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=724434210]
+position = Vector2(35, 67)
+shape = SubResource("WorldBoundaryShape2D_fp8aa")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1075804820]
+position = Vector2(46, -5)
+zoom = Vector2(4, 4)

@@ -1,2 +1,4 @@
-res://Scenes/Test.tscn
 res://Characters/Cantrip/Cantrip.tscn
+res://Scenes/Test.tscn
+res://Scenes/test_world.tscn
+res://Characters/Cantrip/Player_Cantrip.tscn

@@ -1,10 +1,10 @@
 78098b89c88a74ebe8c20117b8754620
-::res://::1786197582
-CameraMovement.gd::GDScript::7804327407731818068::1786196520::0::1::::<>Node<><>0<>0<><>::
+::res://::1786279863
 icon.svg::CompressedTexture2D::7422813176505455583::1786193932::1786194203::1::::<><><>0<>0<>0ed3ed3634a41dc1f5e73c899366774b<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1786193964::0::1::::<><><>0<>0<><>::
-::res://Characters/::1786194452
-::res://Characters/Cantrip/::1786197519
-Cantrip.tscn::PackedScene::8157706974107873548::1786197519::0::1::::<><><>0<>0<><>::
-::res://Scenes/::1786197417
-Test.tscn::PackedScene::1718405388750758549::1786197417::0::1::::<><><>0<>0<><>::uid://dohwih04sjau3::::res://Characters/Cantrip/Cantrip.tscn
+::res://Characters/::1786268381
+::res://Characters/Cantrip/::1786290362
+CANTRIP_SPRITESHEET.png::CompressedTexture2D::4235134437873175952::1786290362::1786290362::1::::<><><>0<>0<>18ca3093a45635afac88ea2c3e2d5311<>res://.godot/imported/CANTRIP_SPRITESHEET.png-3a770cd6916a02d768e49ad9c0e6c60c.ctex::
+Player_Cantrip.tscn::PackedScene::7283319451443540923::1786279763::0::1::::<><><>0<>0<><>::
+::res://Scenes/::1786279886
+test_world.tscn::PackedScene::6053046801413567309::1786279886::0::1::::<><><>0<>0<><>::uid://db1dhbudv51qt::::res://Characters/Cantrip/Player_Cantrip.tscn
