@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1lsbsru6tm2c"
-path="res://.godot/imported/CANTRIP_SPRITESHEET.png-3a770cd6916a02d768e49ad9c0e6c60c.ctex"
+uid="uid://bwjtq8gfcfx06"
+path="res://.godot/imported/BETTER_CANTRIP_SPRITESHEET.png-6e419e4ee4bda68867a7e2b64c96ee00.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Characters/Cantrip/CANTRIP_SPRITESHEET.png"
-dest_files=["res://.godot/imported/CANTRIP_SPRITESHEET.png-3a770cd6916a02d768e49ad9c0e6c60c.ctex"]
+source_file="res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png"
+dest_files=["res://.godot/imported/BETTER_CANTRIP_SPRITESHEET.png-6e419e4ee4bda68867a7e2b64c96ee00.ctex"]
 
 [params]
 
