@@ -8,7 +8,7 @@ script/source = "extends CharacterBody2D
 
 
 
-var SPEED = 300.0
+var SPEED = 100.0
 @export var JUMP_VELOCITY = 300
 var isJump
 var isFall
@@ -16,6 +16,14 @@ var isJmpCD
 
 # ONREADY
 @onready var chAnim = $AnimatedSprite2D
+@onready var SFX = $soundFX
+
+# FILES 
+var jumpCounter = 0 
+
+var jFX = \"res://meme_FX/e_s00\"
+var JFXLOCK = false
+
 
 func _ready() -> void:
 	#$CollisionShape2D.debug_color = Color.BLUE
@@ -48,7 +56,13 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed(\"ui_accept\") and jmpLock:
 		jump()
-	
+		
+		if (!(JFXLOCK)):
+			jumpCounter += 1
+			sfx(jumpCounter)
+			
+		
+
 	if isJump:
 		rotation += 30.0 * delta
 		velocity.y -= JUMP_VELOCITY	
@@ -137,6 +151,28 @@ func jump():
 	await get_tree().create_timer(0.1).timeout
 	isJmpCD = false
 	#$CollisionShape2D.debug_color = Color.BLUE
+	
+	
+var sfxPath
+
+func sfx(count):
+	print(jumpCounter )
+	if (jumpCounter % 8 == 0):
+		JFXLOCK = true
+		sfxPath = \"res://meme_FX/JET SET! (mp3cut.net).mp3\"
+		SFX.stream = load(sfxPath)
+		SFX.play()
+		await SFX.finished
+		JFXLOCK = false
+		jumpCounter = 0
+		 
+	else:
+		sfxPath = jFX + str((jumpCounter - 1) % 7 +1) + \".ogg\"
+		SFX.stream = load(sfxPath)
+		SFX.play()
+	
+	print(\"Path: \", sfxPath)
+#print(\"Loaded: \", load(sfxPath))
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ru3vb"]
@@ -560,10 +596,13 @@ script = SubResource("GDScript_fp8aa")
 sprite_frames = SubResource("SpriteFrames_fp8aa")
 animation = &"Walk_BL"
 autoplay = "Idle_F"
-frame_progress = 0.320893
+frame_progress = 0.6429485
 
 [node name="C_MainCollisionShape" type="CollisionShape2D" parent="." unique_id=743529005]
 z_index = 5
 position = Vector2(0.5, 0.25)
 shape = SubResource("RectangleShape2D_kt01x")
 debug_color = Color(0.97369593, 0, 0.43553197, 0.41960785)
+
+[node name="soundFX" type="AudioStreamPlayer2D" parent="." unique_id=47394972]
+volume_db = 1.944
