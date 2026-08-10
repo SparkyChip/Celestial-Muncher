@@ -3,6 +3,102 @@
 [ext_resource type="PackedScene" uid="uid://db1dhbudv51qt" path="res://Characters/Cantrip/Player_Cantrip.tscn" id="1_skmq4"]
 [ext_resource type="Texture2D" uid="uid://btar5c42ib2qj" path="res://TileSets/Wall.png" id="2_707cn"]
 [ext_resource type="Texture2D" uid="uid://cdikgp67xwac8" path="res://TileSets/Tiles.png" id="2_au00k"]
+[ext_resource type="PackedScene" uid="uid://db5go34p5ku8x" path="res://Scenes/cursor_tracker.tscn" id="4_mq1bj"]
+[ext_resource type="AudioStream" uid="uid://gyr0teu4f1vi" path="res://Music/combat.mp3" id="5_iwv7r"]
+
+[sub_resource type="GDScript" id="GDScript_iwv7r"]
+resource_name = "WORLD_SCRIPT_TEST"
+script/source = "extends Node2D
+
+@onready var path = \"res://Music/combat.mp3\"
+
+var numSpells
+const MAX_SPELLS = 5
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	numSpells = 0
+	$CursorTracker.global_position = $C_PlayerBody.global_position
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > 60):
+		$CursorTracker.global_position = $C_PlayerBody.global_position
+
+# Called when the node enters the scene tree for the first time.
+@onready var spell_path_01 = preload(\"res://Characters/Cantrip/Spells/magic_bomb.tscn\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.pressed:
+			print(\"click!!\")
+			
+			if numSpells < MAX_SPELLS:
+				var spell_instance = spell_path_01.instantiate()
+				print(spell_instance)
+				spell_instance.global_position = $CursorTracker.global_position
+				print(spell_instance.global_position)
+				
+				print(numSpells)
+				
+				
+				tempAdd(spell_instance)
+				numSpells = numSpells + 1;	
+				spell_instance.playSound()
+		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
+			pass
+func tempAdd(instance):
+	
+	add_child(instance)
+	
+	await get_tree().create_timer(5).timeout
+	instance.playDeath()
+	
+	remove_child(instance)
+	numSpells -= 1;
+			
+
+
+func _on_music_switch_creepy_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$AudioStreamPlayer2D.stream = load(\"res://Music/shiver me timbers.mp3\")
+		$AudioStreamPlayer2D.play()
+
+func _on_music_switch_boss_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$AudioStreamPlayer2D.stream = load(\"res://Music/BossMusic.mp3\")
+		$AudioStreamPlayer2D.play()
+func _on_death_screen_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$AudioStreamPlayer2D.stream = load(\"res://Music/DeathScreen.mp3\") # Replace with function body.
+		$AudioStreamPlayer2D.play()
+
+func _on_music_switch_combat_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$AudioStreamPlayer2D.stream = load(path) # Replace with function body.
+		$AudioStreamPlayer2D.play()
+
+
+func _on_music_slower_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$MusicSwitches/MusicAnimator.play(\"SlowDown\")
+
+
+func _on_music_slower_body_exited(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$MusicSwitches/MusicAnimator.play(\"SpeedUp\")
+
+
+func _on_pause_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"player\"):
+		$AudioStreamPlayer2D.stop()
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mq1bj"]
 texture = ExtResource("2_707cn")
@@ -50,22 +146,157 @@ texture = ExtResource("2_au00k")
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
 
 [sub_resource type="TileSet" id="TileSet_iwv7r"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_iwv7r")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00ox5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsjds"]
+size = Vector2(23, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fp8aa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lf08"]
+
+[sub_resource type="Animation" id="Animation_iwv7r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer2D:pitch_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_kt01x"]
+resource_name = "SlowDown"
+length = 10.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer2D:pitch_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.01]
+}
+
+[sub_resource type="Animation" id="Animation_p7j4p"]
+resource_name = "SpeedUp"
+length = 10.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AudioStreamPlayer2D:pitch_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.01, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p7j4p"]
+_data = {
+&"RESET": SubResource("Animation_iwv7r"),
+&"SlowDown": SubResource("Animation_kt01x"),
+&"SpeedUp": SubResource("Animation_p7j4p")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_50ych"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aw383"]
+
 [node name="Test_World" type="Node2D" unique_id=1140070816]
+script = SubResource("GDScript_iwv7r")
 
 [node name="C_PlayerBody" parent="." unique_id=2113687282 instance=ExtResource("1_skmq4")]
-z_index = 4
-position = Vector2(-25, 27)
+position = Vector2(-18, 66)
 
 [node name="Camera2D" type="Camera2D" parent="C_PlayerBody" unique_id=1075804820]
-zoom = Vector2(8, 8)
+zoom = Vector2(3, 3)
 
 [node name="FloorTileMap" type="TileMapLayer" parent="." unique_id=654557798]
 tile_map_data = PackedByteArray("AAD//wMAAAABAAEAAAD+/wMAAAABAAEAAAD+/wIAAAABAAEAAAD//wIAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAAAAAQAAAABAAEAAAD//wQAAAABAAEAAAABAAEAAAABAAEAAAAAAAMAAAABAAEAAAD//wEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAUAAAABAAEAAAAAAAUAAAABAAEAAAD//wUAAAABAAEAAAD+/wQAAAABAAEAAAD+/wEAAAABAAEAAAD+/wUAAAABAAEAAAACAAUAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAADAAUAAAABAAEAAAD9/wAAAAAAAAAAAAAEAAAAAAACAAAAAAAEAAUAAAACAAEAAAD9/wYAAAAAAAIAAAAEAAYAAAACAAIAAAAEAAQAAAACAAEAAAAEAAMAAAACAAEAAAAEAAIAAAACAAEAAAAEAAEAAAACAAEAAAADAAAAAAABAAAAAAACAAAAAAABAAAAAAABAAAAAAABAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAD9/wEAAAAAAAEAAAD9/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD+/wYAAAABAAIAAAD//wYAAAABAAIAAAAAAAYAAAABAAIAAAABAAYAAAABAAIAAAACAAYAAAABAAIAAAADAAYAAAABAAIAAAA=")
 tile_set = SubResource("TileSet_kt01x")
 
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=680143170]
-tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAEAAAD8/wEAAAACAAEAAAD8/wAAAAACAAEAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAEAAAD7/wEAAAAAAAEAAAD7/wAAAAAAAAEAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAA=")
+z_index = 4
+tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAAAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAAAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAD8/wAAAAACAAIAAAD7/wAAAAAAAAIAAAA=")
 tile_set = SubResource("TileSet_iwv7r")
+
+[node name="CursorTracker" parent="." unique_id=1330314681 instance=ExtResource("4_mq1bj")]
+position = Vector2(-35, 48)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1410624855]
+z_index = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=357637157]
+stream = ExtResource("5_iwv7r")
+autoplay = true
+
+[node name="MusicSwitches" type="Node2D" parent="." unique_id=1997865599]
+
+[node name="MusicSwitchCombat" type="Area2D" parent="MusicSwitches" unique_id=502897784]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicSwitches/MusicSwitchCombat" unique_id=1804969130]
+position = Vector2(67, 60)
+shape = SubResource("RectangleShape2D_00ox5")
+debug_color = Color(0, 0.6474103, 0.22018036, 0.41960785)
+
+[node name="MusicSwitchCreepy" type="Area2D" parent="MusicSwitches" unique_id=1862031789]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicSwitches/MusicSwitchCreepy" unique_id=1041225148]
+position = Vector2(69.5, 101.5)
+shape = SubResource("RectangleShape2D_gsjds")
+
+[node name="MusicSwitchBoss" type="Area2D" parent="MusicSwitches" unique_id=1907326162]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicSwitches/MusicSwitchBoss" unique_id=267478622]
+position = Vector2(-38, 101)
+shape = SubResource("RectangleShape2D_fp8aa")
+debug_color = Color(0.8975034, 0.1910514, 0.6284257, 0.41960785)
+
+[node name="DeathScreen" type="Area2D" parent="MusicSwitches" unique_id=1889372459]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="MusicSwitches/DeathScreen" unique_id=982268437]
+position = Vector2(14, 101)
+shape = SubResource("RectangleShape2D_1lf08")
+debug_color = Color(0.6803903, 0.5040026, 0, 0.41960785)
+
+[node name="MusicAnimator" type="AnimationPlayer" parent="MusicSwitches" unique_id=1581466907]
+libraries/ = SubResource("AnimationLibrary_p7j4p")
+
+[node name="MusicSlower" type="Area2D" parent="MusicSwitches" unique_id=472721649]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicSwitches/MusicSlower" unique_id=527121175]
+position = Vector2(13, 54)
+shape = SubResource("RectangleShape2D_50ych")
+debug_color = Color(0.3992129, 0.20946337, 0.96168476, 0.67058825)
+
+[node name="Pause" type="Area2D" parent="MusicSwitches" unique_id=2059757910]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MusicSwitches/Pause" unique_id=744214677]
+position = Vector2(65, 17)
+shape = SubResource("RectangleShape2D_aw383")
+debug_color = Color(0.2784314, 0.27058825, 0.27450982, 0.6431373)
+
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="." method="_on_music_switch_combat_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="." method="_on_music_switch_creepy_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchBoss" to="." method="_on_music_switch_boss_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/DeathScreen" to="." method="_on_death_screen_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSlower" to="." method="_on_music_slower_body_entered"]
+[connection signal="body_exited" from="MusicSwitches/MusicSlower" to="." method="_on_music_slower_body_exited"]
+[connection signal="body_entered" from="MusicSwitches/Pause" to="." method="_on_pause_body_entered"]

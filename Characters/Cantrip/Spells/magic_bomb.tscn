@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://bjr3gwl2frrit"]
+
+[ext_resource type="Texture2D" uid="uid://bhwn5w4nckqb5" path="res://Characters/Cantrip/Spells/Magic_01.png" id="1_l4knb"]
+[ext_resource type="AudioStream" uid="uid://70l40feeqjh0" path="res://Music/SummonFire.mp3" id="2_m5nhm"]
+
+[sub_resource type="GDScript" id="GDScript_iwv7r"]
+resource_name = "Spell_01"
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func playDeath():
+	$AnimationPlayer.play(\"Die\")
+func playSound():
+	$AudioStreamPlayer2D.play()
+	await $AudioStreamPlayer2D.finished
+	$AudioStreamPlayer2D.stop()
+"
+
+[sub_resource type="Animation" id="Animation_l4knb"]
+resource_name = "Die"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45000002, 0.48307255, 0.5, 0.55, 0.6, 0.65000004, 0.75, 0.85),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 14, 3, 2, 1, 0, 14, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.73016965, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [8.0, 0.01, 0.01]
+}
+
+[sub_resource type="Animation" id="Animation_m5nhm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_53l7b"]
+resource_name = "explode"
+length = 0.7
+loop_mode = 2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45000002, 0.5, 0.55, 0.6, 0.65000004),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Area2D/CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 8.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w4tay"]
+_data = {
+&"Die": SubResource("Animation_l4knb"),
+&"RESET": SubResource("Animation_m5nhm"),
+&"explode": SubResource("Animation_53l7b")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fp8aa"]
+radius = 1.0
+
+[node name="Magic_Bomb" type="Node2D" unique_id=1467859723]
+z_index = 6
+z_as_relative = false
+script = SubResource("GDScript_iwv7r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=799891519]
+libraries/ = SubResource("AnimationLibrary_w4tay")
+autoplay = &"explode"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=762175070]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1169936070]
+shape = SubResource("CircleShape2D_fp8aa")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2055985020]
+texture = ExtResource("1_l4knb")
+hframes = 5
+vframes = 3
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1066905569]
+stream = ExtResource("2_m5nhm")
+volume_db = 9.77

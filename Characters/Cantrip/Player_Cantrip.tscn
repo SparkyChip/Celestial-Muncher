@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://db1dhbudv51qt"]
 
+[ext_resource type="Texture2D" uid="uid://cteh6qudu2t3n" path="res://Characters/Cantrip/Spells/RadiusField.png" id="1_ru3vb"]
 [ext_resource type="Texture2D" uid="uid://bwjtq8gfcfx06" path="res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png" id="1_uvjml"]
+[ext_resource type="Texture2D" uid="uid://drutowl6cof3g" path="res://Characters/Cantrip/Spells/InnerRadius.png" id="2_5gjqr"]
+[ext_resource type="AudioStream" uid="uid://bchia8a1uxy1f" path="res://Music/Dash-[AudioTrimmer.com](1).mp3" id="4_kavk5"]
 
 [sub_resource type="GDScript" id="GDScript_fp8aa"]
 resource_name = "Cantrip_Script"
@@ -9,6 +12,7 @@ script/source = "extends CharacterBody2D
 
 
 var SPEED = 100.0
+var multiplier = 1.0
 @export var JUMP_VELOCITY = 300
 var isJump
 var isFall
@@ -24,6 +28,9 @@ var jumpCounter = 0
 var jFX = \"res://meme_FX/e_s00\"
 var JFXLOCK = false
 
+# DASHING
+
+var isDashing = false;
 
 func _ready() -> void:
 	#$CollisionShape2D.debug_color = Color.BLUE
@@ -39,16 +46,16 @@ func _physics_process(delta: float) -> void:
 	var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
 	
 	velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed(\"ui_right\"):
+	if Input.is_action_pressed(\"d_right\"):
 		velocity.x += 1
 		
-	if Input.is_action_pressed(\"ui_left\"):
+	if Input.is_action_pressed(\"a_left\"):
 		velocity.x -= 1
 		
-	if Input.is_action_pressed(\"ui_down\"):
+	if Input.is_action_pressed(\"s_down\"):
 		velocity.y += 1
 		
-	if Input.is_action_pressed(\"ui_up\") and jmpLock:
+	if Input.is_action_pressed(\"w_up\") and jmpLock:
 		velocity.y -= 1
 	
 	#print(velocity.x, velocity.y)
@@ -60,53 +67,93 @@ func _physics_process(delta: float) -> void:
 		if (!(JFXLOCK)):
 			jumpCounter += 1
 			sfx(jumpCounter)
-			
 		
-
+	if (JFXLOCK == true):
+		$AnimationPlayer.play(\"Rainbow\")
+	
+		
+	
 	if isJump:
-		rotation += 30.0 * delta
+		$AnimatedSprite2D.rotation += 30.0 * delta
 		velocity.y -= JUMP_VELOCITY	
-		velocity.x *= SPEED
+		velocity.x *= SPEED * multiplier
 	elif isFall:
-		rotation += 20.0 * delta
+		$AnimatedSprite2D.rotation += 20.0 * delta
 		velocity.y += JUMP_VELOCITY
-		velocity.x *= SPEED
+		velocity.x *= SPEED * multiplier
 	else:
-		velocity *= SPEED
+		velocity *= SPEED * multiplier
 		
 	
+	if (Input.is_action_just_pressed(\"dash\") and not isDashing):
+		dash()
+		
+	if (Input.is_action_just_pressed(\"Radius_Toggle\") and $StaticBody2D/AnimatedSprite2D.visible):
+		$StaticBody2D/AnimatedSprite2D.visible = false
+	elif (Input.is_action_just_pressed(\"Radius_Toggle\")):
+		$StaticBody2D/AnimatedSprite2D.visible = true
 	
-
-	
+	if (Input.is_action_just_pressed(\"inner_radius_toggle\") and $StaticBody2D/AnimatedSprite2D2.visible):
+		$StaticBody2D/AnimatedSprite2D2.visible = false
+	elif (Input.is_action_just_pressed(\"inner_radius_toggle\")):
+		$StaticBody2D/AnimatedSprite2D2.visible = true
 	updateSpriteDirection(delta)
 	move_and_slide()
 
+var isWait = false
 func updateSpriteDirection(delta: float):
 	if (velocity != Vector2.ZERO):
-		if Input.is_action_pressed(\"ui_right\") and Input.is_action_pressed(\"ui_up\"):
+		if Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"w_up\"):
 			chAnim.animation = \"Walk_BR\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_right\") and Input.is_action_pressed(\"ui_down\"):
+		elif Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"s_down\"):
 			chAnim.animation = \"Walk_FR\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_left\") and Input.is_action_pressed(\"ui_up\"):
+		elif Input.is_action_pressed(\"a_left\") and Input.is_action_pressed(\"w_up\"):
 			chAnim.animation = \"Walk_BL\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_left\") and Input.is_action_pressed(\"ui_down\"):
+		elif Input.is_action_pressed(\"a_left\") and Input.is_action_pressed(\"s_down\"):
 			chAnim.animation = \"Walk_FL\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_right\"):
+		elif Input.is_action_pressed(\"d_right\"):
 			chAnim.animation = \"Walk_R\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_left\"):
+		elif Input.is_action_pressed(\"a_left\"):
 			chAnim.animation = \"Walk_L\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_down\"):
+		elif Input.is_action_pressed(\"s_down\"):
 			chAnim.animation = \"Walk_F\"
 			chAnim.play()
-		elif Input.is_action_pressed(\"ui_up\") and not isJmpCD and not isJump and not isFall:
+		elif Input.is_action_pressed(\"w_up\") and not isJmpCD and not isJump and not isFall:
 			chAnim.animation = \"Walk_B\"
 			chAnim.play()
+	elif (isDashing and not isWait):
+		if Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"w_up\"):
+			chAnim.animation = \"Dash_BR\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"s_down\"):
+			chAnim.animation = \"Dash_FR\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"a_left\") and Input.is_action_pressed(\"w_up\"):
+			chAnim.animation = \"Dash_BL\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"a_left\") and Input.is_action_pressed(\"s_down\"):
+			chAnim.animation = \"Dash_FL\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"d_right\"):
+			chAnim.animation = \"Dash_R\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"a_left\"):
+			chAnim.animation = \"Dash_L\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"s_down\"):
+			chAnim.animation = \"Dash_F\"
+			chAnim.play()
+		elif Input.is_action_pressed(\"w_up\") and not isJmpCD and not isJump and not isFall:
+			chAnim.animation = \"Dash_B\"
+			chAnim.play()
+		
+	
 	else:
 		if chAnim.animation == \"Walk_FR\":
 			chAnim.animation = \"Idle_FR\"
@@ -145,7 +192,7 @@ func jump():
 	isFall = true
 	await get_tree().create_timer(0.1).timeout
 	isFall = false
-	rotation = 0.0
+	$AnimatedSprite2D.rotation = 0.0
 	isJmpCD = true
 	#$CollisionShape2D.debug_color = Color.GRAY
 	await get_tree().create_timer(0.1).timeout
@@ -156,7 +203,7 @@ func jump():
 var sfxPath
 
 func sfx(count):
-	print(jumpCounter )
+	print(jumpCounter)
 	if (jumpCounter % 8 == 0):
 		JFXLOCK = true
 		sfxPath = \"res://meme_FX/JET SET! (mp3cut.net).mp3\"
@@ -164,8 +211,8 @@ func sfx(count):
 		SFX.play()
 		await SFX.finished
 		JFXLOCK = false
-		jumpCounter = 0
-		 
+		jumpCounter = 0  
+		$AnimationPlayer.play(\"RESET\")
 	else:
 		sfxPath = jFX + str((jumpCounter - 1) % 7 +1) + \".ogg\"
 		SFX.stream = load(sfxPath)
@@ -173,71 +220,83 @@ func sfx(count):
 	
 	print(\"Path: \", sfxPath)
 #print(\"Loaded: \", load(sfxPath))
+
+
+func dash():
+	$AnimatedSprite2D.modulate = Color(2,2,2,1)
+	isDashing = true
+	multiplier = 5.0
+	$dashFX.play()
+	await get_tree().create_timer(0.2).timeout
+	$AnimatedSprite2D.modulate = Color(1,1,1,1)
+	multiplier = 1.0
+	await $dashFX.finished
+	isDashing = false
+	
+	
+	
 "
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ru3vb"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(16, 48, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2abi"]
+atlas = ExtResource("1_ru3vb")
+region = Rect2(0, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5gjqr"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(32, 48, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4tcp"]
+atlas = ExtResource("1_ru3vb")
+region = Rect2(25, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kavk5"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(32, 64, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ud2ot"]
+atlas = ExtResource("1_ru3vb")
+region = Rect2(50, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vdlyc"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(80, 64, 16, 16)
+[sub_resource type="SpriteFrames" id="SpriteFrames_gsjds"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2abi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4tcp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ud2ot")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3mny"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(64, 48, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mf5ma"]
+atlas = ExtResource("2_5gjqr")
+region = Rect2(0, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5q2eu"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(16, 64, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lf7j"]
+atlas = ExtResource("2_5gjqr")
+region = Rect2(25, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_666pf"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(0, 0, 16, 16)
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7lkj"]
+atlas = ExtResource("2_5gjqr")
+region = Rect2(50, 0, 25, 25)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ygw0f"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(16, 0, 16, 16)
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gjqr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mf5ma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5lf7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7lkj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3do2e"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(48, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qcnr4"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(0, 48, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8kaxf"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(80, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_66yda"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(32, 32, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r11rb"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rf0yt"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(64, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bbxi8"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxcbi"]
-atlas = ExtResource("1_uvjml")
-region = Rect2(0, 16, 16, 16)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt01x"]
+size = Vector2(15, 15.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_atyl3"]
 atlas = ExtResource("1_uvjml")
@@ -335,8 +394,280 @@ region = Rect2(64, 0, 16, 16)
 atlas = ExtResource("1_uvjml")
 region = Rect2(80, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru3vb"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gjqr"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kavk5"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vdlyc"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3mny"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q2eu"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_666pf"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygw0f"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3do2e"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcnr4"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kaxf"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66yda"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r11rb"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf0yt"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbxi8"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxcbi"]
+atlas = ExtResource("1_uvjml")
+region = Rect2(0, 16, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fp8aa"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atyl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6pc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tisf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tisf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4tisf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6pc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_atyl3")
+}],
+"loop": 0,
+"name": &"Dash_B",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhn35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obvje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obvje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_obvje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uwfry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhn35")
+}],
+"loop": 0,
+"name": &"Dash_BL",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbk5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2c2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfwkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfwkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfwkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2c2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbk5c")
+}],
+"loop": 0,
+"name": &"Dash_BR",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mh3wi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1sbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnp5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnp5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnp5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1sbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mh3wi")
+}],
+"loop": 0,
+"name": &"Dash_F",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao5ar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i27ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_586oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_586oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_586oi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i27ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ao5ar")
+}],
+"loop": 0,
+"name": &"Dash_FL",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sd115")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qy0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfk7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfk7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfk7p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qy0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sd115")
+}],
+"loop": 0,
+"name": &"Dash_FR",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw47b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nua41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwbhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwbhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qwbhu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nua41")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xw47b")
+}],
+"loop": 0,
+"name": &"Dash_L",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uq0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e1sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml5w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml5w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ml5w0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e1sn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0uq0c")
+}],
+"loop": 0,
+"name": &"Dash_R",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ru3vb")
@@ -586,23 +917,92 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kt01x"]
-size = Vector2(15, 15.5)
+[sub_resource type="Animation" id="Animation_uvjml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
-[node name="C_PlayerBody" type="CharacterBody2D" unique_id=2113687282]
+[sub_resource type="Animation" id="Animation_ru3vb"]
+resource_name = "Rainbow"
+length = 0.8
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1.353256, 1.353256, 1.353256, 1), Color(18.892157, 0, 0, 1), Color(18.892157, 3.3273523, 0, 1), Color(18.892157, 18.892157, 0, 1), Color(0, 18.892, 0, 1), Color(0, 18.892, 9.807, 1), Color(0, 0, 18.892, 1), Color(18.892157, 0, 3.538639, 1), Color(18.892, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5gjqr"]
+_data = {
+&"RESET": SubResource("Animation_uvjml"),
+&"Rainbow": SubResource("Animation_ru3vb")
+}
+
+[node name="C_PlayerBody" type="CharacterBody2D" unique_id=2113687282 groups=["player"]]
+z_index = 4
 script = SubResource("GDScript_fp8aa")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1991025756]
-sprite_frames = SubResource("SpriteFrames_fp8aa")
-animation = &"Walk_BL"
-autoplay = "Idle_F"
-frame_progress = 0.6429485
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=915547744]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1939179706]
+visible = false
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(-17, -191.6, -17, -190.4, -34.199997, -188.5, -40.300003, -188.5, -71.3, -178.5, -74.5, -178.5, -103.6, -162.5, -105.7, -162.5, -122.7, -148.5, -124.9, -148.5, -147.8, -124.5, -149.1, -124.5, -168.1, -95.5, -169.4, -95.5, -183.4, -60.5, -184.6, -60.5, -192, -25.699997, -192, -14.699997, -190, -2, -112, -10, -97, -52.199997, -97, -53.899994, -86, -68.8, -86, -70.6, -69, -86.6, -69, -87.4, -48, -99.3, -48, -100.1, -32, -105, -32, -105.8, -13, -108.8, -13, -109.5, 9, -108.5, 14.600006, -108.5, 40.699997, -99.5, 43.399994, -99.5, 58.399994, -89.5, 60.100006, -89.5, 75.20001, -75.5, 76, -75.5, 86.899994, -59.5, 87.600006, -59.5, 99.600006, -29.5, 100.20001, -29.5, 102.20001, -13.5, 103, -13.5, 103, 8.5, 96, 33.199997, 96, 36, 87, 52, 87, 53.699997, 75, 67.79999, 75, 69.399994, 48, 89.5, 14, 101, -21.600006, 101.5, -53.600006, 89.5, -55.199997, 89.5, -81.3, 68.5, -82, 68.5, -92.9, 52.5, -93.7, 52.5, -101.7, 34.5, -102.4, 34.5, -112, -10, -190.9, -5.5, -192, 9.399994, -192, 20.800003, -182, 59.5, -182, 63, -164, 97, -164, 99.20001, -140, 127.20001, -140, 129.4, -121, 145.4, -121, 146.6, -99, 160.6, -99, 161.79999, -71, 173.70001, -71, 175.1, -47, 181, -47, 182.20001, -16.100006, 186.5, 8.199997, 186.5, 32.300003, 182.5, 37.300003, 182.5, 58.300003, 175.5, 61.5, 175.5, 87.5, 162.5, 89.70001, 162.5, 109.70001, 147.5, 111.79999, 147.5, 129.9, 130.5, 131, 130.5, 150, 106.5, 151.20001, 106.5, 172.20001, 64.5, 173.6, 64.5, 180.5, 35.5, 181.79999, 35.5, 183.79999, 11.5, 185.1, 11.5, 184, -14.600006, 184, -25.699997, 178, -51.5, 178, -55.899994, 162, -91.9, 162, -94.2, 142, -121.2, 142, -123.4, 105, -156.4, 105, -157.7, 75, -173.8, 75, -175, 34, -187, 34, -188.4)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D" unique_id=381867667]
+visible = false
+modulate = Color(1, 1, 1, 0.35686275)
+z_index = 7
+scale = Vector2(8, 8)
+sprite_frames = SubResource("SpriteFrames_gsjds")
+autoplay = "default"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="StaticBody2D" unique_id=366735616]
+modulate = Color(1, 1, 1, 0.35686275)
+z_index = 7
+scale = Vector2(4.8, 4.8)
+sprite_frames = SubResource("SpriteFrames_5gjqr")
+autoplay = "default"
 
 [node name="C_MainCollisionShape" type="CollisionShape2D" parent="." unique_id=743529005]
+visible = false
 z_index = 5
 position = Vector2(0.5, 0.25)
 shape = SubResource("RectangleShape2D_kt01x")
 debug_color = Color(0.97369593, 0, 0.43553197, 0.41960785)
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1991025756]
+z_index = 4
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_fp8aa")
+animation = &"Dash_B"
+autoplay = "Idle_F"
+
 [node name="soundFX" type="AudioStreamPlayer2D" parent="." unique_id=47394972]
 volume_db = 1.944
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1530153060]
+libraries/ = SubResource("AnimationLibrary_5gjqr")
+
+[node name="dashFX" type="AudioStreamPlayer2D" parent="." unique_id=129089944]
+stream = ExtResource("4_kavk5")

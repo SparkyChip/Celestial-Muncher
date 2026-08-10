@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://db5go34p5ku8x"]
+
+[sub_resource type="GDScript" id="GDScript_1lf08"]
+resource_name = "CursorTrackScriot"
+script/source = "extends CharacterBody2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	var mouse_pos = get_global_mouse_position()
+	var direction = mouse_pos - global_position
+	
+	velocity = direction * 20.0
+	move_and_slide()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gsjds"]
+radius = 2.0
+
+[node name="CursorTracker" type="CharacterBody2D" unique_id=1526208956]
+collision_layer = 2
+collision_mask = 2
+script = SubResource("GDScript_1lf08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1066339199]
+shape = SubResource("CircleShape2D_gsjds")

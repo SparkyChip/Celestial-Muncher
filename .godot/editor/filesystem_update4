@@ -2,3 +2,7 @@ res://Characters/Cantrip/Cantrip.tscn
 res://Scenes/Test.tscn
 res://Scenes/test_world.tscn
 res://Characters/Cantrip/Player_Cantrip.tscn
+res://Scenes/cursor_tracker.tscn
+res://Characters/Cantrip/Spells/magic_bomb.tscn
+res://Scenes/MainMenu.tscn
+res://Characters/Cantrip/dem_chargeup/Sample_Charge_Up.tscn
