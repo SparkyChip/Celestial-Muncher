@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gsjds"]
-radius = 2.0
+radius = 7.0
 
 [node name="CursorTracker" type="CharacterBody2D" unique_id=1526208956]
 collision_layer = 2
@@ -28,4 +28,5 @@ collision_mask = 2
 script = SubResource("GDScript_1lf08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1066339199]
+scale = Vector2(1.13, 1.13)
 shape = SubResource("CircleShape2D_gsjds")

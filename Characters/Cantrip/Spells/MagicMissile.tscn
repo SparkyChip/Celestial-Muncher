@@ -1,0 +1,182 @@
+[gd_scene format=3 uid="uid://c4x6yp20wbn4f"]
+
+[ext_resource type="Texture2D" uid="uid://dnyarm7q0y1je" path="res://Characters/Cantrip/Spells/Pracitice Software Testing.png" id="1_ifrd3"]
+[ext_resource type="AudioStream" uid="uid://c6yw135niswrm" path="res://Music/Pew.mp3" id="2_adn4o"]
+[ext_resource type="AudioStream" uid="uid://1cvey7l15evv" path="res://Music/Pew_Explode.mp3" id="2_wbksb"]
+
+[sub_resource type="GDScript" id="GDScript_bwhmn"]
+resource_name = "ClassInfoMissile"
+script/source = "extends Node2D
+
+@onready var anim = $MissileSpriteAnim
+const projSpeed = 250.0
+var move_dir
+var player_pos
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var rand = RandomNumberGenerator.new()
+	$Sound_FX/pew.pitch_scale = rand.randf_range(1, 2)
+	$Sound_FX/pew.play()
+	anim.play(\"default\")
+	
+	
+	 # Replace with function body.
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	global_position += move_dir * delta * projSpeed
+
+func explode():
+	var rand = RandomNumberGenerator.new()
+	$Sound_FX/pew_explode.pitch_scale = rand.randf_range(0.3, 1)
+	$Sound_FX/pew_explode.play()
+	move_dir = Vector2.ZERO
+	anim.play(\"explode\")
+
+
+func setOGPos(player):
+	player_pos = player.global_position
+	global_position = player_pos
+	global_rotation = player.global_rotation
+	
+
+func setRotation(r, m):
+	global_rotation = r + deg_to_rad(180)
+	move_dir = m
+	
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"wall\"):
+		explode()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adn4o"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(0, 0, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbksb"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(15, 0, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hk76w"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(30, 0, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cwdv"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(45, 0, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wy5x"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(0, 15, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2244f"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(15, 15, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovsw0"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(30, 15, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c482l"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(45, 15, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq8ks"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(0, 30, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1edy"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(15, 30, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w31c5"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(30, 30, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_76mbw"]
+atlas = ExtResource("1_ifrd3")
+region = Rect2(45, 30, 15, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fp8aa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adn4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbksb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hk76w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cwdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wy5x")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2244f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovsw0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c482l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq8ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1edy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w31c5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_76mbw")
+}],
+"loop": 0,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gsjds"]
+radius = 3.0
+height = 14.0
+
+[node name="MagicMissile" type="Area2D" unique_id=1699465930]
+z_index = 10
+collision_layer = 0
+collision_mask = 4
+script = SubResource("GDScript_bwhmn")
+
+[node name="MissileSpriteAnim" type="AnimatedSprite2D" parent="." unique_id=1803186096]
+sprite_frames = SubResource("SpriteFrames_fp8aa")
+animation = &"explode"
+frame = 6
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=279974350]
+shape = SubResource("CapsuleShape2D_gsjds")
+
+[node name="Sound_FX" type="Node2D" parent="." unique_id=632529826]
+
+[node name="pew_explode" type="AudioStreamPlayer2D" parent="Sound_FX" unique_id=1888953146]
+stream = ExtResource("2_wbksb")
+volume_db = 4.0
+
+[node name="pew" type="AudioStreamPlayer2D" parent="Sound_FX" unique_id=1595599988]
+stream = ExtResource("2_adn4o")
+volume_db = 4.0
+pitch_scale = 0.72
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

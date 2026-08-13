@@ -15,7 +15,9 @@ script/source = "extends Node2D
 var numSpells
 const MAX_SPELLS = 5
 
+const TRACKER_RANGE = 83
 
+@onready var player = $C_PlayerBody
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,18 +28,18 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > 60):
+	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > TRACKER_RANGE):
 		$CursorTracker.global_position = $C_PlayerBody.global_position
 
 # Called when the node enters the scene tree for the first time.
 @onready var spell_path_01 = preload(\"res://Characters/Cantrip/Spells/magic_bomb.tscn\")
-
+@onready var spell_path_02 = preload(\"res://Characters/Cantrip/Spells/MagicMissile.tscn\")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.pressed:
-			print(\"click!!\")
+			#print(\"click!!\")
 			
 			if numSpells < MAX_SPELLS:
 				var spell_instance = spell_path_01.instantiate()
@@ -48,12 +50,37 @@ func _input(event):
 				print(numSpells)
 				
 				
-				tempAdd(spell_instance)
+				spell01Fire(spell_instance)
 				numSpells = numSpells + 1;	
 				spell_instance.playSound()
 		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
-			pass
-func tempAdd(instance):
+			print(get_global_mouse_position())
+			var spell_instance = spell_path_02.instantiate()
+			print(spell_instance)
+			spell_instance.global_position = $CursorTracker.global_position
+			print(spell_instance.global_position)
+			pew(spell_instance)
+			print(numSpells)
+		
+			
+func pew(instance):
+	add_child(instance)
+	instance.setOGPos(player)
+	instance.setRotation(player.getDirection(), calc_pew_dir())
+	await get_tree().create_timer(5).timeout
+	remove_child(instance)
+	
+func calc_pew_dir() -> Vector2:
+	var mouse_pos = get_global_mouse_position()
+	
+	var grad_x = (mouse_pos.x - player.global_position.x) 
+	var grad_y = mouse_pos.y - player.global_position.y
+	
+	var move_dir = Vector2(grad_x, grad_y)
+	
+	return move_dir.normalized()
+			
+func spell01Fire(instance):
 	
 	add_child(instance)
 	
@@ -100,6 +127,53 @@ func _on_pause_body_entered(body: Node2D) -> void:
 		$AudioStreamPlayer2D.stop()
 "
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
+texture = ExtResource("2_au00k")
+0:0/0 = 0
+0:0/0/z_index = 6
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/z_index = 6
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/z_index = 6
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
+2:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/z_index = 6
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0 = 0
+2:1/0/z_index = 6
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
+0:2/0/z_index = 1
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
+0:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
+1:2/0/z_index = 1
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
+1:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0 = 0
+2:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
+2:2/0/z_index = 1
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
+2:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_iwv7r"]
+physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 6
+physics_layer_1/collision_mask = 6
+sources/0 = SubResource("TileSetAtlasSource_iwv7r")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mq1bj"]
 texture = ExtResource("2_707cn")
 0:0/0 = 0
@@ -114,41 +188,6 @@ texture = ExtResource("2_707cn")
 
 [sub_resource type="TileSet" id="TileSet_kt01x"]
 sources/0 = SubResource("TileSetAtlasSource_mq1bj")
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
-texture = ExtResource("2_au00k")
-0:0/0 = 0
-0:0/0/z_index = 6
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
-1:0/0 = 0
-1:0/0/z_index = 6
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
-2:0/0 = 0
-2:0/0/z_index = 6
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0.20971489, 8, 0.20971489, 8, -8, 8, 8, -8, 8)
-0:1/0 = 0
-0:1/0/z_index = 6
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:1/0 = 0
-1:1/0/z_index = 6
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:1/0 = 0
-2:1/0/z_index = 6
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-0:2/0 = 0
-0:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-1:2/0 = 0
-1:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-2:2/0 = 0
-2:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-
-[sub_resource type="TileSet" id="TileSet_iwv7r"]
-physics_layer_0/collision_layer = 3
-physics_layer_0/collision_mask = 3
-sources/0 = SubResource("TileSetAtlasSource_iwv7r")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_00ox5"]
 
@@ -222,8 +261,13 @@ _data = {
 [node name="Test_World" type="Node2D" unique_id=1140070816]
 script = SubResource("GDScript_iwv7r")
 
+[node name="WallTileMap" type="TileMapLayer" parent="." unique_id=680143170 groups=["wall"]]
+z_index = 4
+tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAAAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAAAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAD8/wAAAAACAAIAAAD7/wAAAAAAAAIAAAA=")
+tile_set = SubResource("TileSet_iwv7r")
+
 [node name="C_PlayerBody" parent="." unique_id=2113687282 instance=ExtResource("1_skmq4")]
-position = Vector2(-18, 66)
+position = Vector2(-149, 46)
 
 [node name="Camera2D" type="Camera2D" parent="C_PlayerBody" unique_id=1075804820]
 zoom = Vector2(3, 3)
@@ -231,11 +275,6 @@ zoom = Vector2(3, 3)
 [node name="FloorTileMap" type="TileMapLayer" parent="." unique_id=654557798]
 tile_map_data = PackedByteArray("AAD//wMAAAABAAEAAAD+/wMAAAABAAEAAAD+/wIAAAABAAEAAAD//wIAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAAAAAQAAAABAAEAAAD//wQAAAABAAEAAAABAAEAAAABAAEAAAAAAAMAAAABAAEAAAD//wEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAUAAAABAAEAAAAAAAUAAAABAAEAAAD//wUAAAABAAEAAAD+/wQAAAABAAEAAAD+/wEAAAABAAEAAAD+/wUAAAABAAEAAAACAAUAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAADAAUAAAABAAEAAAD9/wAAAAAAAAAAAAAEAAAAAAACAAAAAAAEAAUAAAACAAEAAAD9/wYAAAAAAAIAAAAEAAYAAAACAAIAAAAEAAQAAAACAAEAAAAEAAMAAAACAAEAAAAEAAIAAAACAAEAAAAEAAEAAAACAAEAAAADAAAAAAABAAAAAAACAAAAAAABAAAAAAABAAAAAAABAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAD9/wEAAAAAAAEAAAD9/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD+/wYAAAABAAIAAAD//wYAAAABAAIAAAAAAAYAAAABAAIAAAABAAYAAAABAAIAAAACAAYAAAABAAIAAAADAAYAAAABAAIAAAA=")
 tile_set = SubResource("TileSet_kt01x")
-
-[node name="WallTileMap" type="TileMapLayer" parent="." unique_id=680143170]
-z_index = 4
-tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAAAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAAAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAD8/wAAAAACAAIAAAD7/wAAAAAAAAIAAAA=")
-tile_set = SubResource("TileSet_iwv7r")
 
 [node name="CursorTracker" parent="." unique_id=1330314681 instance=ExtResource("4_mq1bj")]
 position = Vector2(-35, 48)
