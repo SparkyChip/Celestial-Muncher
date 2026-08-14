@@ -1,2 +1,8 @@
-res://Characters/Cantrip/Player_Cantrip.tscn::642aeef48f622131793c74e69b731bd3::1786331423::res://.godot/exported/133200997/export-08d04127a7ac3ceeed1d9bd2eb834437-Player_Cantrip.scn
-res://Scenes/test_world.tscn::a50238ef1830f2fc3b751c18f4df589f::1786326605::res://.godot/exported/133200997/export-64278a2e9f56049bc0a5ca5676b11c35-test_world.scn
+res://Characters/Cantrip/Player_Cantrip.tscn::52691b7f80c9ba80c7d64c254eda85a1::1786684483::res://.godot/exported/133200997/export-08d04127a7ac3ceeed1d9bd2eb834437-Player_Cantrip.scn
+res://Scenes/test_world.tscn::15ad2eacc97a2bf81c1de70ff69743d3::1786684334::res://.godot/exported/133200997/export-64278a2e9f56049bc0a5ca5676b11c35-test_world.scn
+res://Characters/Cantrip/dem_chargeup/Sample_Charge_Up.tscn::0cfb5ab9761f15cf607ed50707e8ed89::1786368752::res://.godot/exported/133200997/export-df49fc5c8f9bc1a74c7a6f32a3db2751-Sample_Charge_Up.scn
+res://Characters/Cantrip/Spells/MagicMissile.tscn::906f83bf5dcbfa3ac7af67f9718cb8e3::1786684823::res://.godot/exported/133200997/export-62a62e564980936f14aae21b4b4c02b4-MagicMissile.scn
+res://Characters/Cantrip/Spells/magic_bomb.tscn::0e26f8c332cf2db91a35d1270b12e5d2::1786680253::res://.godot/exported/133200997/export-566dea9a35daaea054ea249967dac7c0-magic_bomb.scn
+res://Characters/DummyEnemy/dummy_enemy.tscn::256e8a1f4c4fa0bf0f0c14c9289de070::1786685298::res://.godot/exported/133200997/export-c19b6acd183c14f2d532897b739df4bd-dummy_enemy.scn
+res://Scenes/cursor_tracker.tscn::e64faae136f5032aa2f1b4b715ac9d49::1786679995::res://.godot/exported/133200997/export-9b4925a24c5e0860dd85fbe58f12a26e-cursor_tracker.scn
+res://Scenes/MainMenu.tscn::55ca8aed2b7f7a35a3e33785c3787d7e::1786681391::res://.godot/exported/133200997/export-5d46f2c25b5b7595677274e5845c73b8-MainMenu.scn

@@ -1,28 +1,29 @@
-78098b89c88a74ebe8c20117b8754620
-::res://::1786681651
-export_presets.cfg::TextFile::-1::1786331883::0::1::::<><><>0<>0<><>::
+9cad1ddce9e5a63143ba340c9520626b
+::res://::1786686328
+export_presets.cfg::TextFile::-1::1786686121::0::1::::<><><>0<>0<><>::
 hollow_circle.png::CompressedTexture2D::8905528224194877305::1786346261::1786346267::1::::<><><>0<>0<>8ab101845c76b96bf7907598d3198d2c<>res://.godot/imported/hollow_circle.png-87373d16038f04824d9099dc56c84e0a.ctex::
 icon.svg::CompressedTexture2D::7422813176505455583::1786193932::1786194203::1::::<><><>0<>0<>0ed3ed3634a41dc1f5e73c899366774b<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1786193964::0::1::::<><><>0<>0<><>::
 ::res://Characters/::1786683853
-::res://Characters/Cantrip/::1786682899
+::res://Characters/Cantrip/::1786684483
 BETTER_CANTRIP_SPRITESHEET.png::CompressedTexture2D::3950338581850847669::1786321934::1786321934::1::::<><><>0<>0<>eb9846d1c0664dc2d5390513df20cda3<>res://.godot/imported/BETTER_CANTRIP_SPRITESHEET.png-6e419e4ee4bda68867a7e2b64c96ee00.ctex::
-Player_Cantrip.tscn::PackedScene::7283319451443540923::1786682899::0::1::::<><><>0<>0<><>::uid://cteh6qudu2t3n::::res://Characters/Cantrip/Spells/RadiusField.png<>uid://bwjtq8gfcfx06::::res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png<>uid://drutowl6cof3g::::res://Characters/Cantrip/Spells/InnerRadius.png<>uid://bchia8a1uxy1f::::res://Music/Dash-[AudioTrimmer.com](1).mp3
+Player_Cantrip.tscn::PackedScene::7283319451443540923::1786684483::0::1::::<><><>0<>0<><>::uid://cteh6qudu2t3n::::res://Characters/Cantrip/Spells/RadiusField.png<>uid://bwjtq8gfcfx06::::res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png<>uid://drutowl6cof3g::::res://Characters/Cantrip/Spells/InnerRadius.png<>uid://bchia8a1uxy1f::::res://Music/Dash-[AudioTrimmer.com](1).mp3
 ::res://Characters/Cantrip/dem_chargeup/::1786368752
 ChargeUp_01.png::CompressedTexture2D::6576757038050169072::1786366784::1786366947::1::::<><><>0<>0<>70acf2c8f07a1896e52c4a86ab81047a<>res://.godot/imported/ChargeUp_01.png-7606866fa786762a97e99fd9b3e28982.ctex::
 ChargeUp_02.png::CompressedTexture2D::8175169071294169861::1786366741::1786366947::1::::<><><>0<>0<>48bc1dd63523e18ef1d220f938932a72<>res://.godot/imported/ChargeUp_02.png-a435c6ba5c4b36d2ead04dba4c4b5178.ctex::
 ChargeUp_03.png::CompressedTexture2D::2975924716899044925::1786366854::1786366947::1::::<><><>0<>0<>95a7f320fc873488bd92f894af088907<>res://.godot/imported/ChargeUp_03.png-3d79b6689ad86dbb010ec7df4481d1f4.ctex::
 Sample_Charge_Up.tscn::PackedScene::1118683937068660231::1786368752::0::1::::<><><>0<>0<><>::uid://c0x3h0birf2lw::::res://Characters/Cantrip/dem_chargeup/ChargeUp_01.png<>uid://doqd3tjdt6lej::::res://Characters/Cantrip/dem_chargeup/ChargeUp_02.png<>uid://bintbsmpchesr::::res://Characters/Cantrip/dem_chargeup/ChargeUp_03.png
-::res://Characters/Cantrip/Spells/::1786683853
+::res://Characters/Cantrip/Spells/::1786684823
 InnerRadius.png::CompressedTexture2D::8394939745902560130::1786353105::1786353107::1::::<><><>0<>0<>888135d782e00ec11336670710288ba0<>res://.godot/imported/InnerRadius.png-3a2d3b6cb741e550961231d18edcc39d.ctex::
-MagicMissile.tscn::PackedScene::6857724437787305691::1786680622::0::1::::<><><>0<>0<><>::uid://dnyarm7q0y1je::::res://Characters/Cantrip/Spells/Pracitice Software Testing.png<>uid://c6yw135niswrm::::res://Music/Pew.mp3<>uid://1cvey7l15evv::::res://Music/Pew_Explode.mp3
+MagicMissile.tscn::PackedScene::6857724437787305691::1786684823::0::1::::<><><>0<>0<><>::uid://dnyarm7q0y1je::::res://Characters/Cantrip/Spells/Pracitice Software Testing.png<>uid://c6yw135niswrm::::res://Music/Pew.mp3<>uid://1cvey7l15evv::::res://Music/Pew_Explode.mp3
 Magic_01.png::CompressedTexture2D::2924002995378529744::1786336282::1786336346::1::::<><><>0<>0<>317af0a3ae13335bcafe89045a0d8bfa<>res://.godot/imported/Magic_01.png-4dd903b33afa58157c421c98961eb078.ctex::
 magic_bomb.tscn::PackedScene::3054926662555977055::1786680253::0::1::::<><><>0<>0<><>::uid://bhwn5w4nckqb5::::res://Characters/Cantrip/Spells/Magic_01.png<>uid://70l40feeqjh0::::res://Music/SummonFire.mp3
 Pracitice Software Testing.png::CompressedTexture2D::8121293123442833902::1786426183::1786426185::1::::<><><>0<>0<>ce8e9622666f81b5a495b325f8d97da5<>res://.godot/imported/Pracitice Software Testing.png-6dda81cfa71f36ba4945f09d00c23f8c.ctex::
 RadiusField.png::CompressedTexture2D::6115168157519281289::1786349274::1786349276::1::::<><><>0<>0<>17bb48e865a5635d0429e7bff6cd46e3<>res://.godot/imported/RadiusField.png-1661555edfab8bca3a0bdd794a3fa7f4.ctex::
-::res://Characters/DummyEnemy/::1786683871
+::res://Characters/DummyEnemy/::1786685298
 DummySprite.json::JSON::-1::1786683856::0::1::::<><><>0<>0<><>::
 DummySprite.png::CompressedTexture2D::8347041556618583736::1786683871::1786683874::1::::<><><>0<>0<>7a7ea60cbea3849f9734fcd060d01aab<>res://.godot/imported/DummySprite.png-ebcba6964fcf25c8265b160ee489e07d.ctex::
+dummy_enemy.tscn::PackedScene::7531505719907552857::1786685298::0::1::::<><><>0<>0<><>::uid://dq6ms4qs4usq7::::res://Characters/DummyEnemy/DummySprite.png
 ::res://Debug_Videos/::1786682976
 ::res://meme_FX/::1786332431
 e_s001.ogg::AudioStreamOggVorbis::8766905993898122131::1786328233::1786328670::1::::<><><>0<>0<>659a8dcbcdaff22ee786de254f189a28<>res://.godot/imported/e_s001.ogg-ca19f7bbb30335b01590844f881861db.oggvorbisstr::
@@ -43,10 +44,14 @@ Pew.mp3::AudioStreamMP3::6999624308345051350::1786631955::1786631955::1::::<><><
 Pew_Explode.mp3::AudioStreamMP3::1830322200650540511::1786632139::1786632139::1::::<><><>0<>0<>c03b193687ad52d0598fb81818573580<>res://.godot/imported/Pew_Explode.mp3-8af13c08178ef5f87c0cc0ae6d940457.mp3str::
 shiver me timbers.mp3::AudioStreamMP3::6348594094935444623::1786274405::1786342779::1::::<><><>0<>0<>ea36931407f8d467f480babdbdfecf91<>res://.godot/imported/shiver me timbers.mp3-2642d95587fcd8e80f5171da1f6edc37.mp3str::
 SummonFire.mp3::AudioStreamMP3::2298373436207706027::1786361041::1786361048::1::::<><><>0<>0<>cfd6f16ea6fad6f7700de517e35bcd23<>res://.godot/imported/SummonFire.mp3-38395b65bcbd7ecfdbaed318b5931250.mp3str::
-::res://Scenes/::1786682757
+::res://Releases/::1786686111
+::res://Releases/v1.0.0 Mac/::1786686106
+::res://Releases/v1.0.0 Windows/::1786686106
+::res://Releases/v1.0.0 Windows/CelestialMuncher v1.0.0/::1786685860
+::res://Scenes/::1786684334
 cursor_tracker.tscn::PackedScene::7291773046585567001::1786679995::0::1::::<><><>0<>0<><>::
 MainMenu.tscn::PackedScene::2587570131511202598::1786681391::0::1::::<><><>0<>0<><>::uid://dd0wwbx3u0752::::res://icon.svg<>uid://dy450psoixvqn::::res://hollow_circle.png<>uid://chvmpxkbf8827::::res://Music/MainMenu.mp3
-test_world.tscn::PackedScene::6053046801413567309::1786682757::0::1::::<><><>0<>0<><>::uid://db1dhbudv51qt::::res://Characters/Cantrip/Player_Cantrip.tscn<>uid://btar5c42ib2qj::::res://TileSets/Wall.png<>uid://cdikgp67xwac8::::res://TileSets/Tiles.png<>uid://db5go34p5ku8x::::res://Scenes/cursor_tracker.tscn<>uid://gyr0teu4f1vi::::res://Music/combat.mp3
+test_world.tscn::PackedScene::6053046801413567309::1786684334::0::1::::<><><>0<>0<><>::uid://db1dhbudv51qt::::res://Characters/Cantrip/Player_Cantrip.tscn<>uid://btar5c42ib2qj::::res://TileSets/Wall.png<>uid://cdikgp67xwac8::::res://TileSets/Tiles.png<>uid://db5go34p5ku8x::::res://Scenes/cursor_tracker.tscn<>uid://gyr0teu4f1vi::::res://Music/combat.mp3<>uid://dfkk2fpu2uarh::::res://Characters/DummyEnemy/dummy_enemy.tscn
 ::res://TileSets/::1786325646
 Tiles.png::CompressedTexture2D::5000541642248594629::1786325338::1786325368::1::::<><><>0<>0<>cea1a64f9397cc0ae71c9405ea897486<>res://.godot/imported/Tiles.png-5e02b4d7b53bc8a058837723bd6bdd36.ctex::
 Wall.png::CompressedTexture2D::3721094626593439677::1786325646::1786325646::1::::<><><>0<>0<>4ba93ff1267063f34a779360568ed016<>res://.godot/imported/Wall.png-b7c6429bca5cc15e2bb7da6310d1337a.ctex::

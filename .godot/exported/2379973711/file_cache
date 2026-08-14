@@ -1,0 +1,39 @@
+res://Characters/Cantrip/dem_chargeup/ChargeUp_01.png::d94e68f8ef812c4cb4c48132499524b170acf2c8f07a1896e52c4a86ab81047a::1786366784::
+res://Characters/Cantrip/dem_chargeup/ChargeUp_02.png::83e64a8919bea53b9f35b722d97fa68748bc1dd63523e18ef1d220f938932a72::1786366741::
+res://Characters/Cantrip/dem_chargeup/ChargeUp_03.png::819f4a8935ccd511fb47bed212c3bacd95a7f320fc873488bd92f894af088907::1786366854::
+res://Characters/Cantrip/dem_chargeup/Sample_Charge_Up.tscn::0cfb5ab9761f15cf607ed50707e8ed89::1786368752::res://.godot/exported/2379973711/export-df49fc5c8f9bc1a74c7a6f32a3db2751-Sample_Charge_Up.scn
+res://Characters/Cantrip/Spells/InnerRadius.png::c55d1697af38a1e2d8cb0bccfff8ed9c888135d782e00ec11336670710288ba0::1786353105::
+res://Characters/Cantrip/Spells/MagicMissile.tscn::906f83bf5dcbfa3ac7af67f9718cb8e3::1786684823::res://.godot/exported/2379973711/export-62a62e564980936f14aae21b4b4c02b4-MagicMissile.scn
+res://Characters/Cantrip/Spells/Magic_01.png::0f52c6b92418aa7eb4d4bb3e183457b2317af0a3ae13335bcafe89045a0d8bfa::1786336282::
+res://Characters/Cantrip/Spells/magic_bomb.tscn::0e26f8c332cf2db91a35d1270b12e5d2::1786680253::res://.godot/exported/2379973711/export-566dea9a35daaea054ea249967dac7c0-magic_bomb.scn
+res://Characters/Cantrip/Spells/Pracitice Software Testing.png::56bc8096f77f01e2dfea36fc45885e5ace8e9622666f81b5a495b325f8d97da5::1786426183::
+res://Characters/Cantrip/Spells/RadiusField.png::15adc544ef719be8c3d7dab26337c6c117bb48e865a5635d0429e7bff6cd46e3::1786349274::
+res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png::dbd29cd341d6507941abcf7a8be7cdadeb9846d1c0664dc2d5390513df20cda3::1786321934::
+res://Characters/Cantrip/Player_Cantrip.tscn::52691b7f80c9ba80c7d64c254eda85a1::1786684483::res://.godot/exported/2379973711/export-08d04127a7ac3ceeed1d9bd2eb834437-Player_Cantrip.scn
+res://Characters/DummyEnemy/DummySprite.json::79a33c041adb258b4b0d6e70bf50490e::1786683856::
+res://Characters/DummyEnemy/DummySprite.png::243372277d6e9315e1ff8496ad96676b7a7ea60cbea3849f9734fcd060d01aab::1786683871::
+res://Characters/DummyEnemy/dummy_enemy.tscn::256e8a1f4c4fa0bf0f0c14c9289de070::1786685298::res://.godot/exported/2379973711/export-c19b6acd183c14f2d532897b739df4bd-dummy_enemy.scn
+res://meme_FX/e_s001.ogg::e81445eef9c729c37037272b4b29c180659a8dcbcdaff22ee786de254f189a28::1786328233::
+res://meme_FX/e_s002.ogg::9b6139302a2fc10bcfdee43c3fb4511438b0391b3021d9fac22508e86469a103::1786328233::
+res://meme_FX/e_s003.ogg::5862d727b7ae976e10205c7fa9beb22d153c98209f0b3e5ac0d60564c361de0b::1786328233::
+res://meme_FX/e_s004.ogg::906f93d94e9d9b16a99e9f183a026869b27b6fa8dbeab20f2785fafad7cc53cc::1786328233::
+res://meme_FX/e_s005.ogg::f0ade6452eda282a8ba12ac6d3e3736f0f2e2cfc92463761b1e751d9226b68a6::1786328233::
+res://meme_FX/e_s006.ogg::78bd9c3c50cba10288068c6bf099ca054465f8724096b0cc83dadbe133848407::1786328233::
+res://meme_FX/e_s007.ogg::c160499dbb4f960d76b8831e683f6573b64636901eff993ba04982133534db5c::1786328233::
+res://meme_FX/JET SET! (mp3cut.net).mp3::f02cf080eef9192a6647f810385a014993c3711d1b52c4e70dbad5446a2083da::1786330008::
+res://Music/BossMusic.mp3::6f0c339a706b59ad0011d40f988b6c3c19e32a92607972cda93f3124c7804b77::1786276573::
+res://Music/combat.mp3::a8756fd38ba9620a826dee811bfa223d657e63dedcea5ab5b1655e1c58086f04::1786260947::
+res://Music/Dash-[AudioTrimmer.com](1).mp3::8e1277ddb7e73072e1cb07f01c2c538975c6c1aa952455568126e81e081e69d1::1786363696::
+res://Music/DeathScreen.mp3::77e7c07ffe10838dd9cd1150402a398d7290f8bb584e97d5ab10633c709cc1b4::1786270058::
+res://Music/MainMenu.mp3::1936777b57233e6fbf7e5d97100ea22cbf0129d9414821400e7eefb568f7e3b5::1786254834::
+res://Music/Pew.mp3::98c1fd5103241cb92710f96a7312882d4c70d9e1a3e9b875ae11993c86e1fd45::1786631955::
+res://Music/Pew_Explode.mp3::907901d5ee88b83cc1f3193776779634c03b193687ad52d0598fb81818573580::1786632139::
+res://Music/shiver me timbers.mp3::c753a006d91acff57a67251458ef01f7ea36931407f8d467f480babdbdfecf91::1786274405::
+res://Music/SummonFire.mp3::17dec5aa95dc0d3b3443b4d15c2a87e7cfd6f16ea6fad6f7700de517e35bcd23::1786361041::
+res://Scenes/cursor_tracker.tscn::e64faae136f5032aa2f1b4b715ac9d49::1786679995::res://.godot/exported/2379973711/export-9b4925a24c5e0860dd85fbe58f12a26e-cursor_tracker.scn
+res://Scenes/MainMenu.tscn::55ca8aed2b7f7a35a3e33785c3787d7e::1786681391::res://.godot/exported/2379973711/export-5d46f2c25b5b7595677274e5845c73b8-MainMenu.scn
+res://Scenes/test_world.tscn::15ad2eacc97a2bf81c1de70ff69743d3::1786684334::res://.godot/exported/2379973711/export-64278a2e9f56049bc0a5ca5676b11c35-test_world.scn
+res://TileSets/Tiles.png::6a875dd571688b061aae0832fc9c6019cea1a64f9397cc0ae71c9405ea897486::1786325338::
+res://TileSets/Wall.png::363b2b2ddc544797c5a1030ccc6310d04ba93ff1267063f34a779360568ed016::1786325646::
+res://hollow_circle.png::e0575aad4bee77dedaeb4d9efa404a858ab101845c76b96bf7907598d3198d2c::1786346261::
+res://icon.svg::263198af7259f6f2900c22e07fe590da0ed3ed3634a41dc1f5e73c899366774b::1786193932::
