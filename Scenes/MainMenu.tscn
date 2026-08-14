@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bc4o5wy5e0wta"]
 
 [ext_resource type="Texture2D" uid="uid://dd0wwbx3u0752" path="res://icon.svg" id="1_tt5f1"]
+[ext_resource type="Texture2D" uid="uid://dy450psoixvqn" path="res://hollow_circle.png" id="2_8saeu"]
 [ext_resource type="AudioStream" uid="uid://chvmpxkbf8827" path="res://Music/MainMenu.mp3" id="2_853f1"]
 
 [sub_resource type="GDScript" id="GDScript_853f1"]
@@ -17,22 +18,32 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-func _on_texture_rect_mouse_entered() -> void: 
-	$TextureRect.modulate = Color(1,1,1,0.8)
-	
-	
-	
+func _on_play_button_mouse_entered() -> void:
+	$Play_Button.modulate = Color(1,1,1,0.8)
 
 
-func _on_texture_rect_mouse_exited() -> void:
-	$TextureRect.modulate = Color(1,1,1,1)
+func _on_play_button_mouse_exited() -> void:
+	$Play_Button.modulate = Color(1,1,1,1)
 
 
-func _on_texture_rect_gui_input(event: InputEvent) -> void:
+func _on_exit_button_mouse_entered() -> void:
+	$Exit_Button.modulate = Color(1,1,1,0.8)
+
+
+func _on_exit_button_mouse_exited() -> void:
+	$Exit_Button.modulate = Color(1,1,1,1)
+
+
+func _on_play_button_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
+
+
+func _on_exit_button_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			get_tree().quit()
 "
 
 [node name="MainMenu" type="Control" unique_id=468699503]
@@ -44,7 +55,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_853f1")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=2004529509]
+[node name="Play_Button" type="TextureRect" parent="." unique_id=2004529509]
 layout_mode = 0
 offset_left = 365.0
 offset_top = 163.0
@@ -54,10 +65,23 @@ texture = ExtResource("1_tt5f1")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="Exit_Button" type="TextureRect" parent="." unique_id=1679324936]
+layout_mode = 0
+offset_left = 727.0
+offset_top = 347.0
+offset_right = 794.0
+offset_bottom = 411.0
+texture = ExtResource("2_8saeu")
+expand_mode = 1
+stretch_mode = 4
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=671179899]
 stream = ExtResource("2_853f1")
 autoplay = true
 
-[connection signal="gui_input" from="TextureRect" to="." method="_on_texture_rect_gui_input"]
-[connection signal="mouse_entered" from="TextureRect" to="." method="_on_texture_rect_mouse_entered"]
-[connection signal="mouse_exited" from="TextureRect" to="." method="_on_texture_rect_mouse_exited"]
+[connection signal="gui_input" from="Play_Button" to="." method="_on_play_button_gui_input"]
+[connection signal="mouse_entered" from="Play_Button" to="." method="_on_play_button_mouse_entered"]
+[connection signal="mouse_exited" from="Play_Button" to="." method="_on_play_button_mouse_exited"]
+[connection signal="gui_input" from="Exit_Button" to="." method="_on_exit_button_gui_input"]
+[connection signal="mouse_entered" from="Exit_Button" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="mouse_exited" from="Exit_Button" to="." method="_on_exit_button_mouse_exited"]

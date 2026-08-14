@@ -7,6 +7,8 @@
 resource_name = "Spell_01"
 script/source = "extends Node2D
 
+const MAX_SPELLS = 5
+const LIFE_TIME= 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,6 +26,12 @@ func playSound():
 	$AudioStreamPlayer2D.play()
 	await $AudioStreamPlayer2D.finished
 	$AudioStreamPlayer2D.stop()
+
+func getMaxSpells() -> int:
+	return MAX_SPELLS
+
+func getLifeTime() -> float:
+	return LIFE_TIME
 "
 
 [sub_resource type="Animation" id="Animation_l4knb"]
@@ -143,4 +151,4 @@ vframes = 3
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1066905569]
 stream = ExtResource("2_m5nhm")
-volume_db = 9.77
+volume_db = 4.0

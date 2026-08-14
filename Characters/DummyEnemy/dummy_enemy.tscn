@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://dfkk2fpu2uarh"]
+
+[ext_resource type="Texture2D" uid="uid://dq6ms4qs4usq7" path="res://Characters/DummyEnemy/DummySprite.png" id="1_x2tvf"]
+
+[sub_resource type="GDScript" id="GDScript_fp8aa"]
+resource_name = "ENEMY_DUMMY_SCRIPT"
+script/source = "extends Area2D
+
+
+var health = 10.0
+
+
+func _physics_process(delta: float) -> void:
+	if health == 0:
+		queue_free()
+	
+
+
+func _on_area_entered(area: Area2D) -> void:
+	
+	if area.is_in_group(\"player_proj\"):
+		health -= 1
+		print(1 - (health/10))
+		$Sprite2D.modulate = modulate.darkened(1 - (float(health)/10))
+		#await get_tree().create_timer(0.3).timeout
+		#$Sprite2D.modulate = modulate.lightened(0.5)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx4vt"]
+size = Vector2(14, 31)
+
+[node name="DummyEnemy" type="Area2D" unique_id=2135724443 groups=["enemy"]]
+scale = Vector2(0.7, 0.7)
+collision_layer = 4
+collision_mask = 4
+script = SubResource("GDScript_fp8aa")
+
+[node name="MainCollision" type="CollisionShape2D" parent="." unique_id=402715962]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_bx4vt")
+debug_color = Color(0.99288017, 0, 0.0529219, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=414536664]
+texture = ExtResource("1_x2tvf")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

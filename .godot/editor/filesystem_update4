@@ -1,5 +1,7 @@
-res://Characters/Cantrip/Player_Cantrip.tscn
+res://Characters/Cantrip/Spells/magic_bomb.tscn
 res://Characters/Cantrip/Spells/MagicMissile.tscn
 res://Scenes/test_world.tscn
+res://Characters/Cantrip/Player_Cantrip.tscn
 res://Scenes/cursor_tracker.tscn
-res://Characters/Cantrip/Spells/magic_bomb.tscn
+res://Scenes/MainMenu.tscn
+res://Characters/DummyEnemy/dummy_enemy.tscn

@@ -88,15 +88,15 @@ func _physics_process(delta: float) -> void:
 	if (Input.is_action_just_pressed(\"dash\") and not isDashing):
 		dash()
 		
-	if (Input.is_action_just_pressed(\"Radius_Toggle\") and $StaticBody2D/AnimatedSprite2D.visible):
-		$StaticBody2D/AnimatedSprite2D.visible = false
+	if (Input.is_action_just_pressed(\"Radius_Toggle\") and $SpellReach/AnimatedSprite2D.visible):
+		$SpellReach/AnimatedSprite2D.visible = false
 	elif (Input.is_action_just_pressed(\"Radius_Toggle\")):
-		$StaticBody2D/AnimatedSprite2D.visible = true
+		$SpellReach/AnimatedSprite2D.visible = true
 	
-	if (Input.is_action_just_pressed(\"inner_radius_toggle\") and $StaticBody2D/AnimatedSprite2D2.visible):
-		$StaticBody2D/AnimatedSprite2D2.visible = false
+	if (Input.is_action_just_pressed(\"inner_radius_toggle\") and $SpellReach/AnimatedSprite2D2.visible):
+		$SpellReach/AnimatedSprite2D2.visible = false
 	elif (Input.is_action_just_pressed(\"inner_radius_toggle\")):
-		$StaticBody2D/AnimatedSprite2D2.visible = true
+		$SpellReach/AnimatedSprite2D2.visible = true
 	updateSpriteDirection(delta)
 	
 	var L2 = get_global_mouse_position().y - global_position.y
@@ -234,14 +234,15 @@ func sfx(count):
 	print(\"Path: \", sfxPath)
 #print(\"Loaded: \", load(sfxPath))
 
-
+var isLighter = false
 func dash():
-	$AnimatedSprite2D.modulate = Color(2,2,2,1)
+	
 	isDashing = true
+	isLighter = true
 	multiplier = 5.0
 	$dashFX.play()
 	await get_tree().create_timer(0.2).timeout
-	$AnimatedSprite2D.modulate = Color(1,1,1,1)
+	isLighter = false
 	multiplier = 1.0
 	await $dashFX.finished
 	isDashing = false
@@ -249,6 +250,15 @@ func dash():
 	
 func getDirection():
 	return $CursorRotation.global_rotation
+
+func setModulate(str):
+	str = str / 10
+	#s
+	if isLighter:
+		$AnimatedSprite2D.modulate = Color(2,2 + str,2 + str,1)
+	else:
+		$AnimatedSprite2D.modulate = Color(1,1 + str,1 + str,1)
+	
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2abi"]
@@ -992,7 +1002,7 @@ polygon = PackedVector2Array(-17, -191.6, -17, -190.4, -34.199997, -188.5, -40.3
 visible = false
 modulate = Color(1, 1, 1, 0.35686275)
 z_index = 7
-scale = Vector2(8, 8)
+scale = Vector2(13, 13)
 sprite_frames = SubResource("SpriteFrames_gsjds")
 autoplay = "default"
 
@@ -1000,7 +1010,7 @@ autoplay = "default"
 visible = false
 modulate = Color(1, 1, 1, 0.35686275)
 z_index = 7
-scale = Vector2(4.8, 4.8)
+scale = Vector2(6.8, 6.8)
 sprite_frames = SubResource("SpriteFrames_5gjqr")
 autoplay = "default"
 

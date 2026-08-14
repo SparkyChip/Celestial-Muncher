@@ -4,7 +4,7 @@
 resource_name = "CursorTrackScriot"
 script/source = "extends CharacterBody2D
 
-
+const TRACKER_RANGE = 83
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -17,6 +17,9 @@ func _process(delta: float) -> void:
 	
 	velocity = direction * 20.0
 	move_and_slide()
+
+func getRange() -> int:
+	return TRACKER_RANGE
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gsjds"]

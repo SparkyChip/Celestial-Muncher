@@ -9,9 +9,17 @@ resource_name = "ClassInfoMissile"
 script/source = "extends Node2D
 
 @onready var anim = $MissileSpriteAnim
-const projSpeed = 250.0
+const projSpeed = 200.0
+const PROJ_COOLDOWN = 0.5
+const LIFE_TIME = 0.6
+
+
 var move_dir
 var player_pos
+
+@onready var isExploded = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var rand = RandomNumberGenerator.new()
@@ -28,12 +36,16 @@ func _process(delta: float) -> void:
 	global_position += move_dir * delta * projSpeed
 
 func explode():
-	var rand = RandomNumberGenerator.new()
-	$Sound_FX/pew_explode.pitch_scale = rand.randf_range(0.3, 1)
-	$Sound_FX/pew_explode.play()
-	move_dir = Vector2.ZERO
-	anim.play(\"explode\")
-
+	if !isExploded:
+		var rand = RandomNumberGenerator.new()
+		$Sound_FX/pew_explode.pitch_scale = rand.randf_range(0.3, 1)
+		$Sound_FX/pew_explode.play()
+		move_dir = Vector2.ZERO
+		anim.play(\"explode\")
+		await anim.animation_finished
+		isExploded = true
+	else:
+		pass
 
 func setOGPos(player):
 	player_pos = player.global_position
@@ -49,6 +61,18 @@ func setRotation(r, m):
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"wall\"):
+		explode()
+
+
+func getCooldown() -> float:
+	return PROJ_COOLDOWN
+
+func getLifeTime() -> float:
+	return LIFE_TIME
+
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group(\"enemy\"):
 		explode()
 "
 
@@ -153,9 +177,9 @@ animations = [{
 radius = 3.0
 height = 14.0
 
-[node name="MagicMissile" type="Area2D" unique_id=1699465930]
+[node name="MagicMissile" type="Area2D" unique_id=1699465930 groups=["player_proj"]]
 z_index = 10
-collision_layer = 0
+collision_layer = 4
 collision_mask = 4
 script = SubResource("GDScript_bwhmn")
 
@@ -179,4 +203,5 @@ stream = ExtResource("2_adn4o")
 volume_db = 4.0
 pitch_scale = 0.72
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

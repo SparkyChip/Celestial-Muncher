@@ -1,0 +1,17 @@
+{
+    "Height": 32,
+    "Width": 32,
+    "frames": [
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAQAHja7dbNCYAwDAbQgBcruENXKHhxR+d0jYo9SAtJi2K+KFrI+cXa/BCdO3GlWAv6xolCQOwQQhHe+xSgHJIZyR3+/t9/H+tzb8DqDYLsotYEX6sW2TvP/Wkcirg5h6q/UHcE0s9dZT/lwHkg+zW+ci2KNqgPsC54BlrPX6v+y/oG3/4o3/r+P+hb1p84/0E5VHeQ2fWqvb+1f+y+Yg7N/QPlSzNQ22/N/yv+BlZOoi8=",
+                    "visible": true
+                }
+            ]
+        }
+    ]
+}

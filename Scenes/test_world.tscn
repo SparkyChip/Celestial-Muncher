@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cdikgp67xwac8" path="res://TileSets/Tiles.png" id="2_au00k"]
 [ext_resource type="PackedScene" uid="uid://db5go34p5ku8x" path="res://Scenes/cursor_tracker.tscn" id="4_mq1bj"]
 [ext_resource type="AudioStream" uid="uid://gyr0teu4f1vi" path="res://Music/combat.mp3" id="5_iwv7r"]
+[ext_resource type="PackedScene" uid="uid://dfkk2fpu2uarh" path="res://Characters/DummyEnemy/dummy_enemy.tscn" id="6_kt01x"]
 
 [sub_resource type="GDScript" id="GDScript_iwv7r"]
 resource_name = "WORLD_SCRIPT_TEST"
@@ -13,11 +14,10 @@ script/source = "extends Node2D
 @onready var path = \"res://Music/combat.mp3\"
 
 var numSpells
-const MAX_SPELLS = 5
-
-const TRACKER_RANGE = 83
-
 @onready var player = $C_PlayerBody
+var strength = 0
+const MAX_STR = 40.0
+var isCharged = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,21 +28,45 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > TRACKER_RANGE):
+	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > $CursorTracker.getRange()):
 		$CursorTracker.global_position = $C_PlayerBody.global_position
-
+		
+		
+	if Input.is_action_just_pressed(\"ui_cancel\"):
+		get_tree().change_scene_to_file(\"res://Scenes/MainMenu.tscn\")
+	
+	if Input.is_action_pressed(\"click(left)\") and isCharged == false:
+		strength += delta * 10
+		player.setModulate(strength)
+	else:
+		strength = 0
+		player.setModulate(strength)
+		
+	if strength >= MAX_STR:
+		fastFire()
+		
+func fastFire():
+	isCharged = true
+	for i in range(10):
+		var instance = firePew()
+		await get_tree().create_timer(instance.getCooldown() /5).timeout
+	await get_tree().create_timer(2.0).timeout
+	isCharged = false
+		
+	
 # Called when the node enters the scene tree for the first time.
 @onready var spell_path_01 = preload(\"res://Characters/Cantrip/Spells/magic_bomb.tscn\")
 @onready var spell_path_02 = preload(\"res://Characters/Cantrip/Spells/MagicMissile.tscn\")
 
+var is_cooldown_s01 = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.pressed:
 			#print(\"click!!\")
-			
-			if numSpells < MAX_SPELLS:
-				var spell_instance = spell_path_01.instantiate()
+			var spell_instance = spell_path_01.instantiate()
+			if numSpells < spell_instance.getMaxSpells():
+				
 				print(spell_instance)
 				spell_instance.global_position = $CursorTracker.global_position
 				print(spell_instance.global_position)
@@ -53,21 +77,29 @@ func _input(event):
 				spell01Fire(spell_instance)
 				numSpells = numSpells + 1;	
 				spell_instance.playSound()
-		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed:
-			print(get_global_mouse_position())
-			var spell_instance = spell_path_02.instantiate()
-			print(spell_instance)
-			spell_instance.global_position = $CursorTracker.global_position
-			print(spell_instance.global_position)
-			pew(spell_instance)
-			print(numSpells)
+		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed and !is_cooldown_s01:
+			firePew()
 		
-			
+		
+		
+func firePew():
+	print(get_global_mouse_position())
+	var spell_instance = spell_path_02.instantiate()
+	print(spell_instance)
+	spell_instance.global_position = $CursorTracker.global_position
+	print(spell_instance.global_position)
+	pew(spell_instance)
+	print(numSpells)
+	return spell_instance
+	
 func pew(instance):
 	add_child(instance)
 	instance.setOGPos(player)
 	instance.setRotation(player.getDirection(), calc_pew_dir())
-	await get_tree().create_timer(5).timeout
+	set_pew_cooldown(instance)
+	await get_tree().create_timer(instance.getLifeTime()).timeout
+	await instance.explode()
+	
 	remove_child(instance)
 	
 func calc_pew_dir() -> Vector2:
@@ -79,12 +111,17 @@ func calc_pew_dir() -> Vector2:
 	var move_dir = Vector2(grad_x, grad_y)
 	
 	return move_dir.normalized()
-			
+
+func set_pew_cooldown(instance):
+	is_cooldown_s01 = true
+	await get_tree().create_timer(instance.getCooldown()).timeout
+	is_cooldown_s01 = false
+		
 func spell01Fire(instance):
 	
 	add_child(instance)
 	
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(instance.getLifeTime()).timeout
 	instance.playDeath()
 	
 	remove_child(instance)
@@ -331,6 +368,23 @@ debug_color = Color(0.3992129, 0.20946337, 0.96168476, 0.67058825)
 position = Vector2(65, 17)
 shape = SubResource("RectangleShape2D_aw383")
 debug_color = Color(0.2784314, 0.27058825, 0.27450982, 0.6431373)
+
+[node name="ENEMIES" type="Node2D" parent="." unique_id=709691798]
+
+[node name="DummyEnemy" parent="ENEMIES" unique_id=2114397215 instance=ExtResource("6_kt01x")]
+position = Vector2(-186, 28)
+
+[node name="DummyEnemy4" parent="ENEMIES" unique_id=915877482 instance=ExtResource("6_kt01x")]
+position = Vector2(-128, 80)
+
+[node name="DummyEnemy5" parent="ENEMIES" unique_id=968632588 instance=ExtResource("6_kt01x")]
+position = Vector2(-119.00001, 30.999998)
+
+[node name="DummyEnemy2" parent="ENEMIES" unique_id=1561120995 instance=ExtResource("6_kt01x")]
+position = Vector2(-195.99998, 66)
+
+[node name="DummyEnemy3" parent="ENEMIES" unique_id=45968352 instance=ExtResource("6_kt01x")]
+position = Vector2(-152, 23.000002)
 
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="." method="_on_music_switch_combat_body_entered"]
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="." method="_on_music_switch_creepy_body_entered"]
