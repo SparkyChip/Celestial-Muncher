@@ -31,6 +31,7 @@ var JFXLOCK = false
 # DASHING
 
 var isDashing = false;
+const MAX_STR = 26.0 
 
 func _ready() -> void:
 	#$CollisionShape2D.debug_color = Color.BLUE
@@ -251,9 +252,22 @@ func dash():
 func getDirection():
 	return $CursorRotation.global_rotation
 
+func getMaxStr() -> float:
+	return MAX_STR
+
+var currStr = 0
+
+func addCurrStr(amm):
+	currStr += amm
+func getCurrStr():
+	return currStr
+func resetCurrStr():
+	currStr = 0
+
+
 func setModulate(str):
 	str = str / 10
-	#s
+	#print(str)
 	if isLighter:
 		$AnimatedSprite2D.modulate = Color(2,2 + str,2 + str,1)
 	else:

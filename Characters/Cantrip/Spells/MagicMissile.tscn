@@ -10,9 +10,11 @@ script/source = "extends Node2D
 
 @onready var anim = $MissileSpriteAnim
 const projSpeed = 200.0
-const PROJ_COOLDOWN = 0.5
+const PROJ_COOLDOWN = 0.4
+const COOLDOWN_DIVIDER = 2
 const LIFE_TIME = 0.6
 
+const FAST_PROJ_NUM = 10
 
 var move_dir
 var player_pos
@@ -69,7 +71,11 @@ func getCooldown() -> float:
 
 func getLifeTime() -> float:
 	return LIFE_TIME
-
+func getFastCooldown() -> float:
+	return PROJ_COOLDOWN/COOLDOWN_DIVIDER
+	
+func getFastProjNum() -> int:
+	return FAST_PROJ_NUM
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group(\"enemy\"):
