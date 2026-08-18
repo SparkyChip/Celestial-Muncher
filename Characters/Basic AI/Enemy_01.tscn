@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 		queue_free()
 		
 		
-	print(ACTION_DELAY)
+	#print(ACTION_DELAY)
 	if (int1 % 3 == 0) and !isMoveLocked: # up
 		if (int2 % 3 == 0): # UP UP
 			anim.play(\"U_Walk\")

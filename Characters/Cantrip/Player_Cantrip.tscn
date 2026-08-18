@@ -10,42 +10,114 @@ resource_name = "Cantrip_Script"
 script/source = "extends CharacterBody2D
 
 
-
+#speed variables
 var SPEED = 100.0
 var multiplier = 1.0
+
+#jump variables
 @export var JUMP_VELOCITY = 300
 var isJump
 var isFall
 var isJmpCD
-
-# ONREADY
-@onready var chAnim = $AnimatedSprite2D
-@onready var SFX = $soundFX
-
-# FILES 
 var jumpCounter = 0 
 
-var jFX = \"res://meme_FX/e_s00\"
+# ONREADY
+@onready var chAnim = $AnimatedSprite2D #sprite for cantrip
+@onready var SFX = $soundFX  #cantrips sound effects
+
+#spells from file
+
+@onready var magicBomb = preload(\"res://Characters/Cantrip/Spells/magic_bomb.tscn\")
+const MAX_BOMBS = 5
+var curr_bombs = 0
+
+@onready var magicMissile = preload(\"res://Characters/Cantrip/Spells/MagicMissile.tscn\")
+var FAST_PROJ_NUM = 10
+var PROJ_COOLDOWN = 0.3
+var COOLDOWN_DIVIDER = 2
+var LIFE_TIME = 0.6
+
+
+#jump effects prefix file path
+var jFX = \"res://meme_FX/e_s00\" 
+
+#ensures sound effects dont overlap
 var JFXLOCK = false
 
 # DASHING
+var isDashing = false 
+var isLighter = false #controlls sprite modulation
 
-var isDashing = false;
+# SPELL LIST
+var Spell_List: Array
+	
+# used to dicate how long charging up takes
+var currStr = 0
 const MAX_STR = 26.0 
 
+
+#Occurs on the player loading in
 func _ready() -> void:
 	#$CollisionShape2D.debug_color = Color.BLUE
+	
+	#set some booleans
 	isJump = false
 	isFall = false
 	isJmpCD = false
-	pass # Replace with function body.
+	
+	loadSpells() #load spell files into an array for access
+	
+
+
+func loadSpells() -> void: #called on ready to load spells into an array
+	Spell_List.append(magicMissile)
+	Spell_List.append(magicBomb)
 
 
 
+# getter for the spell list
+func getSpell(i: int):
+	if (i < Spell_List.size()):
+		return Spell_List.get(i)
+	else:
+		return false
 
+
+# BOMB HANDLING CODE
+func getMaxBombs() -> int:
+	return MAX_BOMBS
+	
+func getCurrBombs() -> int:
+	return curr_bombs
+
+func addCurrBombs():
+	curr_bombs += 1
+
+func decCurrBombs():
+	curr_bombs -= 1
+
+
+#PEW HANDLING CODE
+func getCooldown() -> float:
+	return PROJ_COOLDOWN
+
+func getLifeTime() -> float:
+	return LIFE_TIME
+func getFastCooldown() -> float:
+	return PROJ_COOLDOWN/COOLDOWN_DIVIDER
+	
+func getFastProjNum() -> int:
+	return FAST_PROJ_NUM
+
+
+# Occurs every frame
 func _physics_process(delta: float) -> void:
+	
+	# general boolean for the jump button we barely use
 	var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
 	
+	
+	# BASIC MOVEMENT
 	velocity = Vector2.ZERO # The player's movement vector.
 	if Input.is_action_pressed(\"d_right\"):
 		velocity.x += 1
@@ -61,34 +133,44 @@ func _physics_process(delta: float) -> void:
 	
 	#print(velocity.x, velocity.y)
 		
-		
+	
+	# JUMP CONTROLER
 	if Input.is_action_just_pressed(\"ui_accept\") and jmpLock:
 		jump()
 		
+		#plays a sound effect
 		if (!(JFXLOCK)):
 			jumpCounter += 1
-			sfx(jumpCounter)
-		
-	if (JFXLOCK == true):
+			sfx()
+	
+	
+	if (JFXLOCK == true): #makes the player rainbow if a certain fun effect is triggered
 		$AnimationPlayer.play(\"Rainbow\")
 	
 		
 	
+	#if we are jumping, go up
 	if isJump:
 		$AnimatedSprite2D.rotation += 30.0 * delta
 		velocity.y -= JUMP_VELOCITY	
 		velocity.x *= SPEED * multiplier
+		
+	#if we are falling, go down
 	elif isFall:
 		$AnimatedSprite2D.rotation += 20.0 * delta
 		velocity.y += JUMP_VELOCITY
 		velocity.x *= SPEED * multiplier
+	
+	#if we are neither, we are doing simple movement
 	else:
 		velocity *= SPEED * multiplier
 		
 	
+	# DASH CONTROLLER
 	if (Input.is_action_just_pressed(\"dash\") and not isDashing):
 		dash()
 		
+	#RADIUS UI TOGGLER
 	if (Input.is_action_just_pressed(\"Radius_Toggle\") and $SpellReach/AnimatedSprite2D.visible):
 		$SpellReach/AnimatedSprite2D.visible = false
 	elif (Input.is_action_just_pressed(\"Radius_Toggle\")):
@@ -100,22 +182,27 @@ func _physics_process(delta: float) -> void:
 		$SpellReach/AnimatedSprite2D2.visible = true
 	updateSpriteDirection(delta)
 	
+	
+	
+	# CONTROLLER FOR DIRECTIONAL HITBOX THAT FOLLOWS THE CURSOR
 	var L2 = get_global_mouse_position().y - global_position.y
 	var L1 = get_global_mouse_position().x - global_position.x
 	
 	#print(L2,\" \", L1)
-	
-	#if (get_global_mouse_position().y > 0):
 	$CursorRotation.rotation = atan2(L2,L1) + deg_to_rad(-90)
 
 	
 	
 	
 	
+	# CharacterBody2D movement function call
 	move_and_slide()
 
-var isWait = false
-func updateSpriteDirection(delta: float):
+
+# MAIN SPRITE CONTROLLER
+func updateSpriteDirection(delta: float): 
+	
+	# IF WE ARE MOVING, DETERMINE WHICH DIRECTION AND PLAY THE SPRITE ANIMATION
 	if (velocity != Vector2.ZERO):
 		if Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"w_up\"):
 			chAnim.animation = \"Walk_BR\"
@@ -141,7 +228,9 @@ func updateSpriteDirection(delta: float):
 		elif Input.is_action_pressed(\"w_up\") and not isJmpCD and not isJump and not isFall:
 			chAnim.animation = \"Walk_B\"
 			chAnim.play()
-	elif (isDashing and not isWait):
+			
+	# IF WE ARE DASHING, FIND WHICH DIRECTION WE ARE MOVING AND PLAY THE ANIMATION
+	elif (isDashing):
 		if Input.is_action_pressed(\"d_right\") and Input.is_action_pressed(\"w_up\"):
 			chAnim.animation = \"Dash_BR\"
 			chAnim.play()
@@ -168,6 +257,7 @@ func updateSpriteDirection(delta: float):
 			chAnim.play()
 		
 	
+	# IF WE ARE IDLE, DETERMINE WHICH DIRECTION AND PLAY THE ANIMATION
 	else:
 		if chAnim.animation == \"Walk_FR\":
 			chAnim.animation = \"Idle_FR\"
@@ -190,13 +280,13 @@ func updateSpriteDirection(delta: float):
 		elif chAnim.animation == \"Walk_F\":
 			chAnim.animation = \"Idle_F\"
 			chAnim.play()
-		elif chAnim.animation == \"Walk_B\" and not isJmpCD and not isJump and not isFall:
+		elif chAnim.animation == \"Walk_B\":
 			chAnim.animation = \"Idle_B\"
 			chAnim.play()	
 	
 	
 
-
+#JUMP FUNCTION TO CONTROL SUBROUTINES
 func jump():
 	isJump = true
 	#$CollisionShape2D.debug_color = Color.RED
@@ -214,9 +304,11 @@ func jump():
 	#$CollisionShape2D.debug_color = Color.BLUE
 	
 	
-var sfxPath
 
-func sfx(count):
+# meme sound effects controller, decides which soundeffect to play based on the 
+# jump counter
+func sfx():
+	var sfxPath
 	print(jumpCounter)
 	if (jumpCounter % 8 == 0):
 		JFXLOCK = true
@@ -235,7 +327,7 @@ func sfx(count):
 	print(\"Path: \", sfxPath)
 #print(\"Loaded: \", load(sfxPath))
 
-var isLighter = false
+#dash function to create subroutines for dash length and sprite modification length
 func dash():
 	
 	isDashing = true
@@ -248,23 +340,29 @@ func dash():
 	await $dashFX.finished
 	isDashing = false
 	
-	
+
+# getter for the direction sprites rotation
 func getDirection():
 	return $CursorRotation.global_rotation
 
+# getter for the current charge up strength
 func getMaxStr() -> float:
 	return MAX_STR
 
-var currStr = 0
 
+#adder for the strength variable
 func addCurrStr(amm):
 	currStr += amm
+
+#getter for the strength variable
 func getCurrStr():
 	return currStr
+#re-setter for the strength variable
 func resetCurrStr():
 	currStr = 0
 
 
+# setter for the sprites modulation  depending on the strength and the dashing state
 func setModulate(str):
 	str = str / 10
 	#print(str)
@@ -273,7 +371,18 @@ func setModulate(str):
 	else:
 		$AnimatedSprite2D.modulate = Color(1,1 + str,1 + str,1)
 	
+	
+
+
+func _on_overlap_detector_area_entered(area: Area2D) -> void:
+	if area.is_in_group(\"atk_speed_upgrade\"):
+		PROJ_COOLDOWN *= 0.5
+		print(\"proj\", PROJ_COOLDOWN)
+		
 "
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kavk5"]
+size = Vector2(9.105068, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i2abi"]
 atlas = ExtResource("1_ru3vb")
@@ -334,7 +443,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kt01x"]
-size = Vector2(11.290302, 15)
+size = Vector2(10.848046, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_atyl3"]
 atlas = ExtResource("1_uvjml")
@@ -1004,7 +1113,19 @@ length = 27.499998
 z_index = 4
 script = SubResource("GDScript_fp8aa")
 
+[node name="Overlap_Detector" type="Area2D" parent="." unique_id=1854308466]
+visible = false
+position = Vector2(0, 1)
+scale = Vector2(1.5376052, 1)
+
+[node name="detector_shape" type="CollisionShape2D" parent="Overlap_Detector" unique_id=2113799174]
+z_index = 5
+position = Vector2(-2.7135218e-07, -0.5)
+shape = SubResource("RectangleShape2D_kavk5")
+debug_color = Color(0.97369593, 0, 0.43553197, 0.41960785)
+
 [node name="SpellReach" type="StaticBody2D" parent="." unique_id=915547744]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -1061,5 +1182,7 @@ z_index = 99
 scale = Vector2(0.8, 0.8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CursorRotation" unique_id=115789640]
-position = Vector2(4.038968e-28, 0)
+position = Vector2(2.4074124e-35, 0)
 shape = SubResource("SeparationRayShape2D_fp8aa")
+
+[connection signal="area_entered" from="Overlap_Detector" to="." method="_on_overlap_detector_area_entered"]

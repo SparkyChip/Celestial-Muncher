@@ -32,6 +32,7 @@ player=""
 wall=""
 enemy=""
 player_proj=""
+atk_speed_upgrade=""
 
 [input]
 

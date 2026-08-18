@@ -1,0 +1,380 @@
+{
+    "Height": 15,
+    "Width": 15,
+    "frames": [
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DABEz/+/6jYwYCAJt6YvUjq2cYBaOABEBKGkXXQ0yaQ0/L6GxquAsAkuJHiQ==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DADpj+9/1HxwwEALI6ZJpY/YTMHAWjAD1tkKqW1LSMDxPrLkL2AQCCs0eJ",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DADpj+9/2H0TDMQARAVovOZiADkGo/tfWPgoEDlMQZcryjY3L0Y0vfpOQFfAAAgMRPMw==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DAD5j+9/1nIBOA9MIwOXrR7SfXHHLdgKyfkjBgGOJgIMOOUrvJiX9seij1Cz4AAEZVR4k=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2CgLWD63/cfGZOrn1L7qeEPetuPrJfSMBgovZT6nRwz0MONGvFPSwAAZHxCbQ==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2CgH2D63/efnvpgeinVTy27STWLUr0wPfTWi24OOWGIbD8lcTDYADa/AAC0fj1R",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2AY/oDpf99/fHxa6UVXT65eEE1PeymxG1k9jE2sfnL8SYkfB0NaBAEAERE6ww==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2AYWMD0v+8/vfWC9BGrF10tqXZSopcSv6LbS4p+St1J7ziF2UmJvfRK69jcCAD2+Tg1",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2CgDmD63/ef3nop0UdvO8nRi6yeVDdT4s6BTAfk6IfpITV8kDGtwwSfHQBC0Tg1",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DABEz/+/4zkAHI0QfSQ4l9Q8VOSsJ1KAFK/EivOIGpJUYfshoYmxT7iFEHAGD1P98=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2BABUz/+/4j08QCkHoYpqc+hlEwCshIr4TSEHK6RFZHbnrF50YAPwk4NQ==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2BABUz/+/6jYwYiALJaYvVgM4NhFIwCCtMNMemXlPSNnrZJSafEuAUA8XA/3w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DABEz/+/6jYwYSAaX6R8HIBdRMM5SYhS39kmoeMfkAABcbODU=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DADZj+9/1HxgxkAEr1w8xgGAV0B5TGGTXijVxzcKU7YszCle5JdQexaR8AJRA/3w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2AgDJj+9/0HYQYyAEwvufoptR+mn4ECQKl+SsFA+Z1acUcNu0kxB1kPNja90h2xAAD4v0Jt",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2AgDjD97/sPwgxkAnL1wuylVD813E2qOchuHyj/Uxr25OpH1kuu+wdLvNMaAAA3UEoX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2CgD2D63/cfhKlpHjl2k+oGdL3k6idXLzluRtc7UPopiW9qppXBDgCD+z/f",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2AYOMD0v+8/CJOiHhubHL3k2EuqPmQ9pOqjVD+yPkrCmdSwpsSv5MTrcAAAck5CbQ==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2BAAKb/ff8ZyAAgfUNFL7n2wfQNhF5y44bccB3ItECJeynRP5AAAIghPVE=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2BABUz/+/6DMAOJgBx9MD2k6iVHD6X+Q9ZPT71Dya2Uhi+lesm1j5JwogYAAMGxQm0=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2DABEz/+/6DMAMRAKYWHZOql4EEAFNPjl5k/cMdUOLPgdBLblxSkg5I1UtOOifkTwDKFUyl",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADhHjaY2DACv5jwYQAWJ3Muf8YmIAZWPXgMIOgPgJuwKkXJAYCuOQI6YMBPPqpphddHy79hPSis/HpxaYWl3708MIVtujiuOKImLgmNn0Qka4oTc8k5yMAEZKjwg==",
+                    "visible": true
+                },
+                {
+                    "name": "Layer 2",
+                    "opacity": 0.7200000286102295,
+                    "pixels": "AAADhHjaY2BAAKb/ff+xYQYCAF0tsfqw6SUFkKNnFNAWUBKX5MYnJfbRw62E7AIAq95HiQ==",
+                    "visible": true
+                }
+            ]
+        }
+    ]
+}

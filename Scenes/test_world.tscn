@@ -7,22 +7,18 @@
 [ext_resource type="AudioStream" uid="uid://gyr0teu4f1vi" path="res://Music/combat.mp3" id="5_iwv7r"]
 [ext_resource type="PackedScene" uid="uid://dfkk2fpu2uarh" path="res://Characters/DummyEnemy/dummy_enemy.tscn" id="6_kt01x"]
 [ext_resource type="PackedScene" uid="uid://b6uojadpyusnk" path="res://Characters/Basic AI/Enemy_01.tscn" id="7_p7j4p"]
+[ext_resource type="PackedScene" uid="uid://ckva2swjhvqeo" path="res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn" id="8_0fcji"]
 
 [sub_resource type="GDScript" id="GDScript_iwv7r"]
 resource_name = "WORLD_SCRIPT_TEST"
 script/source = "extends Node2D
 
 @onready var path = \"res://Music/combat.mp3\"
-
-var numSpells
 @onready var player = $C_PlayerBody
-
-
 var isCharged = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	numSpells = 0
 	$CursorTracker.global_position = $C_PlayerBody.global_position
 	pass # Replace with function body.
 
@@ -48,17 +44,16 @@ func _process(delta: float) -> void:
 		
 func fastFire():
 	isCharged = true
-	var ghost_instance = spell_path_02.instantiate()
-	for i in range(ghost_instance.getFastProjNum()):
+	
+	for i in range(player.getFastProjNum()):
 		var instance = firePew()
-		await get_tree().create_timer(instance.getFastCooldown()).timeout
+		await get_tree().create_timer(player.getFastCooldown()).timeout
 	await get_tree().create_timer(2.0).timeout
 	isCharged = false
 		
 	
 # Called when the node enters the scene tree for the first time.
-@onready var spell_path_01 = preload(\"res://Characters/Cantrip/Spells/magic_bomb.tscn\")
-@onready var spell_path_02 = preload(\"res://Characters/Cantrip/Spells/MagicMissile.tscn\")
+
 
 var is_cooldown_s01 = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -66,32 +61,20 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.pressed:
 			#print(\"click!!\")
-			var spell_instance = spell_path_01.instantiate()
-			if numSpells < spell_instance.getMaxSpells():
-				
-				print(spell_instance)
-				spell_instance.global_position = $CursorTracker.global_position
-				print(spell_instance.global_position)
-				
-				print(numSpells)
-				
-				
-				spell01Fire(spell_instance)
-				numSpells = numSpells + 1;	
-				spell_instance.playSound()
+			fireMagicBomb()
+			
 		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed and !is_cooldown_s01:
 			firePew()
 		
 		
 		
 func firePew():
-	print(get_global_mouse_position())
-	var spell_instance = spell_path_02.instantiate()
-	print(spell_instance)
+	#print(get_global_mouse_position())
+	var spell_instance = player.getSpell(0).instantiate()
+	#print(spell_instance)
 	spell_instance.global_position = $CursorTracker.global_position
-	print(spell_instance.global_position)
+	#print(spell_instance.global_position)
 	pew(spell_instance)
-	print(numSpells)
 	return spell_instance
 	
 func pew(instance):
@@ -99,7 +82,7 @@ func pew(instance):
 	instance.setOGPos(player)
 	instance.setRotation(player.getDirection(), calc_pew_dir())
 	set_pew_cooldown(instance)
-	await get_tree().create_timer(instance.getLifeTime()).timeout
+	await get_tree().create_timer(player.getLifeTime()).timeout
 	await instance.explode()
 	
 	remove_child(instance)
@@ -116,8 +99,23 @@ func calc_pew_dir() -> Vector2:
 
 func set_pew_cooldown(instance):
 	is_cooldown_s01 = true
-	await get_tree().create_timer(instance.getCooldown()).timeout
+	await get_tree().create_timer(player.getCooldown()).timeout
 	is_cooldown_s01 = false
+		
+		
+		
+func fireMagicBomb():
+	var spell_instance = player.getSpell(1).instantiate()
+	if player.getCurrBombs() < player.getMaxBombs():
+		#print(spell_instance)
+		spell_instance.global_position = $CursorTracker.global_position
+		#print(spell_instance.global_position)
+		
+		
+		
+		spell01Fire(spell_instance)
+		player.addCurrBombs()
+		spell_instance.playSound()
 		
 func spell01Fire(instance):
 	
@@ -127,7 +125,7 @@ func spell01Fire(instance):
 	instance.playDeath()
 	
 	remove_child(instance)
-	numSpells -= 1;
+	player.decCurrBombs()
 			
 
 
@@ -388,26 +386,42 @@ position = Vector2(-195.99998, 66)
 [node name="DummyEnemy3" parent="ENEMIES" unique_id=45968352 instance=ExtResource("6_kt01x")]
 position = Vector2(-152, 23.000002)
 
-[node name="Enemy01" parent="." unique_id=1018696278 instance=ExtResource("7_p7j4p")]
+[node name="Enemy01" parent="ENEMIES" unique_id=1018696278 instance=ExtResource("7_p7j4p")]
 position = Vector2(-149, 211)
 
-[node name="Enemy02" parent="." unique_id=1898383431 instance=ExtResource("7_p7j4p")]
+[node name="Enemy02" parent="ENEMIES" unique_id=1898383431 instance=ExtResource("7_p7j4p")]
 position = Vector2(-59, 219)
 
-[node name="Enemy03" parent="." unique_id=1607413593 instance=ExtResource("7_p7j4p")]
+[node name="Enemy03" parent="ENEMIES" unique_id=1607413593 instance=ExtResource("7_p7j4p")]
 position = Vector2(-134, 262)
 
-[node name="Enemy04" parent="." unique_id=1837097393 instance=ExtResource("7_p7j4p")]
+[node name="Enemy04" parent="ENEMIES" unique_id=1837097393 instance=ExtResource("7_p7j4p")]
 position = Vector2(-183, 246)
 
-[node name="Enemy05" parent="." unique_id=772666618 instance=ExtResource("7_p7j4p")]
+[node name="Enemy05" parent="ENEMIES" unique_id=772666618 instance=ExtResource("7_p7j4p")]
 position = Vector2(-205, 213)
 
-[node name="Enemy06" parent="." unique_id=872114787 instance=ExtResource("7_p7j4p")]
+[node name="Enemy06" parent="ENEMIES" unique_id=872114787 instance=ExtResource("7_p7j4p")]
 position = Vector2(-104, 238)
 
-[node name="Enemy07" parent="." unique_id=2002934303 instance=ExtResource("7_p7j4p")]
+[node name="Enemy07" parent="ENEMIES" unique_id=2002934303 instance=ExtResource("7_p7j4p")]
 position = Vector2(-80, 197)
+
+[node name="UPGRADES" type="Node2D" parent="." unique_id=1117952911]
+position = Vector2(-149, 211)
+scale = Vector2(1.3, 1.3)
+
+[node name="AtkSpeedUpgradeMain" parent="UPGRADES" unique_id=1884153213 instance=ExtResource("8_0fcji")]
+position = Vector2(-18.46154, -90.00001)
+scale = Vector2(0.38461542, 0.38461542)
+
+[node name="AtkSpeedUpgradeMain2" parent="UPGRADES" unique_id=31568349 instance=ExtResource("8_0fcji")]
+position = Vector2(-23.076927, -83.076935)
+scale = Vector2(0.38461542, 0.38461542)
+
+[node name="AtkSpeedUpgradeMain3" parent="UPGRADES" unique_id=1999450840 instance=ExtResource("8_0fcji")]
+position = Vector2(-15.384621, -48.461548)
+scale = Vector2(0.38461542, 0.38461542)
 
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="." method="_on_music_switch_combat_body_entered"]
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="." method="_on_music_switch_creepy_body_entered"]

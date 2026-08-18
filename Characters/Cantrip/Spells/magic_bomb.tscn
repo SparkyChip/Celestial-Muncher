@@ -7,7 +7,7 @@
 resource_name = "Spell_01"
 script/source = "extends Node2D
 
-const MAX_SPELLS = 5
+
 const LIFE_TIME= 5.0
 
 # Called when the node enters the scene tree for the first time.
@@ -27,8 +27,7 @@ func playSound():
 	await $AudioStreamPlayer2D.finished
 	$AudioStreamPlayer2D.stop()
 
-func getMaxSpells() -> int:
-	return MAX_SPELLS
+
 
 func getLifeTime() -> float:
 	return LIFE_TIME

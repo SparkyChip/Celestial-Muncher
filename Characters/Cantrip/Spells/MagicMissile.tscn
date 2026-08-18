@@ -10,18 +10,15 @@ script/source = "extends Node2D
 
 @onready var anim = $MissileSpriteAnim
 const projSpeed = 200.0
-const PROJ_COOLDOWN = 0.4
-const COOLDOWN_DIVIDER = 2
-const LIFE_TIME = 0.6
 
-const FAST_PROJ_NUM = 10
 
-var move_dir
+
+var move_dir: Vector2
 var player_pos
 
 @onready var isExploded = false
 
-
+@onready var rand: RandomNumberGenerator = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var rand = RandomNumberGenerator.new()
@@ -35,6 +32,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	
 	global_position += move_dir * delta * projSpeed
 
 func explode():
@@ -56,26 +55,26 @@ func setOGPos(player):
 	
 
 func setRotation(r, m):
-	global_rotation = r + deg_to_rad(180)
-	move_dir = m
 	
-
+	move_dir = m
+	var random_x = randf_range(-0.1,0.1)
+	var random_y = randf_range(-0.1,0.1)
+	var rand_n = randi_range(-0.1,1)
+	
+	move_dir.x += random_x
+	move_dir.y += random_y
+		
+	
+	move_dir = move_dir.normalized()
+	global_rotation = move_dir.angle() + deg_to_rad(90)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"wall\"):
 		explode()
 
 
-func getCooldown() -> float:
-	return PROJ_COOLDOWN
 
-func getLifeTime() -> float:
-	return LIFE_TIME
-func getFastCooldown() -> float:
-	return PROJ_COOLDOWN/COOLDOWN_DIVIDER
-	
-func getFastProjNum() -> int:
-	return FAST_PROJ_NUM
+
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group(\"enemy\"):

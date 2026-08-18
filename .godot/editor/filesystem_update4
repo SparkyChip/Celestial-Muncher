@@ -1,1 +1,6 @@
 res://Characters/Basic AI/Enemy_01.tscn
+res://Characters/Cantrip/Player_Cantrip.tscn
+res://Scenes/test_world.tscn
+res://Characters/Cantrip/Spells/magic_bomb.tscn
+res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn
+res://Characters/Cantrip/Spells/MagicMissile.tscn
