@@ -56,7 +56,8 @@ func _on_quit_focus_entered() -> void:
 
 func _on_play_pressed() -> void:
 	clickFX.play()
-
+	await clickFX.finished
+	get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
 
 func _on_settings_pressed() -> void:
 	clickFX.play()
@@ -64,6 +65,8 @@ func _on_settings_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	clickFX.play()
+	await clickFX.finished
+	get_tree().quit()
 "
 
 [node name="MainMenu" type="Control" unique_id=468699503]
@@ -107,6 +110,7 @@ grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1094638414]
 layout_mode = 2
+theme_override_constants/separation = 33
 
 [node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=450494399]
 layout_mode = 2
@@ -122,7 +126,7 @@ theme = ExtResource("2_8saeu")
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
-text = "CENTER YOURSELF."
+text = "CENTER YOURSELF"
 
 [node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1443891841]
 layout_mode = 2

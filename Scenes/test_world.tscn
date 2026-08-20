@@ -145,6 +145,7 @@ _data = {
 [node name="Test_World" type="Node2D" unique_id=1140070816]
 
 [node name="GameUI_Cantrip" parent="." unique_id=1820173548 instance=ExtResource("10_yrarp")]
+visible = false
 follow_viewport_enabled = false
 
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=680143170 groups=["wall"]]

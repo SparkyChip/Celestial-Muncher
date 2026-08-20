@@ -4,3 +4,7 @@ res://CANTRIP THEME/Disabled_C_Button.tres
 res://CANTRIP THEME/Normal_C_Button.tres
 res://CANTRIP THEME/LabeledSeperator_C_Button.tres
 res://HIGHERCONTROLER.gd
+res://CANTRIP THEME/Focus_C_Button.tres
+res://CANTRIP THEME/Hovered_C_Button.tres
+res://CANTRIP THEME/Pressedl_C_Button.tres
+res://Scenes/test_world.tscn
