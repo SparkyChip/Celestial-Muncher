@@ -8,161 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dfkk2fpu2uarh" path="res://Characters/DummyEnemy/dummy_enemy.tscn" id="6_kt01x"]
 [ext_resource type="PackedScene" uid="uid://b6uojadpyusnk" path="res://Characters/Basic AI/Enemy_01.tscn" id="7_p7j4p"]
 [ext_resource type="PackedScene" uid="uid://ckva2swjhvqeo" path="res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn" id="8_0fcji"]
-
-[sub_resource type="GDScript" id="GDScript_iwv7r"]
-resource_name = "WORLD_SCRIPT_TEST"
-script/source = "extends Node2D
-
-@onready var path = \"res://Music/combat.mp3\"
-@onready var player = $C_PlayerBody
-var isCharged = false
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	$CursorTracker.global_position = $C_PlayerBody.global_position
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if ($CursorTracker.global_position.distance_to($C_PlayerBody.global_position) > $CursorTracker.getRange()):
-		$CursorTracker.global_position = $C_PlayerBody.global_position
-		
-		
-	if Input.is_action_just_pressed(\"ui_cancel\"):
-		get_tree().change_scene_to_file(\"res://Scenes/MainMenu.tscn\")
-	
-	if Input.is_action_pressed(\"click(left)\") and isCharged == false:
-		player.addCurrStr(delta * 10)
-		player.setModulate(player.getCurrStr())
-	else:
-		player.resetCurrStr()
-		player.setModulate(player.getCurrStr())
-		
-	if player.getCurrStr() >= player.getMaxStr():
-		fastFire()
-		
-func fastFire():
-	isCharged = true
-	
-	for i in range(player.getFastProjNum()):
-		var instance = firePew()
-		await get_tree().create_timer(player.getFastCooldown()).timeout
-	await get_tree().create_timer(2.0).timeout
-	isCharged = false
-		
-	
-# Called when the node enters the scene tree for the first time.
-
-
-var is_cooldown_s01 = false
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MouseButton.MOUSE_BUTTON_RIGHT and event.pressed:
-			#print(\"click!!\")
-			fireMagicBomb()
-			
-		elif event.button_index == MouseButton.MOUSE_BUTTON_LEFT and event.pressed and !is_cooldown_s01:
-			firePew()
-		
-		
-		
-func firePew():
-	#print(get_global_mouse_position())
-	var spell_instance = player.getSpell(0).instantiate()
-	#print(spell_instance)
-	spell_instance.global_position = $CursorTracker.global_position
-	#print(spell_instance.global_position)
-	pew(spell_instance)
-	return spell_instance
-	
-func pew(instance):
-	add_child(instance)
-	instance.setOGPos(player)
-	instance.setRotation(player.getDirection(), calc_pew_dir())
-	set_pew_cooldown(instance)
-	await get_tree().create_timer(player.getLifeTime()).timeout
-	await instance.explode()
-	
-	remove_child(instance)
-	
-func calc_pew_dir() -> Vector2:
-	var mouse_pos = get_global_mouse_position()
-	
-	var grad_x = (mouse_pos.x - player.global_position.x) 
-	var grad_y = mouse_pos.y - player.global_position.y
-	
-	var move_dir = Vector2(grad_x, grad_y)
-	
-	return move_dir.normalized()
-
-func set_pew_cooldown(instance):
-	is_cooldown_s01 = true
-	await get_tree().create_timer(player.getCooldown()).timeout
-	is_cooldown_s01 = false
-		
-		
-		
-func fireMagicBomb():
-	var spell_instance = player.getSpell(1).instantiate()
-	if player.getCurrBombs() < player.getMaxBombs():
-		#print(spell_instance)
-		spell_instance.global_position = $CursorTracker.global_position
-		#print(spell_instance.global_position)
-		
-		
-		
-		spell01Fire(spell_instance)
-		player.addCurrBombs()
-		spell_instance.playSound()
-		
-func spell01Fire(instance):
-	
-	add_child(instance)
-	
-	await get_tree().create_timer(instance.getLifeTime()).timeout
-	instance.playDeath()
-	
-	remove_child(instance)
-	player.decCurrBombs()
-			
-
-
-func _on_music_switch_creepy_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$AudioStreamPlayer2D.stream = load(\"res://Music/shiver me timbers.mp3\")
-		$AudioStreamPlayer2D.play()
-
-func _on_music_switch_boss_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$AudioStreamPlayer2D.stream = load(\"res://Music/BossMusic.mp3\")
-		$AudioStreamPlayer2D.play()
-func _on_death_screen_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$AudioStreamPlayer2D.stream = load(\"res://Music/DeathScreen.mp3\") # Replace with function body.
-		$AudioStreamPlayer2D.play()
-
-func _on_music_switch_combat_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$AudioStreamPlayer2D.stream = load(path) # Replace with function body.
-		$AudioStreamPlayer2D.play()
-
-
-func _on_music_slower_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$MusicSwitches/MusicAnimator.play(\"SlowDown\")
-
-
-func _on_music_slower_body_exited(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$MusicSwitches/MusicAnimator.play(\"SpeedUp\")
-
-
-func _on_pause_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"player\"):
-		$AudioStreamPlayer2D.stop()
-"
+[ext_resource type="Script" uid="uid://1j7u5rqe42bm" path="res://Scripts/WORLD_CONTROLER.gd" id="9_dqfvb"]
+[ext_resource type="PackedScene" uid="uid://fcewjfwh3cq1" path="res://HUDS/game_ui_cantrip.tscn" id="10_yrarp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
 texture = ExtResource("2_au00k")
@@ -296,11 +143,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aw383"]
 
 [node name="Test_World" type="Node2D" unique_id=1140070816]
-script = SubResource("GDScript_iwv7r")
+
+[node name="GameUI_Cantrip" parent="." unique_id=1820173548 instance=ExtResource("10_yrarp")]
+follow_viewport_enabled = false
 
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=680143170 groups=["wall"]]
 z_index = 4
-tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAAAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wUAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAAAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAD8/wAAAAACAAIAAAD7/wAAAAAAAAIAAAA=")
+tile_map_data = PackedByteArray("AAD9////AAABAAIAAAD9//7/AAABAAAAAAD+//7/AAABAAAAAAD///7/AAABAAAAAAAAAP7/AAABAAAAAAABAP7/AAABAAAAAAACAP7/AAABAAAAAAADAP7/AAABAAAAAAAEAP7/AAABAAAAAAD9/wcAAAABAAAAAAD+/wcAAAABAAAAAAD//wcAAAABAAAAAAAAAAcAAAABAAAAAAABAAcAAAABAAAAAAACAAcAAAABAAAAAAADAAcAAAABAAAAAAAEAAcAAAABAAAAAAD9/wgAAAABAAIAAAD+/wgAAAABAAIAAAD//wgAAAABAAIAAAAAAAgAAAABAAIAAAABAAgAAAABAAIAAAACAAgAAAABAAIAAAADAAgAAAABAAIAAAAEAAgAAAABAAIAAAD+////AAABAAIAAAD/////AAABAAIAAAAAAP//AAABAAIAAAABAP//AAABAAIAAAACAP//AAABAAIAAAADAP//AAABAAIAAAAEAP//AAABAAIAAAAGAAYAAAACAAEAAAAGAAUAAAACAAEAAAAGAAQAAAACAAEAAAAGAAMAAAACAAEAAAAGAAIAAAACAAEAAAAGAAEAAAACAAEAAAAGAAAAAAACAAEAAAD8/wYAAAACAAEAAAD8/wUAAAACAAEAAAD8/wQAAAACAAEAAAD8/wMAAAACAAEAAAD8/wIAAAACAAAAAAAFAAYAAAAAAAEAAAAFAAUAAAAAAAEAAAAFAAQAAAAAAAEAAAAFAAMAAAAAAAEAAAAFAAIAAAAAAAEAAAAFAAEAAAAAAAEAAAAFAAAAAAAAAAEAAAD7/wYAAAAAAAEAAAD7/wQAAAAAAAEAAAD7/wMAAAAAAAEAAAD7/wIAAAAAAAAAAAD8////AAABAAEAAAAFAP//AAABAAEAAAAFAAcAAAABAAEAAAD8/wcAAAABAAEAAAD7/wcAAAAAAAEAAAD7////AAAAAAEAAAAGAAcAAAACAAEAAAAGAP//AAACAAEAAAAFAP7/AAABAAAAAAD8//7/AAABAAAAAAD8/wgAAAABAAIAAAAFAAgAAAABAAIAAAAGAP7/AAACAAAAAAAGAAgAAAACAAIAAAD7/wgAAAAAAAIAAAD7//7/AAAAAAAAAAD8/wAAAAACAAIAAAD7/wAAAAAAAAIAAAD7/wUAAAAAAAEAAAA=")
 tile_set = SubResource("TileSet_iwv7r")
 
 [node name="C_PlayerBody" parent="." unique_id=2113687282 instance=ExtResource("1_skmq4")]
@@ -423,10 +272,13 @@ scale = Vector2(0.38461542, 0.38461542)
 position = Vector2(-15.384621, -48.461548)
 scale = Vector2(0.38461542, 0.38461542)
 
-[connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="." method="_on_music_switch_combat_body_entered"]
-[connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="." method="_on_music_switch_creepy_body_entered"]
-[connection signal="body_entered" from="MusicSwitches/MusicSwitchBoss" to="." method="_on_music_switch_boss_body_entered"]
-[connection signal="body_entered" from="MusicSwitches/DeathScreen" to="." method="_on_death_screen_body_entered"]
-[connection signal="body_entered" from="MusicSwitches/MusicSlower" to="." method="_on_music_slower_body_entered"]
-[connection signal="body_exited" from="MusicSwitches/MusicSlower" to="." method="_on_music_slower_body_exited"]
-[connection signal="body_entered" from="MusicSwitches/Pause" to="." method="_on_pause_body_entered"]
+[node name="WORLD_CONTROLLER" type="Node2D" parent="." unique_id=1471664704]
+script = ExtResource("9_dqfvb")
+
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="WORLD_CONTROLLER" method="_on_music_switch_combat_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="WORLD_CONTROLLER" method="_on_music_switch_creepy_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSwitchBoss" to="WORLD_CONTROLLER" method="_on_music_switch_boss_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/DeathScreen" to="WORLD_CONTROLLER" method="_on_death_screen_body_entered"]
+[connection signal="body_entered" from="MusicSwitches/MusicSlower" to="WORLD_CONTROLLER" method="_on_music_slower_body_entered"]
+[connection signal="body_exited" from="MusicSwitches/MusicSlower" to="WORLD_CONTROLLER" method="_on_music_slower_body_exited"]
+[connection signal="body_entered" from="MusicSwitches/Pause" to="WORLD_CONTROLLER" method="_on_pause_body_entered"]

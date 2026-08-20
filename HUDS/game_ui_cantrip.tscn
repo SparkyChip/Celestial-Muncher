@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://fcewjfwh3cq1"]
+
+[ext_resource type="Texture2D" uid="uid://dy450psoixvqn" path="res://hollow_circle.png" id="1_sx0r0"]
+
+[node name="GameUI_Cantrip" type="CanvasLayer" unique_id=1820173548]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="." unique_id=1160264059]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1154.0
+offset_bottom = 647.0
+
+[node name="Button" type="Button" parent="Control" unique_id=1002440870]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 20.0
+offset_right = 44.0
+offset_bottom = 44.0
+
+[node name="MenuButton" type="MenuButton" parent="Control" unique_id=403315702]
+layout_mode = 0
+offset_left = 86.0
+offset_top = 49.0
+offset_right = 488.0
+offset_bottom = 444.0
+icon = ExtResource("1_sx0r0")
+switch_on_hover = true
+item_count = 1
+popup/item_0/text = "AAAAA"
+popup/item_0/id = 0

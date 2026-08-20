@@ -36,7 +36,7 @@ var FAST_PROJ_NUM = 10
 var PROJ_COOLDOWN = 0.3
 var COOLDOWN_DIVIDER = 2
 var LIFE_TIME = 0.6
-
+var ACCURACY = 0.1
 
 #jump effects prefix file path
 var jFX = \"res://meme_FX/e_s00\" 
@@ -379,6 +379,8 @@ func _on_overlap_detector_area_entered(area: Area2D) -> void:
 		PROJ_COOLDOWN *= 0.5
 		print(\"proj\", PROJ_COOLDOWN)
 		
+func getAccuracy() -> float:
+	return ACCURACY
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kavk5"]

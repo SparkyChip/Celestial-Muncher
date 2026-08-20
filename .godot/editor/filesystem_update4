@@ -1,6 +1,11 @@
-res://Characters/Basic AI/Enemy_01.tscn
 res://Characters/Cantrip/Player_Cantrip.tscn
-res://Scenes/test_world.tscn
-res://Characters/Cantrip/Spells/magic_bomb.tscn
-res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn
 res://Characters/Cantrip/Spells/MagicMissile.tscn
+res://Scenes/test_world.tscn
+res://WORLD_CONTROLER.gd
+res://Scripts/WORLD_CONTROLER.gd
+res://Scripts/GLOBAL_SCRIPT_PLAYER.gd
+res://Characters/Basic AI/Enemy_01.tscn
+res://Characters/Cantrip/game_ui_cantrip.tscn
+res://HUDS/game_ui_cantrip.tscn
+res://Scenes/MainMenu.tscn
+res://Theme/Cantrip_Theme.tres

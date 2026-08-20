@@ -54,12 +54,12 @@ func setOGPos(player):
 	global_rotation = player.global_rotation
 	
 
-func setRotation(r, m):
-	
+func setRotation(m, r: float):
+	print(r, \" \", -r)
 	move_dir = m
-	var random_x = randf_range(-0.1,0.1)
-	var random_y = randf_range(-0.1,0.1)
-	var rand_n = randi_range(-0.1,1)
+	var random_x = randf_range(-r,r)
+	var random_y = randf_range(-r,r)
+	
 	
 	move_dir.x += random_x
 	move_dir.y += random_y
