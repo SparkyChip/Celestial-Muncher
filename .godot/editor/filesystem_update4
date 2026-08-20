@@ -1,11 +1,6 @@
-res://Characters/Cantrip/Player_Cantrip.tscn
-res://Characters/Cantrip/Spells/MagicMissile.tscn
-res://Scenes/test_world.tscn
-res://WORLD_CONTROLER.gd
-res://Scripts/WORLD_CONTROLER.gd
-res://Scripts/GLOBAL_SCRIPT_PLAYER.gd
-res://Characters/Basic AI/Enemy_01.tscn
-res://Characters/Cantrip/game_ui_cantrip.tscn
-res://HUDS/game_ui_cantrip.tscn
 res://Scenes/MainMenu.tscn
 res://Theme/Cantrip_Theme.tres
+res://CANTRIP THEME/Disabled_C_Button.tres
+res://CANTRIP THEME/Normal_C_Button.tres
+res://CANTRIP THEME/LabeledSeperator_C_Button.tres
+res://HIGHERCONTROLER.gd

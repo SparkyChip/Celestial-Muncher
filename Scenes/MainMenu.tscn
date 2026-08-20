@@ -1,13 +1,22 @@
 [gd_scene format=3 uid="uid://bc4o5wy5e0wta"]
 
-[ext_resource type="Texture2D" uid="uid://dd0wwbx3u0752" path="res://icon.svg" id="1_tt5f1"]
-[ext_resource type="Texture2D" uid="uid://dy450psoixvqn" path="res://hollow_circle.png" id="2_8saeu"]
+[ext_resource type="Theme" uid="uid://vw057mm6fusk" path="res://Theme/Cantrip_Theme.tres" id="2_8saeu"]
 [ext_resource type="AudioStream" uid="uid://chvmpxkbf8827" path="res://Music/MainMenu.mp3" id="2_853f1"]
+[ext_resource type="AudioStream" uid="uid://e36kurrjwxyo" path="res://Music/Ping.mp3" id="2_ghw46"]
+[ext_resource type="AudioStream" uid="uid://it18rc0h0efi" path="res://Music/DINGDING.mp3" id="3_df05h"]
 [ext_resource type="FontFile" uid="uid://bypjkjh4mpdfq" path="res://TileSets/SparkChipTune.ttf" id="4_ghw46"]
 
 [sub_resource type="GDScript" id="GDScript_853f1"]
 resource_name = "MainMenu"
 script/source = "extends Control
+
+@onready var hoverFX = $HoverFX
+@onready var clickFX = $ClickFX
+
+
+@onready var ping = load(\"res://Music/Ping.mp3\")
+@onready var sfxClick = load(\"res://Music/DINGDING.mp3\")
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,32 +28,42 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func _on_play_button_mouse_entered() -> void:
-	$Play_Button.modulate = Color(1,1,1,0.8)
 
 
-func _on_play_button_mouse_exited() -> void:
-	$Play_Button.modulate = Color(1,1,1,1)
+
+func _on_play_mouse_entered() -> void:
+	hoverFX.play()
 
 
-func _on_exit_button_mouse_entered() -> void:
-	$Exit_Button.modulate = Color(1,1,1,0.8)
+func _on_settings_mouse_entered() -> void:
+	hoverFX.play()
 
 
-func _on_exit_button_mouse_exited() -> void:
-	$Exit_Button.modulate = Color(1,1,1,1)
+func _on_quit_mouse_entered() -> void:
+	hoverFX.play()
 
 
-func _on_play_button_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
+func _on_play_focus_entered() -> void:
+	hoverFX.play()
 
 
-func _on_exit_button_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			get_tree().quit()
+func _on_settings_focus_entered() -> void:
+	hoverFX.play()
+
+func _on_quit_focus_entered() -> void:
+	hoverFX.play()
+	
+
+func _on_play_pressed() -> void:
+	clickFX.play()
+
+
+func _on_settings_pressed() -> void:
+	clickFX.play()
+
+
+func _on_quit_pressed() -> void:
+	clickFX.play()
 "
 
 [node name="MainMenu" type="Control" unique_id=468699503]
@@ -56,29 +75,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_853f1")
 
-[node name="Play_Button" type="TextureRect" parent="." unique_id=2004529509]
-layout_mode = 0
-offset_left = 68.0
-offset_top = 24.0
-offset_right = 321.0
-offset_bottom = 279.0
-texture = ExtResource("1_tt5f1")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Exit_Button" type="TextureRect" parent="." unique_id=1679324936]
-layout_mode = 0
-offset_left = 727.0
-offset_top = 406.0
-offset_right = 794.0
-offset_bottom = 470.0
-texture = ExtResource("2_8saeu")
-expand_mode = 1
-stretch_mode = 4
-
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=671179899]
 stream = ExtResource("2_853f1")
 autoplay = true
+
+[node name="HoverFX" type="AudioStreamPlayer2D" parent="." unique_id=2032106695]
+stream = ExtResource("2_ghw46")
+volume_db = 0.486
+
+[node name="ClickFX" type="AudioStreamPlayer2D" parent="." unique_id=1129264664]
+stream = ExtResource("3_df05h")
+volume_db = 9.234
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1422917841]
 z_index = -1
@@ -88,7 +95,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.011764706, 0.011764706, 0.011764706, 1)
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=888834434]
 layout_mode = 1
@@ -103,13 +110,7 @@ layout_mode = 2
 
 [node name="Play" type="Button" parent="CenterContainer/VBoxContainer" unique_id=450494399]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_hover_color = Color(1, 0.40748337, 0.33657786, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_disabled_color = Color(0.8745098, 0, 0, 0.5019608)
-theme_override_colors/font_outline_color = Color(0.2718984, 2.5118234e-07, 8.4228816e-08, 1)
+theme = ExtResource("2_8saeu")
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
@@ -117,13 +118,7 @@ text = "BEGIN."
 
 [node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=233329584]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_hover_color = Color(1, 0.40748337, 0.33657786, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_disabled_color = Color(0.8745098, 0, 0, 0.5019608)
-theme_override_colors/font_outline_color = Color(0.2718984, 2.5118234e-07, 8.4228816e-08, 1)
+theme = ExtResource("2_8saeu")
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
@@ -131,21 +126,18 @@ text = "CENTER YOURSELF."
 
 [node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1443891841]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_hover_color = Color(1, 0.40748337, 0.33657786, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.61561495, 2.394505e-06, 4.813075e-07, 1)
-theme_override_colors/font_disabled_color = Color(0.8745098, 0, 0, 0.5019608)
-theme_override_colors/font_outline_color = Color(0.2718984, 2.5118234e-07, 8.4228816e-08, 1)
+theme = ExtResource("2_8saeu")
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
 text = "GIVE UP."
 
-[connection signal="gui_input" from="Play_Button" to="." method="_on_play_button_gui_input"]
-[connection signal="mouse_entered" from="Play_Button" to="." method="_on_play_button_mouse_entered"]
-[connection signal="mouse_exited" from="Play_Button" to="." method="_on_play_button_mouse_exited"]
-[connection signal="gui_input" from="Exit_Button" to="." method="_on_exit_button_gui_input"]
-[connection signal="mouse_entered" from="Exit_Button" to="." method="_on_exit_button_mouse_entered"]
-[connection signal="mouse_exited" from="Exit_Button" to="." method="_on_exit_button_mouse_exited"]
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_focus_entered"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer/Settings" to="." method="_on_settings_focus_entered"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Settings" to="." method="_on_settings_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="focus_entered" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_focus_entered"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
