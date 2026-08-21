@@ -202,11 +202,13 @@ shape = SubResource("CapsuleShape2D_gsjds")
 [node name="pew_explode" type="AudioStreamPlayer2D" parent="Sound_FX" unique_id=1888953146]
 stream = ExtResource("2_wbksb")
 volume_db = 4.0
+bus = &"SFX"
 
 [node name="pew" type="AudioStreamPlayer2D" parent="Sound_FX" unique_id=1595599988]
 stream = ExtResource("2_adn4o")
 volume_db = 4.0
 pitch_scale = 0.72
+bus = &"SFX"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

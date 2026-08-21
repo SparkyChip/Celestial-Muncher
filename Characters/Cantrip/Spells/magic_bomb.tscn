@@ -7,6 +7,7 @@
 resource_name = "Spell_01"
 script/source = "extends Node2D
 
+@onready var bomb_fx: AudioStreamPlayer2D = $BombFX
 
 const LIFE_TIME= 5.0
 
@@ -23,9 +24,9 @@ func _process(delta: float) -> void:
 func playDeath():
 	$AnimationPlayer.play(\"Die\")
 func playSound():
-	$AudioStreamPlayer2D.play()
-	await $AudioStreamPlayer2D.finished
-	$AudioStreamPlayer2D.stop()
+	bomb_fx.play()
+	await bomb_fx.finished
+	bomb_fx.stop()
 
 
 
@@ -148,6 +149,7 @@ texture = ExtResource("1_l4knb")
 hframes = 5
 vframes = 3
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1066905569]
+[node name="BombFX" type="AudioStreamPlayer2D" parent="." unique_id=1066905569]
 stream = ExtResource("2_m5nhm")
 volume_db = 4.0
+bus = &"SFX"

@@ -8,3 +8,11 @@ res://CANTRIP THEME/Focus_C_Button.tres
 res://CANTRIP THEME/Hovered_C_Button.tres
 res://CANTRIP THEME/Pressedl_C_Button.tres
 res://Scenes/test_world.tscn
+res://Scripts/WORLD_CONTROLER.gd
+res://default_bus_layout.tres
+res://Characters/Cantrip/Player_Cantrip.tscn
+res://Characters/Cantrip/Spells/magic_bomb.tscn
+res://Characters/Cantrip/Spells/MagicMissile.tscn
+res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn
+res://HUDS/settings_menu.tscn
+res://Scripts/HIGHERCONTROLER.gd

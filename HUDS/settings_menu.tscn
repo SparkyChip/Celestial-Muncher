@@ -1,0 +1,486 @@
+[gd_scene format=3 uid="uid://lf8q0t0hm4en"]
+
+[ext_resource type="Theme" uid="uid://vw057mm6fusk" path="res://Theme/Cantrip_Theme.tres" id="1_jj3gr"]
+[ext_resource type="AudioStream" uid="uid://it18rc0h0efi" path="res://Music/DINGDING.mp3" id="1_n7jka"]
+[ext_resource type="Texture2D" uid="uid://bqvo6fnu0hfed" path="res://Theme/x_icon.png" id="2_356h1"]
+[ext_resource type="AudioStream" uid="uid://e36kurrjwxyo" path="res://Music/Ping.mp3" id="2_ub8us"]
+
+[sub_resource type="GDScript" id="GDScript_n7jka"]
+script/source = "extends Control
+@onready var mas_mute_button: Button = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Mas_Mute_Button\"
+@onready var mus_mute_button: Button = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Mus_Mute_Button\"
+@onready var sfx_mute_button: Button = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/SFX_Mute_Button\"
+
+@onready var mas_slider: HSlider = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Volume Slider/mas_slider\"
+@onready var mus_slider: HSlider = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Volume Slider/mus_slider\"
+@onready var sfx_slider: HSlider = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/Volume Slider/sfx_slider\"
+
+@onready var click_: AudioStreamPlayer2D = $\"Audio/click!\"
+@onready var highlight_: AudioStreamPlayer2D = $\"Audio/highlight!\"
+
+@onready var settings_tabs: TabContainer = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs\"
+var tab_bar
+
+
+# Called when the node enters the scene tree for the first time.
+var sfxLock = true
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS	
+	click_.process_mode = Node.PROCESS_MODE_ALWAYS	
+	highlight_.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	mas_slider.value = Highercontroler.masterVol
+	mus_slider.value = Highercontroler.musicVol
+	sfx_slider.value = Highercontroler.sfxVol
+	sfxLock = false
+	
+	tab_bar = settings_tabs.get_tab_bar()
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"ui_cancel\") and visible == false:
+		visible = true
+		Highercontroler.pauseGame()
+	elif (Input.is_action_just_pressed(\"ui_cancel\") and visible == true):
+		visible = false
+		Highercontroler.playGame()
+
+	
+	if (get_tree().current_scene.name == \"MainMenu\"):
+		tab_bar.set_tab_disabled(0, true)
+	else:
+		tab_bar.set_tab_disabled(0, false)
+		
+	
+func _on_back_button_pressed() -> void:
+	click_.play()
+	hide()
+	Highercontroler.playGame()
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+
+
+
+
+var mas_unmuted = true
+var old_mas_vol
+func _on_mas_mute_button_pressed() -> void:
+	click_.play()
+	if (mas_unmuted):
+		mas_mute_button.text = \"Unmute\"
+		old_mas_vol = mas_slider.value
+		mas_slider.value = 0
+		
+		mas_slider.editable = false
+		
+		mas_unmuted = false
+	else:
+		mas_mute_button.text = \"Mute\"
+		mas_slider.value = old_mas_vol
+		mas_slider.editable = true
+		mas_unmuted = true
+
+var mus_unmuted = true
+var old_mus_vol
+func _on_mus_mute_button_pressed() -> void:
+	click_.play()
+	if (mus_unmuted):
+		mus_mute_button.text = \"Unmute\"
+		old_mus_vol = mus_slider.value
+		mus_slider.value = 0
+		
+		mus_slider.editable = false
+		
+		mus_unmuted = false
+	else:
+		mus_mute_button.text = \"Mute\"
+		mus_slider.value = old_mus_vol
+		mus_slider.editable = true
+		mus_unmuted = true
+
+var sfx_unmuted = true
+var old_sfx_vol
+func _on_sfx_mute_button_pressed() -> void:
+	click_.play()
+	if (sfx_unmuted):
+		sfx_mute_button.text = \"Unmute\"
+		old_sfx_vol = sfx_slider.value
+		sfx_slider.value = 0
+		
+		sfx_slider.editable = false
+		
+		sfx_unmuted = false
+	else:
+		sfx_mute_button.text = \"Mute\"
+		sfx_slider.value = old_sfx_vol
+		sfx_slider.editable = true
+		sfx_unmuted = true
+
+
+func _on_mas_slider_value_changed(value: float) -> void:
+	Highercontroler.setMasterVol(value)
+	
+
+
+func _on_mus_slider_value_changed(value: float) -> void:
+	Highercontroler.setMusicVol(value)
+
+
+func _on_sfx_slider_value_changed(value: float) -> void:
+	if (!sfxLock):
+		click_.play()
+	Highercontroler.setSfxVol(value)
+	
+	
+	
+	
+	
+
+
+func _on_mas_mute_button_focus_entered() -> void:
+	highlight_.play()
+
+
+
+func _on_mus_mute_button_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_sfx_mute_button_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_back_button_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_back_button_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_mas_mute_button_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_mus_mute_button_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_sfx_mute_button_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_restart_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_restart_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_restart_pressed() -> void:
+	click_.play()
+	await click_.finished
+	get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
+	Highercontroler.playGame()
+
+func _on_go_menu_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_go_menu_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_go_menu_pressed() -> void:
+	click_.play()
+	await click_.finished
+	get_tree().change_scene_to_file(\"res://Scenes/MainMenu.tscn\")
+
+
+func _on_exit_game_mouse_entered() -> void:
+	highlight_.play()
+
+
+func _on_exit_game_focus_entered() -> void:
+	highlight_.play()
+
+
+func _on_exit_game_pressed() -> void:
+	click_.play()
+	await click_.finished
+	get_tree().quit()
+"
+
+[node name="SettingsMenu" type="Control" unique_id=111598283]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_n7jka")
+
+[node name="Audio" type="Node2D" parent="." unique_id=2107270513]
+
+[node name="click!" type="AudioStreamPlayer2D" parent="Audio" unique_id=1947642354]
+stream = ExtResource("1_n7jka")
+volume_db = 9.234
+bus = &"SFX"
+
+[node name="highlight!" type="AudioStreamPlayer2D" parent="Audio" unique_id=105831888]
+stream = ExtResource("2_ub8us")
+bus = &"SFX"
+
+[node name="Settings_Panel" type="Panel" parent="." unique_id=242952107]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.0
+offset_top = -250.0
+offset_right = 225.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_jj3gr")
+
+[node name="Back_Button" type="Button" parent="Settings_Panel" unique_id=1702602031]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -25.0
+offset_top = -24.0
+offset_right = 95.0
+offset_bottom = 96.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_jj3gr")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+icon = ExtResource("2_356h1")
+
+[node name="Setting||Tabs" type="VBoxContainer" parent="Settings_Panel" unique_id=21242729]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -235.0
+offset_right = 200.0
+offset_bottom = 234.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 9
+
+[node name="SettingsTitle" type="Label" parent="Settings_Panel/Setting||Tabs" unique_id=901603176]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "SETTINGS"
+horizontal_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="TabContainer" type="MarginContainer" parent="Settings_Panel/Setting||Tabs" unique_id=954371836]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SettingsTabs" type="TabContainer" parent="Settings_Panel/Setting||Tabs/TabContainer" unique_id=84204349]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+
+[node name="General" type="TabBar" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" unique_id=125800645]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MusicTabPanel" type="Panel" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General" unique_id=1245409711]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MTabMargins" type="MarginContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel" unique_id=1779306137]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxSliders" type="VBoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins" unique_id=533887732]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Restart" type="Button" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=693160465]
+z_index = 2
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Restart Level"
+
+[node name="GoMenu" type="Button" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=1791958260]
+z_index = 2
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Quit to Menu"
+
+[node name="ExitGame" type="MenuButton" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=1725323932]
+z_index = 2
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Exit Game"
+flat = false
+item_count = 1
+popup/item_0/text = "Are you sure?"
+popup/item_0/id = 0
+
+[node name="Music" type="TabBar" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" unique_id=2096401902]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MusicTabPanel" type="Panel" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music" unique_id=1718904696]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MTabMargins" type="MarginContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel" unique_id=1913071252]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxSliders" type="VBoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins" unique_id=1275819733]
+layout_mode = 2
+
+[node name="MasterVolLabel" type="Label" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=1834415938]
+z_index = 2
+layout_mode = 2
+text = "Master Volume"
+horizontal_alignment = 1
+
+[node name="Master Volume" type="HBoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=791459700]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 29
+
+[node name="Mas_Mute_Button" type="Button" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume" unique_id=709113866]
+z_index = 2
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Mute"
+
+[node name="Volume Slider" type="BoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume" unique_id=1759667492]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="mas_slider" type="HSlider" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Volume Slider" unique_id=2018587279]
+z_index = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+step = 0.1
+
+[node name="MusicVolLabel" type="Label" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=1642189030]
+z_index = 2
+layout_mode = 2
+text = "Music Volume"
+horizontal_alignment = 1
+
+[node name="Music Volume" type="HBoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=2068802403]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 29
+
+[node name="Mus_Mute_Button" type="Button" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume" unique_id=742763754]
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Mute"
+
+[node name="Volume Slider" type="BoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume" unique_id=1521400411]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="mus_slider" type="HSlider" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Volume Slider" unique_id=145158717]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+step = 0.1
+
+[node name="SoundFXVolLabel" type="Label" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=481719840]
+z_index = 2
+layout_mode = 2
+text = "Sound Effects Volume"
+horizontal_alignment = 1
+
+[node name="Sound Effects Volume" type="HBoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders" unique_id=77136253]
+z_index = 2
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 29
+
+[node name="SFX_Mute_Button" type="Button" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume" unique_id=1483976828]
+layout_mode = 2
+theme = ExtResource("1_jj3gr")
+text = "Mute"
+
+[node name="Volume Slider" type="BoxContainer" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume" unique_id=1819041541]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="sfx_slider" type="HSlider" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/Volume Slider" unique_id=2143344963]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 3.0
+step = 0.1
+
+[connection signal="focus_entered" from="Settings_Panel/Back_Button" to="." method="_on_back_button_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Back_Button" to="." method="_on_back_button_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Back_Button" to="." method="_on_back_button_pressed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_pressed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/GoMenu" to="." method="_on_go_menu_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/GoMenu" to="." method="_on_go_menu_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/GoMenu" to="." method="_on_go_menu_pressed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/ExitGame" to="." method="_on_exit_game_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/ExitGame" to="." method="_on_exit_game_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/ExitGame" to="." method="_on_exit_game_pressed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Mas_Mute_Button" to="." method="_on_mas_mute_button_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Mas_Mute_Button" to="." method="_on_mas_mute_button_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Mas_Mute_Button" to="." method="_on_mas_mute_button_pressed"]
+[connection signal="value_changed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Master Volume/Volume Slider/mas_slider" to="." method="_on_mas_slider_value_changed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Mus_Mute_Button" to="." method="_on_mus_mute_button_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Mus_Mute_Button" to="." method="_on_mus_mute_button_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Mus_Mute_Button" to="." method="_on_mus_mute_button_pressed"]
+[connection signal="value_changed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Music Volume/Volume Slider/mus_slider" to="." method="_on_mus_slider_value_changed"]
+[connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/SFX_Mute_Button" to="." method="_on_sfx_mute_button_focus_entered"]
+[connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/SFX_Mute_Button" to="." method="_on_sfx_mute_button_mouse_entered"]
+[connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/SFX_Mute_Button" to="." method="_on_sfx_mute_button_pressed"]
+[connection signal="value_changed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music/MusicTabPanel/MTabMargins/VBoxSliders/Sound Effects Volume/Volume Slider/sfx_slider" to="." method="_on_sfx_slider_value_changed"]

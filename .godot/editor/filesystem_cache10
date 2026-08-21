@@ -4,14 +4,14 @@ export_presets.cfg::TextFile::-1::1786686470::0::1::::<><><>0<>0<><>::
 hollow_circle.png::CompressedTexture2D::8905528224194877305::1786346261::1786346267::1::::<><><>0<>0<>8ab101845c76b96bf7907598d3198d2c<>res://.godot/imported/hollow_circle.png-87373d16038f04824d9099dc56c84e0a.ctex::
 icon.svg::CompressedTexture2D::7422813176505455583::1786193932::1786194203::1::::<><><>0<>0<>0ed3ed3634a41dc1f5e73c899366774b<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1786696621::0::1::::<><><>0<>0<><>::
-::res://CANTRIP THEME/::1787228467
-Disabled_C_Button.tres::StyleBoxFlat::5146551825678507466::1787226456::0::1::::<><><>0<>0<><>::
-Focus_C_Button.tres::StyleBoxFlat::2590777647335921230::1787226401::0::1::::<><><>0<>0<><>::
+::res://CANTRIP THEME/::1787313290
+Disabled_C_Button.tres::StyleBoxFlat::5146551825678507466::1787313290::0::1::::<><><>0<>0<><>::
+Focus_C_Button.tres::StyleBoxFlat::2590777647335921230::1787232498::0::1::::<><><>0<>0<><>::
 Hovered_BORDERLESS_C_Button.tres::StyleBoxFlat::799680138431233062::1787227974::0::1::::<><><>0<>0<><>::
-Hovered_C_Button.tres::StyleBoxFlat::2227832551174980513::1787226437::0::1::::<><><>0<>0<><>::
-LabeledSeperator_C_Button.tres::StyleBoxFlat::87576816803166361::1787228467::0::1::::<><><>0<>0<><>::
-Normal_C_Button.tres::StyleBoxFlat::9119558726618172309::1787228465::0::1::::<><><>0<>0<><>::
-Pressedl_C_Button.tres::StyleBoxFlat::5623829201870893758::1787226463::0::1::::<><><>0<>0<><>::
+Hovered_C_Button.tres::StyleBoxFlat::2227832551174980513::1787232498::0::1::::<><><>0<>0<><>::
+LabeledSeperator_C_Button.tres::StyleBoxFlat::87576816803166361::1787313290::0::1::::<><><>0<>0<><>::
+Normal_C_Button.tres::StyleBoxFlat::9119558726618172309::1787232498::0::1::::<><><>0<>0<><>::
+Pressedl_C_Button.tres::StyleBoxFlat::5623829201870893758::1787232498::0::1::::<><><>0<>0<><>::
 ::res://Characters/::1787216590
 ::res://Characters/Basic AI/::1787216117
 Enemy_01.tscn::PackedScene::4604428506945999052::1787216117::0::1::::<><><>0<>0<><>::uid://4rwhosi5aimk::::res://Characters/Basic AI/Enemy_01_Sprites.png
@@ -35,7 +35,7 @@ RadiusField.png::CompressedTexture2D::6115168157519281289::1786349274::178634927
 DummySprite.json::JSON::-1::1786683856::0::1::::<><><>0<>0<><>::
 DummySprite.png::CompressedTexture2D::8347041556618583736::1786683871::1786683874::1::::<><><>0<>0<>7a7ea60cbea3849f9734fcd060d01aab<>res://.godot/imported/DummySprite.png-ebcba6964fcf25c8265b160ee489e07d.ctex::
 dummy_enemy.tscn::PackedScene::7531505719907552857::1786944835::0::1::::<><><>0<>0<><>::uid://dq6ms4qs4usq7::::res://Characters/DummyEnemy/DummySprite.png
-::res://Debug_Videos/::1787059918
+::res://Debug_Videos/::1787231135
 ::res://HUDS/::1787216972
 game_ui_cantrip.tscn::PackedScene::355355610579465490::1787216972::0::1::::<><><>0<>0<><>::uid://dy450psoixvqn::::res://hollow_circle.png
 ::res://meme_FX/::1786332431
@@ -47,7 +47,7 @@ e_s005.ogg::AudioStreamOggVorbis::3010601038089037942::1786328233::1786328670::1
 e_s006.ogg::AudioStreamOggVorbis::5329308320017005142::1786328233::1786328670::1::::<><><>0<>0<>4465f8724096b0cc83dadbe133848407<>res://.godot/imported/e_s006.ogg-11ba79ffac94ee8465e3ace0d1b256a9.oggvorbisstr::
 e_s007.ogg::AudioStreamOggVorbis::8633931476762286654::1786328233::1786328670::1::::<><><>0<>0<>b64636901eff993ba04982133534db5c<>res://.godot/imported/e_s007.ogg-15161de07b8cb59ec116a95220a543ac.oggvorbisstr::
 JET SET! (mp3cut.net).mp3::AudioStreamMP3::6262329809683748144::1786330008::1786330016::1::::<><><>0<>0<>93c3711d1b52c4e70dbad5446a2083da<>res://.godot/imported/JET SET! (mp3cut.net).mp3-eaca98be0a15b73b4e147c330fc474d7.mp3str::
-::res://Music/::1787230586
+::res://Music/::1787230587
 BossMusic.mp3::AudioStreamMP3::6778929282221619381::1786276573::1786342771::1::::<><><>0<>0<>19e32a92607972cda93f3124c7804b77<>res://.godot/imported/BossMusic.mp3-43eb4a9b1089a650b351ea4feb7a756f.mp3str::
 combat.mp3::AudioStreamMP3::471755966720841138::1786260947::1786341752::1::::<><><>0<>0<>657e63dedcea5ab5b1655e1c58086f04<>res://.godot/imported/combat.mp3-784ad831b5ee31c246b3ab3f698d835e.mp3str::
 Dash-[AudioTrimmer.com](1).mp3::AudioStreamMP3::2541736485669251089::1786363696::1786363724::1::::<><><>0<>0<>75c6c1aa952455568126e81e081e69d1<>res://.godot/imported/Dash-[AudioTrimmer.com](1).mp3-a0fa4c56cddb47b38c948dc029a671d6.mp3str::
@@ -60,21 +60,22 @@ Pew_Explode.mp3::AudioStreamMP3::1830322200650540511::1786632139::1786632139::1:
 Ping.mp3::AudioStreamMP3::340459113894611898::1787229394::1787230090::1::::<><><>0<>0<>6bc8a441d69432baf44ee7e6f6a637a2<>res://.godot/imported/Ping.mp3-6efc39ae2e8840214f211f7e25f11071.mp3str::
 shiver me timbers.mp3::AudioStreamMP3::6348594094935444623::1786274405::1786342779::1::::<><><>0<>0<>ea36931407f8d467f480babdbdfecf91<>res://.godot/imported/shiver me timbers.mp3-2642d95587fcd8e80f5171da1f6edc37.mp3str::
 SummonFire.mp3::AudioStreamMP3::2298373436207706027::1786361041::1786361048::1::::<><><>0<>0<>cfd6f16ea6fad6f7700de517e35bcd23<>res://.godot/imported/SummonFire.mp3-38395b65bcbd7ecfdbaed318b5931250.mp3str::
-::res://Scenes/::1787230349
+::res://Scenes/::1787313375
 cursor_tracker.tscn::PackedScene::7291773046585567001::1786884545::0::1::::<><><>0<>0<><>::
-MainMenu.tscn::PackedScene::2587570131511202598::1787230349::0::1::::<><><>0<>0<><>::uid://vw057mm6fusk::::res://Theme/Cantrip_Theme.tres<>uid://chvmpxkbf8827::::res://Music/MainMenu.mp3<>uid://e36kurrjwxyo::::res://Music/Ping.mp3<>uid://bypjkjh4mpdfq::::res://TileSets/SparkChipTune.ttf
-test_world.tscn::PackedScene::6053046801413567309::1787216768::0::1::::<><><>0<>0<><>::uid://db1dhbudv51qt::::res://Characters/Cantrip/Player_Cantrip.tscn<>uid://btar5c42ib2qj::::res://TileSets/Wall.png<>uid://cdikgp67xwac8::::res://TileSets/Tiles.png<>uid://db5go34p5ku8x::::res://Scenes/cursor_tracker.tscn<>uid://gyr0teu4f1vi::::res://Music/combat.mp3<>uid://dfkk2fpu2uarh::::res://Characters/DummyEnemy/dummy_enemy.tscn<>uid://b6uojadpyusnk::::res://Characters/Basic AI/Enemy_01.tscn<>uid://ckva2swjhvqeo::::res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn<>uid://1j7u5rqe42bm::::res://Scripts/WORLD_CONTROLER.gd<>uid://fcewjfwh3cq1::::res://HUDS/game_ui_cantrip.tscn
+MainMenu.tscn::PackedScene::2587570131511202598::1787313375::0::1::::<><><>0<>0<><>::uid://vw057mm6fusk::::res://Theme/Cantrip_Theme.tres<>uid://chvmpxkbf8827::::res://Music/MainMenu.mp3<>uid://e36kurrjwxyo::::res://Music/Ping.mp3<>uid://it18rc0h0efi::::res://Music/DINGDING.mp3<>uid://bypjkjh4mpdfq::::res://TileSets/SparkChipTune.ttf
+test_world.tscn::PackedScene::6053046801413567309::1787232498::0::1::::<><><>0<>0<><>::uid://db1dhbudv51qt::::res://Characters/Cantrip/Player_Cantrip.tscn<>uid://btar5c42ib2qj::::res://TileSets/Wall.png<>uid://cdikgp67xwac8::::res://TileSets/Tiles.png<>uid://db5go34p5ku8x::::res://Scenes/cursor_tracker.tscn<>uid://gyr0teu4f1vi::::res://Music/combat.mp3<>uid://dfkk2fpu2uarh::::res://Characters/DummyEnemy/dummy_enemy.tscn<>uid://b6uojadpyusnk::::res://Characters/Basic AI/Enemy_01.tscn<>uid://ckva2swjhvqeo::::res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn<>uid://1j7u5rqe42bm::::res://Scripts/WORLD_CONTROLER.gd<>uid://fcewjfwh3cq1::::res://HUDS/game_ui_cantrip.tscn
 ::res://Scenes/UPGRADES/::1787059313
 ATK_SPEED_BUFF_SPRITES.json::JSON::-1::1787057863::0::1::::<><><>0<>0<><>::
 ATK_SPEED_BUFF_SPRITES.png::CompressedTexture2D::3238331251389225242::1787057853::1787058032::1::::<><><>0<>0<>154df362a8f70e02b6fc4f166dafa4d1<>res://.godot/imported/ATK_SPEED_BUFF_SPRITES.png-550a2990850ce6a4f46a591a97621f5d.ctex::
 ATK_SPEED_DEAD.png::CompressedTexture2D::2399144127383209952::1787058014::1787058032::1::::<><><>0<>0<>2a0ae2b8e61afc2372a48b8f48b80cbf<>res://.godot/imported/ATK_SPEED_DEAD.png-2a36c5d1963decd0b6d2257a4538fa95.ctex::
 ATK_SPEED_UPGRADE_MAIN.tscn::PackedScene::5518130932862330382::1787059313::0::1::::<><><>0<>0<><>::uid://bagfs2tjpxu5m::::res://Scenes/UPGRADES/ATK_SPEED_DEAD.png<>uid://bmew3wa6xjfsk::::res://Scenes/UPGRADES/ATK_SPEED_BUFF_SPRITES.png<>uid://c7ytc5teuhi16::::res://Music/DINGDINGDING.mp3
-::res://Scripts/::1787229858
+::res://Scripts/::1787232493
 GLOBAL_SCRIPT_PLAYER.gd::GDScript::934484396169382655::1787213453::0::1::::<>Node<><>0<>0<><>::
 HIGHERCONTROLER.gd::GDScript::2977176440220758985::1787229839::0::1::::<>Node<><>0<>0<><>::
-WORLD_CONTROLER.gd::GDScript::1845469596717667330::1787216373::0::1::::<>Node2D<><>0<>0<><>::
-::res://Theme/::1787228670
-Cantrip_Theme.tres::Theme::1520955225496032982::1787228670::0::1::::<><><>0<>0<><>::uid://bypjkjh4mpdfq::::res://TileSets/SparkChipTune.ttf<>uid://cfla7r5ds2txy::::res://CANTRIP THEME/Disabled_C_Button.tres<>uid://bc58y2d0v35ju::::res://CANTRIP THEME/Focus_C_Button.tres<>uid://60gcut1al370::::res://CANTRIP THEME/Hovered_C_Button.tres<>uid://d26t2gvbi1en2::::res://CANTRIP THEME/Normal_C_Button.tres<>uid://cmehv6780ihfi::::res://CANTRIP THEME/Pressedl_C_Button.tres<>uid://lnmu580c5os1::::res://CANTRIP THEME/Hovered_BORDERLESS_C_Button.tres<>uid://biom3ipj7js8::::res://CANTRIP THEME/LabeledSeperator_C_Button.tres
+WORLD_CONTROLER.gd::GDScript::1845469596717667330::1787232493::0::1::::<>Node2D<><>0<>0<><>::
+::res://Theme/::1787313540
+Cantrip_Theme.tres::Theme::1520955225496032982::1787313328::0::1::::<><><>0<>0<><>::uid://bypjkjh4mpdfq::::res://TileSets/SparkChipTune.ttf<>uid://cfla7r5ds2txy::::res://CANTRIP THEME/Disabled_C_Button.tres<>uid://bc58y2d0v35ju::::res://CANTRIP THEME/Focus_C_Button.tres<>uid://60gcut1al370::::res://CANTRIP THEME/Hovered_C_Button.tres<>uid://d26t2gvbi1en2::::res://CANTRIP THEME/Normal_C_Button.tres<>uid://cmehv6780ihfi::::res://CANTRIP THEME/Pressedl_C_Button.tres<>uid://lnmu580c5os1::::res://CANTRIP THEME/Hovered_BORDERLESS_C_Button.tres<>uid://biom3ipj7js8::::res://CANTRIP THEME/LabeledSeperator_C_Button.tres
+x_icon.png::CompressedTexture2D::3553699795888262823::1787313540::1787313542::1::::<><><>0<>0<>c78edc9add52c9c29e6d564bb84730bb<>res://.godot/imported/x_icon.png-3312c5c865a2af96c3028a3fdee53407.ctex::
 ::res://TileSets/::1787223722
 SparkChipTune.ttf::FontFile::4102483393048760798::1787223715::1787223722::1::::<><><>0<>0<>2c1d9adc0a06abc68d057515e7710ccd<>res://.godot/imported/SparkChipTune.ttf-8843ebd459c51cf0d907106d8d10d63a.fontdata::
 Tiles.png::CompressedTexture2D::5000541642248594629::1786325338::1786325368::1::::<><><>0<>0<>cea1a64f9397cc0ae71c9405ea897486<>res://.godot/imported/Tiles.png-5e02b4d7b53bc8a058837723bd6bdd36.ctex::

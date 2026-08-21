@@ -1,17 +1,13 @@
 [gd_resource type="StyleBoxFlat" format=3 uid="uid://60gcut1al370"]
 
 [resource]
-bg_color = Color(0.16402194, 0.18113378, 0.24100015, 1)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
+bg_color = Color(0.25936407, 0.28122696, 0.36291954, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
 border_color = Color(0.12156863, 0.13333334, 0.21568628, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-expand_margin_left = 20.0
-expand_margin_top = 10.0
-expand_margin_right = 20.0
-expand_margin_bottom = 5.0

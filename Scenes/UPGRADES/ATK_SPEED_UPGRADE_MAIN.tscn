@@ -7,14 +7,15 @@
 [sub_resource type="GDScript" id="GDScript_gsjds"]
 resource_name = "ATKSPD_SCRIPT"
 script/source = "extends Node2D
+@onready var upgrade_fx: AudioStreamPlayer2D = $UpgradeFX
 
 var isDead = false
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"player\") and !isDead:
 		isDead = true
 		$AnimatedSprite2D.play(\"collected\")
-		$AudioStreamPlayer2D.play()
-		await $AudioStreamPlayer2D.finished
+		upgrade_fx.play()
+		await upgrade_fx.finished
 		queue_free()
 "
 
@@ -276,7 +277,7 @@ autoplay = "default"
 frame = 4
 frame_progress = 0.34365493
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=2128987346]
+[node name="UpgradeFX" type="AudioStreamPlayer2D" parent="." unique_id=2128987346]
 stream = ExtResource("3_waiq6")
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

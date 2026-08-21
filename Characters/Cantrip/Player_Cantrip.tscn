@@ -1166,12 +1166,14 @@ autoplay = "Idle_F"
 
 [node name="soundFX" type="AudioStreamPlayer2D" parent="." unique_id=47394972]
 volume_db = 1.944
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1530153060]
 libraries/ = SubResource("AnimationLibrary_5gjqr")
 
 [node name="dashFX" type="AudioStreamPlayer2D" parent="." unique_id=129089944]
 stream = ExtResource("4_kavk5")
+bus = &"SFX"
 
 [node name="Bullet_Hitbox" type="Area2D" parent="." unique_id=170754704]
 z_index = 9

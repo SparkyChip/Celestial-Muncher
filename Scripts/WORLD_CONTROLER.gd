@@ -6,15 +6,20 @@ extends Node2D
 # have.
 @onready var player = $"../C_PlayerBody"
 @onready var cursor_tracker = $"../CursorTracker"
-@onready var audio = $"../AudioStreamPlayer2D"
+@onready var audio = $"../GameMusic"
 @onready var m_animator = $"../MusicSwitches/MusicAnimator"
+
+@onready var settings_menu: Control = $"../UI_ELEMENTS/SettingsMenu"
+
+
+
 var isCharged = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print(audio)
 	cursor_tracker.global_position = player.global_position
-	
+	settings_menu.visible = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,8 +28,7 @@ func _process(delta: float) -> void:
 		cursor_tracker.global_position = player.global_position
 		
 		
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Scenes/MainMenu.tscn")
+	
 	
 	if Input.is_action_pressed("click(left)") and isCharged == false:
 		player.addCurrStr(delta * 10)

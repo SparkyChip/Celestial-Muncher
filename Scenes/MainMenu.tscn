@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://e36kurrjwxyo" path="res://Music/Ping.mp3" id="2_ghw46"]
 [ext_resource type="AudioStream" uid="uid://it18rc0h0efi" path="res://Music/DINGDING.mp3" id="3_df05h"]
 [ext_resource type="FontFile" uid="uid://bypjkjh4mpdfq" path="res://TileSets/SparkChipTune.ttf" id="4_ghw46"]
+[ext_resource type="PackedScene" uid="uid://lf8q0t0hm4en" path="res://HUDS/settings_menu.tscn" id="6_8um5k"]
 
 [sub_resource type="GDScript" id="GDScript_853f1"]
 resource_name = "MainMenu"
@@ -17,16 +18,36 @@ script/source = "extends Control
 @onready var ping = load(\"res://Music/Ping.mp3\")
 @onready var sfxClick = load(\"res://Music/DINGDING.mp3\")
 
+@onready var v_box_container: VBoxContainer = $CenterContainer/VBoxContainer
+@onready var center_container: CenterContainer = $CenterContainer
+@onready var settings_menu: Control = $SettingsMenu
+
+@onready var play: Button = $CenterContainer/VBoxContainer/Play
+@onready var settings: Button = $CenterContainer/VBoxContainer/Settings
+@onready var quit: Button = $CenterContainer/VBoxContainer/Quit
+
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	settings_menu.hide()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	
+	if settings_menu.visible:
+		play.focus_mode = Control.FOCUS_NONE
+		settings.focus_mode = Control.FOCUS_NONE
+		quit.focus_mode = Control.FOCUS_NONE
+		
+	
+	else:
+		play.focus_mode = Control.FOCUS_ALL
+		settings.focus_mode = Control.FOCUS_ALL
+		quit.focus_mode = Control.FOCUS_ALL
 
 
 
@@ -61,8 +82,15 @@ func _on_play_pressed() -> void:
 
 func _on_settings_pressed() -> void:
 	clickFX.play()
+	settings_menu.show()
+	settings_menu.mouse_filter = MOUSE_FILTER_PASS
+	
+	center_container.mouse_filter = MOUSE_FILTER_IGNORE
+	v_box_container.mouse_filter = MOUSE_FILTER_IGNORE
+	
 
-
+	
+	
 func _on_quit_pressed() -> void:
 	clickFX.play()
 	await clickFX.finished
@@ -78,17 +106,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_853f1")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=671179899]
+[node name="MainMenuTheme" type="AudioStreamPlayer2D" parent="." unique_id=671179899]
 stream = ExtResource("2_853f1")
 autoplay = true
+bus = &"Music"
 
 [node name="HoverFX" type="AudioStreamPlayer2D" parent="." unique_id=2032106695]
 stream = ExtResource("2_ghw46")
 volume_db = 0.486
+bus = &"SFX"
 
 [node name="ClickFX" type="AudioStreamPlayer2D" parent="." unique_id=1129264664]
 stream = ExtResource("3_df05h")
 volume_db = 9.234
+bus = &"SFX"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1422917841]
 z_index = -1
@@ -118,7 +149,7 @@ theme = ExtResource("2_8saeu")
 theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
-text = "BEGIN."
+text = "BEGIN"
 
 [node name="Settings" type="Button" parent="CenterContainer/VBoxContainer" unique_id=233329584]
 layout_mode = 2
@@ -135,6 +166,9 @@ theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("4_ghw46")
 theme_override_font_sizes/font_size = 39
 text = "GIVE UP."
+
+[node name="SettingsMenu" parent="." unique_id=111598283 instance=ExtResource("6_8um5k")]
+layout_mode = 1
 
 [connection signal="focus_entered" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_focus_entered"]
 [connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Play" to="." method="_on_play_mouse_entered"]
