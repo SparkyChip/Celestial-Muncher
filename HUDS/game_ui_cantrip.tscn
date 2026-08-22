@@ -1,31 +1,74 @@
 [gd_scene format=3 uid="uid://fcewjfwh3cq1"]
 
-[ext_resource type="Texture2D" uid="uid://dy450psoixvqn" path="res://hollow_circle.png" id="1_sx0r0"]
+[ext_resource type="PackedScene" uid="uid://lf8q0t0hm4en" path="res://HUDS/settings_menu.tscn" id="1_1e1r1"]
+[ext_resource type="Theme" uid="uid://vw057mm6fusk" path="res://Theme/Cantrip_Theme.tres" id="1_oqtah"]
+[ext_resource type="Texture2D" uid="uid://de1lhhvpvril8" path="res://Theme/pause_icon.png" id="2_1e1r1"]
 
-[node name="GameUI_Cantrip" type="CanvasLayer" unique_id=1820173548]
-follow_viewport_enabled = true
+[sub_resource type="GDScript" id="GDScript_yrarp"]
+script/source = "extends Control
+@onready var settings_menu: Control = $SettingsMenu
+@onready var margins_full_screen: MarginContainer = $Margins_FullScreen
+@onready var pause_button: Button = $Margins_FullScreen/TopBar/ButtonBox/PauseButton
 
-[node name="Control" type="Control" parent="." unique_id=1160264059]
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	settings_menu.visible = false
+	settings_menu.process_mode = Node.PROCESS_MODE_ALWAYS
+	pause_button.process_mode = Node.PROCESS_MODE_ALWAYS
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_pause_button_pressed() -> void:
+	if settings_menu.visible:
+		settings_menu.play()
+	else:
+		settings_menu.pause()
+"
+
+[node name="GameUI_Cantrip" type="Control" unique_id=1117205790]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1154.0
-offset_bottom = 647.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_yrarp")
 
-[node name="Button" type="Button" parent="Control" unique_id=1002440870]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 20.0
-offset_right = 44.0
-offset_bottom = 44.0
+[node name="Margins_FullScreen" type="MarginContainer" parent="." unique_id=1577386069]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="MenuButton" type="MenuButton" parent="Control" unique_id=403315702]
+[node name="TopBar" type="HBoxContainer" parent="Margins_FullScreen" unique_id=1790301907]
+layout_mode = 2
+
+[node name="ButtonBox" type="Control" parent="Margins_FullScreen/TopBar" unique_id=1034232284]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PauseButton" type="Button" parent="Margins_FullScreen/TopBar/ButtonBox" unique_id=760698925]
+process_mode = 3
 layout_mode = 0
-offset_left = 86.0
-offset_top = 49.0
-offset_right = 488.0
-offset_bottom = 444.0
-icon = ExtResource("1_sx0r0")
-switch_on_hover = true
-item_count = 1
-popup/item_0/text = "AAAAA"
-popup/item_0/id = 0
+offset_left = 4.0
+offset_right = 120.0
+offset_bottom = 116.0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("1_oqtah")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+icon = ExtResource("2_1e1r1")
+icon_alignment = 1
+
+[node name="SettingsMenu" parent="." unique_id=111598283 instance=ExtResource("1_1e1r1")]
+layout_mode = 1
+
+[connection signal="pressed" from="Margins_FullScreen/TopBar/ButtonBox/PauseButton" to="." method="_on_pause_button_pressed"]

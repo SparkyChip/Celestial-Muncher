@@ -1,0 +1,236 @@
+[gd_scene format=3 uid="uid://buq8rnhmk027r"]
+
+[ext_resource type="Theme" uid="uid://vw057mm6fusk" path="res://Theme/Cantrip_Theme.tres" id="1_8hps1"]
+[ext_resource type="Theme" uid="uid://b7jxf4oa8ibwm" path="res://Theme/Death_Theme.tres" id="1_rwas2"]
+[ext_resource type="AudioStream" uid="uid://cyco4h2rlwks1" path="res://Music/DeathScreen.mp3" id="3_vb6s7"]
+[ext_resource type="AudioStream" uid="uid://it18rc0h0efi" path="res://Music/DINGDING.mp3" id="4_tpvs2"]
+[ext_resource type="AudioStream" uid="uid://e36kurrjwxyo" path="res://Music/Ping.mp3" id="5_l3qio"]
+
+[sub_resource type="GDScript" id="GDScript_fp8aa"]
+script/source = "extends Control
+
+@onready var music: AudioStreamPlayer2D = $Sounds/Music
+@onready var click: AudioStreamPlayer2D = $Sounds/Click
+@onready var hover: AudioStreamPlayer2D = $Sounds/Hover
+
+@onready var menu_button: Button = $ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/MenuButton
+@onready var character_button: Button = $ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/CharacterButton
+@onready var quit_game_button: Button = $ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/QuitGameButton
+
+var buttonDelay:float = 0.4
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	quit_game_button.get_popup().id_pressed.connect(_on_quit_game_button_pressed)
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_menu_button_mouse_entered() -> void:
+	hover.play()
+
+
+func _on_menu_button_focus_entered() -> void:
+	hover.play()
+
+
+var menu_clicked = false
+func _on_menu_button_pressed() -> void:
+	click.play()
+	if !menu_clicked:
+		menu_clicked = true		
+		await get_tree().create_timer(buttonDelay).timeout
+		get_tree().change_scene_to_file(\"res://Scenes/MainMenu.tscn\")
+	
+	
+
+
+func _on_character_button_mouse_entered() -> void:
+	hover.play()
+
+
+func _on_character_button_focus_entered() -> void:
+	hover.play()
+
+
+var char_clicked = false
+func _on_character_button_pressed() -> void:
+	click.play()
+	if !char_clicked:
+		char_clicked = true
+		await get_tree().create_timer(buttonDelay).timeout
+		get_tree().change_scene_to_file(\"res://Scenes/character_selection_screen.tscn\")
+		
+
+func _on_quit_game_button_mouse_entered() -> void:
+	hover.play()
+
+
+func _on_quit_game_button_focus_entered() -> void:
+	hover.play()
+
+var quit_clicked = false
+func _on_quit_game_button_pressed(ID:int) -> void:
+	click.play()
+	
+	if (ID == 1):
+		quit_clicked = true
+		await get_tree().create_timer(buttonDelay).timeout
+		get_tree().quit()
+	elif (ID == 2):
+		await get_tree().create_timer(0.3).timeout
+		quit_game_button.get_popup().hide()
+	
+		
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwas2"]
+bg_color = Color(0.14509805, 0.16078432, 0.21568628, 0)
+border_width_bottom = 10
+border_color = Color(0.12156863, 0.13333334, 0.21568628, 0)
+
+[node name="DeathScreen" type="Control" unique_id=350593931]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_rwas2")
+script = SubResource("GDScript_fp8aa")
+
+[node name="ScreenSpacing" type="MarginContainer" parent="." unique_id=1691001482]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenSpacing" unique_id=176923023]
+layout_mode = 2
+theme = ExtResource("1_rwas2")
+theme_override_constants/separation = -5
+
+[node name="Died_Label" type="Label" parent="ScreenSpacing/VBoxContainer" unique_id=268340800]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 1
+theme = ExtResource("1_8hps1")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwas2")
+theme_override_styles/focus = SubResource("StyleBoxFlat_rwas2")
+text = "You Died."
+
+[node name="HolderForSpacer" type="Control" parent="ScreenSpacing/VBoxContainer" unique_id=169114408]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="SpacerSizing" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/HolderForSpacer" unique_id=810913321]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="Spacer" type="ColorRect" parent="ScreenSpacing/VBoxContainer/HolderForSpacer/SpacerSizing" unique_id=1828151151]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="ButtonAreaMargins" type="MarginContainer" parent="ScreenSpacing/VBoxContainer" unique_id=1092299667]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 350
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenSpacing/VBoxContainer/ButtonAreaMargins" unique_id=467021327]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = -9
+
+[node name="MenuButton" type="Button" parent="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer" unique_id=178590381]
+layout_mode = 2
+size_flags_vertical = 6
+mouse_filter = 1
+theme = ExtResource("1_rwas2")
+theme_override_font_sizes/font_size = 45
+text = "Main Menu"
+
+[node name="CharacterButton" type="Button" parent="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer" unique_id=403478630]
+layout_mode = 2
+size_flags_vertical = 6
+mouse_filter = 1
+theme = ExtResource("1_rwas2")
+theme_override_font_sizes/font_size = 45
+text = "Change Character"
+
+[node name="QuitGameButton" type="MenuButton" parent="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer" unique_id=247475175]
+layout_mode = 2
+size_flags_vertical = 6
+mouse_filter = 1
+theme = ExtResource("1_rwas2")
+theme_override_font_sizes/font_size = 45
+text = "Quit Game"
+flat = false
+item_count = 3
+popup/item_0/text = "Are You Sure?"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Yes"
+popup/item_1/id = 1
+popup/item_2/text = "No"
+popup/item_2/id = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=555987881]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_rwas2")
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Sounds" type="Node2D" parent="." unique_id=17934977]
+
+[node name="Music" type="AudioStreamPlayer2D" parent="Sounds" unique_id=371639462]
+stream = ExtResource("3_vb6s7")
+autoplay = true
+bus = &"Music"
+
+[node name="Click" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1271523806]
+stream = ExtResource("4_tpvs2")
+volume_db = 9.234
+
+[node name="Hover" type="AudioStreamPlayer2D" parent="Sounds" unique_id=1477821615]
+stream = ExtResource("5_l3qio")
+
+[connection signal="focus_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/MenuButton" to="." method="_on_menu_button_focus_entered"]
+[connection signal="mouse_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/MenuButton" to="." method="_on_menu_button_mouse_entered"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="focus_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/CharacterButton" to="." method="_on_character_button_focus_entered"]
+[connection signal="mouse_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/CharacterButton" to="." method="_on_character_button_mouse_entered"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/CharacterButton" to="." method="_on_character_button_pressed"]
+[connection signal="focus_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_focus_entered"]
+[connection signal="mouse_entered" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_mouse_entered"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/ButtonAreaMargins/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

@@ -38,6 +38,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
+	
 	if settings_menu.visible:
 		play.focus_mode = Control.FOCUS_NONE
 		settings.focus_mode = Control.FOCUS_NONE
@@ -77,6 +78,7 @@ func _on_quit_focus_entered() -> void:
 
 func _on_play_pressed() -> void:
 	clickFX.play()
+	play.disabled = true
 	await clickFX.finished
 	get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
 

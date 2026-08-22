@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bwjtq8gfcfx06" path="res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png" id="1_uvjml"]
 [ext_resource type="Texture2D" uid="uid://drutowl6cof3g" path="res://Characters/Cantrip/Spells/InnerRadius.png" id="2_5gjqr"]
 [ext_resource type="AudioStream" uid="uid://bchia8a1uxy1f" path="res://Music/Dash-[AudioTrimmer.com](1).mp3" id="4_kavk5"]
+[ext_resource type="AudioStream" uid="uid://cga4f31ehfepp" path="res://Music/hurt.mp3" id="4_vdlyc"]
 
 [sub_resource type="GDScript" id="GDScript_fp8aa"]
 resource_name = "Cantrip_Script"
@@ -23,7 +24,9 @@ var jumpCounter = 0
 
 # ONREADY
 @onready var chAnim = $AnimatedSprite2D #sprite for cantrip
-@onready var SFX = $soundFX  #cantrips sound effects
+@onready var SFX: AudioStreamPlayer2D = $SOUNDS/soundFX #cantrips sound effects
+@onready var dash_fx: AudioStreamPlayer2D = $SOUNDS/dashFX
+@onready var hurt_fx: AudioStreamPlayer2D = $SOUNDS/hurtFX
 
 #spells from file
 
@@ -37,6 +40,10 @@ var PROJ_COOLDOWN = 0.3
 var COOLDOWN_DIVIDER = 2
 var LIFE_TIME = 0.6
 var ACCURACY = 0.1
+
+
+
+
 
 #jump effects prefix file path
 var jFX = \"res://meme_FX/e_s00\" 
@@ -68,6 +75,7 @@ func _ready() -> void:
 	loadSpells() #load spell files into an array for access
 	
 
+var hurt:bool = false #when the player gets hurt, modulate red
 
 func loadSpells() -> void: #called on ready to load spells into an array
 	Spell_List.append(magicMissile)
@@ -333,11 +341,11 @@ func dash():
 	isDashing = true
 	isLighter = true
 	multiplier = 5.0
-	$dashFX.play()
+	dash_fx.play()
 	await get_tree().create_timer(0.2).timeout
 	isLighter = false
 	multiplier = 1.0
-	await $dashFX.finished
+	await dash_fx.finished
 	isDashing = false
 	
 
@@ -366,7 +374,9 @@ func resetCurrStr():
 func setModulate(str):
 	str = str / 10
 	#print(str)
-	if isLighter:
+	if hurt:
+		$AnimatedSprite2D.modulate = Color(5,1,1,1)
+	elif isLighter:
 		$AnimatedSprite2D.modulate = Color(2,2 + str,2 + str,1)
 	else:
 		$AnimatedSprite2D.modulate = Color(1,1 + str,1 + str,1)
@@ -377,7 +387,16 @@ func setModulate(str):
 func _on_overlap_detector_area_entered(area: Area2D) -> void:
 	if area.is_in_group(\"atk_speed_upgrade\"):
 		PROJ_COOLDOWN *= 0.5
-		print(\"proj\", PROJ_COOLDOWN)
+	if area.is_in_group(\"enemy\"):
+		hurt = true
+		await get_tree().create_timer(0.1).timeout
+		hurt = false
+		
+		
+		GlobalScriptPlayer.playerHurt()
+		hurt_fx.play()
+
+		
 		
 func getAccuracy() -> float:
 	return ACCURACY
@@ -1164,16 +1183,8 @@ sprite_frames = SubResource("SpriteFrames_fp8aa")
 animation = &"Dash_B"
 autoplay = "Idle_F"
 
-[node name="soundFX" type="AudioStreamPlayer2D" parent="." unique_id=47394972]
-volume_db = 1.944
-bus = &"SFX"
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1530153060]
 libraries/ = SubResource("AnimationLibrary_5gjqr")
-
-[node name="dashFX" type="AudioStreamPlayer2D" parent="." unique_id=129089944]
-stream = ExtResource("4_kavk5")
-bus = &"SFX"
 
 [node name="Bullet_Hitbox" type="Area2D" parent="." unique_id=170754704]
 z_index = 9
@@ -1188,5 +1199,22 @@ scale = Vector2(0.8, 0.8)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CursorRotation" unique_id=115789640]
 position = Vector2(2.4074124e-35, 0)
 shape = SubResource("SeparationRayShape2D_fp8aa")
+
+[node name="SOUNDS" type="Node2D" parent="." unique_id=1934718737]
+
+[node name="hurtFX" type="AudioStreamPlayer2D" parent="SOUNDS" unique_id=439336617]
+position = Vector2(0, 1)
+scale = Vector2(1.5376052, 1)
+stream = ExtResource("4_vdlyc")
+volume_db = 9.72
+bus = &"SFX"
+
+[node name="soundFX" type="AudioStreamPlayer2D" parent="SOUNDS" unique_id=47394972]
+volume_db = 1.944
+bus = &"SFX"
+
+[node name="dashFX" type="AudioStreamPlayer2D" parent="SOUNDS" unique_id=129089944]
+stream = ExtResource("4_kavk5")
+bus = &"SFX"
 
 [connection signal="area_entered" from="Overlap_Detector" to="." method="_on_overlap_detector_area_entered"]

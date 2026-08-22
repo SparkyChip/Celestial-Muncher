@@ -1,7 +1,6 @@
 [gd_scene format=4 uid="uid://csie2cx8um630"]
 
 [ext_resource type="PackedScene" uid="uid://db1dhbudv51qt" path="res://Characters/Cantrip/Player_Cantrip.tscn" id="1_skmq4"]
-[ext_resource type="PackedScene" uid="uid://lf8q0t0hm4en" path="res://HUDS/settings_menu.tscn" id="2_5qo1a"]
 [ext_resource type="Texture2D" uid="uid://btar5c42ib2qj" path="res://TileSets/Wall.png" id="2_707cn"]
 [ext_resource type="Texture2D" uid="uid://cdikgp67xwac8" path="res://TileSets/Tiles.png" id="2_au00k"]
 [ext_resource type="PackedScene" uid="uid://db5go34p5ku8x" path="res://Scenes/cursor_tracker.tscn" id="4_mq1bj"]
@@ -10,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b6uojadpyusnk" path="res://Characters/Basic AI/Enemy_01.tscn" id="7_p7j4p"]
 [ext_resource type="PackedScene" uid="uid://ckva2swjhvqeo" path="res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn" id="8_0fcji"]
 [ext_resource type="Script" uid="uid://1j7u5rqe42bm" path="res://Scripts/WORLD_CONTROLER.gd" id="9_dqfvb"]
+[ext_resource type="PackedScene" uid="uid://fcewjfwh3cq1" path="res://HUDS/game_ui_cantrip.tscn" id="10_yrarp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
 texture = ExtResource("2_au00k")
@@ -274,8 +274,9 @@ scale = Vector2(0.38461542, 0.38461542)
 script = ExtResource("9_dqfvb")
 
 [node name="UI_ELEMENTS" type="CanvasLayer" parent="." unique_id=447161552]
+process_mode = 3
 
-[node name="SettingsMenu" parent="UI_ELEMENTS" unique_id=111598283 instance=ExtResource("2_5qo1a")]
+[node name="GameUI_Cantrip" parent="UI_ELEMENTS" unique_id=1117205790 instance=ExtResource("10_yrarp")]
 
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="WORLD_CONTROLLER" method="_on_music_switch_combat_body_entered"]
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="WORLD_CONTROLLER" method="_on_music_switch_creepy_body_entered"]

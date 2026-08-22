@@ -19,12 +19,21 @@ script/source = "extends Control
 @onready var highlight_: AudioStreamPlayer2D = $\"Audio/highlight!\"
 
 @onready var settings_tabs: TabContainer = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs\"
-var tab_bar
+var tab_bar: TabBar
+
+@onready var restart: Button = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart\"
+@onready var go_menu: Button = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/GoMenu\"
+@onready var exit_game: MenuButton = $\"Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/ExitGame\"
+
+
+
 
 
 # Called when the node enters the scene tree for the first time.
 var sfxLock = true
 func _ready() -> void:
+	
+	exit_game.get_popup().id_pressed.connect(_on_exit_game_pressed)
 	process_mode = Node.PROCESS_MODE_ALWAYS	
 	click_.process_mode = Node.PROCESS_MODE_ALWAYS	
 	highlight_.process_mode = Node.PROCESS_MODE_ALWAYS
@@ -32,18 +41,22 @@ func _ready() -> void:
 	mas_slider.value = Highercontroler.masterVol
 	mus_slider.value = Highercontroler.musicVol
 	sfx_slider.value = Highercontroler.sfxVol
-	sfxLock = false
+	
 	
 	tab_bar = settings_tabs.get_tab_bar()
+	
+	if (get_tree().current_scene.name == \"MainMenu\"):
+		tab_bar.current_tab = 1
+	else:
+		tab_bar.current_tab = 0
+	sfxLock = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed(\"ui_cancel\") and visible == false:
-		visible = true
-		Highercontroler.pauseGame()
+		pause()
 	elif (Input.is_action_just_pressed(\"ui_cancel\") and visible == true):
-		visible = false
-		Highercontroler.playGame()
+		play()
 
 	
 	if (get_tree().current_scene.name == \"MainMenu\"):
@@ -52,6 +65,14 @@ func _process(delta: float) -> void:
 		tab_bar.set_tab_disabled(0, false)
 		
 	
+	
+func pause():
+	visible = true
+	Highercontroler.pauseGame()
+func play():
+	visible = false
+	Highercontroler.playGame()
+
 func _on_back_button_pressed() -> void:
 	click_.play()
 	hide()
@@ -206,13 +227,32 @@ func _on_exit_game_focus_entered() -> void:
 	highlight_.play()
 
 
-func _on_exit_game_pressed() -> void:
+func _on_exit_game_pressed(ID:int) -> void:
 	click_.play()
-	await click_.finished
-	get_tree().quit()
+	
+	if ID == 1:
+		await get_tree().create_timer(0.3).timeout
+		get_tree().quit()
+	elif ID == 2:
+		await get_tree().create_timer(0.3).timeout
+		exit_game.get_popup().hide()
+	
+	
+
+
+func _on_settings_tabs_tab_changed(tab: int) -> void:
+	if (!sfxLock):
+		click_.play()
+
+
+func _on_settings_tabs_tab_hovered(tab: int) -> void:
+	
+	if (!tab_bar.is_tab_disabled(tab) and tab != tab_bar.current_tab):
+		highlight_.play()
 "
 
 [node name="SettingsMenu" type="Control" unique_id=111598283]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -293,11 +333,11 @@ size_flags_vertical = 3
 [node name="SettingsTabs" type="TabContainer" parent="Settings_Panel/Setting||Tabs/TabContainer" unique_id=84204349]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="General" type="TabBar" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" unique_id=125800645]
-visible = false
 layout_mode = 2
+theme = ExtResource("1_jj3gr")
 metadata/_tab_index = 0
 
 [node name="MusicTabPanel" type="Panel" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General" unique_id=1245409711]
@@ -342,12 +382,20 @@ layout_mode = 2
 theme = ExtResource("1_jj3gr")
 text = "Exit Game"
 flat = false
-item_count = 1
+item_count = 3
 popup/item_0/text = "Are you sure?"
 popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Yes"
+popup/item_1/id = 1
+popup/item_2/text = "No"
+popup/item_2/id = 2
 
 [node name="Music" type="TabBar" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" unique_id=2096401902]
+visible = false
 layout_mode = 2
+theme = ExtResource("1_jj3gr")
 metadata/_tab_index = 1
 
 [node name="MusicTabPanel" type="Panel" parent="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/Music" unique_id=1718904696]
@@ -463,6 +511,8 @@ step = 0.1
 [connection signal="focus_entered" from="Settings_Panel/Back_Button" to="." method="_on_back_button_focus_entered"]
 [connection signal="mouse_entered" from="Settings_Panel/Back_Button" to="." method="_on_back_button_mouse_entered"]
 [connection signal="pressed" from="Settings_Panel/Back_Button" to="." method="_on_back_button_pressed"]
+[connection signal="tab_changed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" to="." method="_on_settings_tabs_tab_changed"]
+[connection signal="tab_hovered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs" to="." method="_on_settings_tabs_tab_hovered"]
 [connection signal="focus_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_focus_entered"]
 [connection signal="mouse_entered" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_mouse_entered"]
 [connection signal="pressed" from="Settings_Panel/Setting||Tabs/TabContainer/SettingsTabs/General/MusicTabPanel/MTabMargins/VBoxSliders/Restart" to="." method="_on_restart_pressed"]

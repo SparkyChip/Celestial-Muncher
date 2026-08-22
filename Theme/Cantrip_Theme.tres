@@ -1,13 +1,18 @@
 [gd_resource type="Theme" format=3 uid="uid://vw057mm6fusk"]
 
 [ext_resource type="FontFile" uid="uid://bypjkjh4mpdfq" path="res://TileSets/SparkChipTune.ttf" id="1_dqy1p"]
-[ext_resource type="StyleBox" uid="uid://cfla7r5ds2txy" path="res://CANTRIP THEME/Disabled_C_Button.tres" id="2_jc87i"]
-[ext_resource type="StyleBox" uid="uid://bc58y2d0v35ju" path="res://CANTRIP THEME/Focus_C_Button.tres" id="3_t41ir"]
-[ext_resource type="StyleBox" uid="uid://60gcut1al370" path="res://CANTRIP THEME/Hovered_C_Button.tres" id="4_6at6t"]
-[ext_resource type="StyleBox" uid="uid://d26t2gvbi1en2" path="res://CANTRIP THEME/Normal_C_Button.tres" id="5_krj23"]
-[ext_resource type="StyleBox" uid="uid://cmehv6780ihfi" path="res://CANTRIP THEME/Pressedl_C_Button.tres" id="6_t41ir"]
-[ext_resource type="StyleBox" uid="uid://lnmu580c5os1" path="res://CANTRIP THEME/Hovered_BORDERLESS_C_Button.tres" id="7_6at6t"]
-[ext_resource type="StyleBox" uid="uid://biom3ipj7js8" path="res://CANTRIP THEME/LabeledSeperator_C_Button.tres" id="8_krj23"]
+[ext_resource type="StyleBox" uid="uid://cfla7r5ds2txy" path="res://Theme/CANTRIP THEME/Disabled_C_Button.tres" id="2_jc87i"]
+[ext_resource type="StyleBox" uid="uid://bc58y2d0v35ju" path="res://Theme/CANTRIP THEME/Focus_C_Button.tres" id="3_t41ir"]
+[ext_resource type="StyleBox" uid="uid://60gcut1al370" path="res://Theme/CANTRIP THEME/Hovered_C_Button.tres" id="4_6at6t"]
+[ext_resource type="StyleBox" uid="uid://d26t2gvbi1en2" path="res://Theme/CANTRIP THEME/Normal_C_Button.tres" id="5_krj23"]
+[ext_resource type="StyleBox" uid="uid://cmehv6780ihfi" path="res://Theme/CANTRIP THEME/Pressedl_C_Button.tres" id="6_t41ir"]
+[ext_resource type="StyleBox" uid="uid://lnmu580c5os1" path="res://Theme/CANTRIP THEME/Hovered_BORDERLESS_C_Button.tres" id="7_6at6t"]
+[ext_resource type="StyleBox" uid="uid://biom3ipj7js8" path="res://Theme/CANTRIP THEME/LabeledSeperator_C_Button.tres" id="8_krj23"]
+[ext_resource type="StyleBox" uid="uid://bom3ilqa8xvd6" path="res://Theme/CANTRIP THEME/Disabled_C_Tab.tres" id="9_h2jmi"]
+[ext_resource type="StyleBox" uid="uid://ivrnb844brr4" path="res://Theme/CANTRIP THEME/Focus_C_Tab.tres" id="10_0rdhe"]
+[ext_resource type="StyleBox" uid="uid://cj4dk7y76ucfm" path="res://Theme/CANTRIP THEME/Hovered_C_Tab.tres" id="11_4v2b7"]
+[ext_resource type="StyleBox" uid="uid://8huqg0nyjon8" path="res://Theme/CANTRIP THEME/Normal_C_Tab.tres" id="12_h7h3f"]
+[ext_resource type="StyleBox" uid="uid://r24d40cg2ufl" path="res://Theme/CANTRIP THEME/Pressed_C_Tab.tres" id="13_unupn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ic4k"]
 bg_color = Color(0.14509805, 0.16078432, 0.21568628, 1)
@@ -105,3 +110,13 @@ PopupMenu/styles/labeled_separator_left = ExtResource("8_krj23")
 PopupMenu/styles/labeled_separator_right = ExtResource("8_krj23")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_i2b7l")
 PopupMenu/styles/separator = SubResource("StyleBoxFlat_iul11")
+TabBar/styles/tab_disabled = ExtResource("2_jc87i")
+TabBar/styles/tab_focus = ExtResource("3_t41ir")
+TabBar/styles/tab_hovered = ExtResource("4_6at6t")
+TabBar/styles/tab_selected = ExtResource("5_krj23")
+TabBar/styles/tab_unselected = ExtResource("6_t41ir")
+TabContainer/styles/tab_disabled = ExtResource("9_h2jmi")
+TabContainer/styles/tab_focus = ExtResource("10_0rdhe")
+TabContainer/styles/tab_hovered = ExtResource("11_4v2b7")
+TabContainer/styles/tab_selected = ExtResource("12_h7h3f")
+TabContainer/styles/tab_unselected = ExtResource("13_unupn")
