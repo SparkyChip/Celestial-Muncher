@@ -18,7 +18,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
+
 	
 func playerHurt():
 	currHealth -= 1
@@ -26,4 +26,3 @@ func playerHurt():
 func reset():
 	currHealth = maxHealth
 	currMana = maxMana
-	selected_player = "cantrip"

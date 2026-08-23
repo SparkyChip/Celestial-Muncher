@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bwjtq8gfcfx06" path="res://Characters/Cantrip/BETTER_CANTRIP_SPRITESHEET.png" id="1_uvjml"]
 [ext_resource type="Texture2D" uid="uid://drutowl6cof3g" path="res://Characters/Cantrip/Spells/InnerRadius.png" id="2_5gjqr"]
 [ext_resource type="AudioStream" uid="uid://bchia8a1uxy1f" path="res://Music/Dash-[AudioTrimmer.com](1).mp3" id="4_kavk5"]
+[ext_resource type="Texture2D" uid="uid://dawcw2ds8oorv" path="res://Characters/Cantrip/Cantrip_die.png" id="4_l3mny"]
 [ext_resource type="AudioStream" uid="uid://cga4f31ehfepp" path="res://Music/hurt.mp3" id="4_vdlyc"]
+[ext_resource type="PackedScene" uid="uid://cm58vnt04hc5r" path="res://Scenes/Camera.tscn" id="7_5q2eu"]
 
 [sub_resource type="GDScript" id="GDScript_fp8aa"]
 resource_name = "Cantrip_Script"
@@ -42,9 +44,9 @@ var LIFE_TIME = 0.6
 var ACCURACY = 0.1
 
 
-
-
-
+var isDead = false;
+var STOPTHEGAME: bool = false
+var deathSceneLength: float = 1.5
 #jump effects prefix file path
 var jFX = \"res://meme_FX/e_s00\" 
 
@@ -60,8 +62,8 @@ var Spell_List: Array
 	
 # used to dicate how long charging up takes
 var currStr = 0
-const MAX_STR = 26.0 
-
+const MAX_STR = 15.0 
+const charged_cooldown = 1.0
 
 #Occurs on the player loading in
 func _ready() -> void:
@@ -81,7 +83,8 @@ func loadSpells() -> void: #called on ready to load spells into an array
 	Spell_List.append(magicMissile)
 	Spell_List.append(magicBomb)
 
-
+func getIsDied()-> bool:
+	return isDead
 
 # getter for the spell list
 func getSpell(i: int):
@@ -120,92 +123,103 @@ func getFastProjNum() -> int:
 
 # Occurs every frame
 func _physics_process(delta: float) -> void:
-	
-	# general boolean for the jump button we barely use
-	var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
-	
-	
-	# BASIC MOVEMENT
-	velocity = Vector2.ZERO # The player's movement vector.
-	if Input.is_action_pressed(\"d_right\"):
-		velocity.x += 1
+	if GlobalScriptPlayer.currHealth > 0:	
+		# general boolean for the jump button we barely use
+		var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
 		
-	if Input.is_action_pressed(\"a_left\"):
-		velocity.x -= 1
 		
-	if Input.is_action_pressed(\"s_down\"):
-		velocity.y += 1
+		# BASIC MOVEMENT
+		velocity = Vector2.ZERO # The player's movement vector.
+		if Input.is_action_pressed(\"d_right\"):
+			velocity.x += 1
+			
+		if Input.is_action_pressed(\"a_left\"):
+			velocity.x -= 1
+			
+		if Input.is_action_pressed(\"s_down\"):
+			velocity.y += 1
+			
+		if Input.is_action_pressed(\"w_up\") and jmpLock:
+			velocity.y -= 1
 		
-	if Input.is_action_pressed(\"w_up\") and jmpLock:
-		velocity.y -= 1
-	
-	#print(velocity.x, velocity.y)
+		#print(velocity.x, velocity.y)
+			
 		
-	
-	# JUMP CONTROLER
-	if Input.is_action_just_pressed(\"ui_accept\") and jmpLock:
-		jump()
+		# JUMP CONTROLER
+		if Input.is_action_just_pressed(\"ui_accept\") and jmpLock:
+			jump()
+			
+			#plays a sound effect
+			if (!(JFXLOCK)):
+				jumpCounter += 1
+				sfx()
 		
-		#plays a sound effect
-		if (!(JFXLOCK)):
-			jumpCounter += 1
-			sfx()
-	
-	
-	if (JFXLOCK == true): #makes the player rainbow if a certain fun effect is triggered
-		$AnimationPlayer.play(\"Rainbow\")
-	
 		
-	
-	#if we are jumping, go up
-	if isJump:
-		$AnimatedSprite2D.rotation += 30.0 * delta
-		velocity.y -= JUMP_VELOCITY	
-		velocity.x *= SPEED * multiplier
+		if (JFXLOCK == true): #makes the player rainbow if a certain fun effect is triggered
+			$AnimationPlayer.play(\"Rainbow\")
 		
-	#if we are falling, go down
-	elif isFall:
-		$AnimatedSprite2D.rotation += 20.0 * delta
-		velocity.y += JUMP_VELOCITY
-		velocity.x *= SPEED * multiplier
+			
+		
+		#if we are jumping, go up
+		if isJump:
+			$AnimatedSprite2D.rotation += 30.0 * delta
+			velocity.y -= JUMP_VELOCITY	
+			velocity.x *= SPEED * multiplier
+			
+		#if we are falling, go down
+		elif isFall:
+			$AnimatedSprite2D.rotation += 20.0 * delta
+			velocity.y += JUMP_VELOCITY
+			velocity.x *= SPEED * multiplier
+		
+		#if we are neither, we are doing simple movement
+		else:
+			velocity *= SPEED * multiplier
+			
+		
+		# DASH CONTROLLER
+		if (Input.is_action_just_pressed(\"dash\") and not isDashing):
+			dash()
+			
+		#RADIUS UI TOGGLER
+		if (Input.is_action_just_pressed(\"Radius_Toggle\") and $SpellReach/AnimatedSprite2D.visible):
+			$SpellReach/AnimatedSprite2D.visible = false
+		elif (Input.is_action_just_pressed(\"Radius_Toggle\")):
+			$SpellReach/AnimatedSprite2D.visible = true
+		
+		if (Input.is_action_just_pressed(\"inner_radius_toggle\") and $SpellReach/AnimatedSprite2D2.visible):
+			$SpellReach/AnimatedSprite2D2.visible = false
+		elif (Input.is_action_just_pressed(\"inner_radius_toggle\")):
+			$SpellReach/AnimatedSprite2D2.visible = true
+		updateSpriteDirection(delta)
+		
+		
+		
+		# CONTROLLER FOR DIRECTIONAL HITBOX THAT FOLLOWS THE CURSOR
+		var L2 = get_global_mouse_position().y - global_position.y
+		var L1 = get_global_mouse_position().x - global_position.x
+		
+		#print(L2,\" \", L1)
+		$CursorRotation.rotation = atan2(L2,L1) + deg_to_rad(-90)
+
+		
+		
+		
+		
+		# CharacterBody2D movement function call
+		move_and_slide()
 	
-	#if we are neither, we are doing simple movement
+	
 	else:
-		velocity *= SPEED * multiplier
+		if !STOPTHEGAME:
+			STOPTHEGAME = true
+			print(\"YOU HAVE DIED\")
+			chAnim.play(\"Death\")
+			
+			await get_tree().create_timer(deathSceneLength).timeout
+			isDead = true;
+			
 		
-	
-	# DASH CONTROLLER
-	if (Input.is_action_just_pressed(\"dash\") and not isDashing):
-		dash()
-		
-	#RADIUS UI TOGGLER
-	if (Input.is_action_just_pressed(\"Radius_Toggle\") and $SpellReach/AnimatedSprite2D.visible):
-		$SpellReach/AnimatedSprite2D.visible = false
-	elif (Input.is_action_just_pressed(\"Radius_Toggle\")):
-		$SpellReach/AnimatedSprite2D.visible = true
-	
-	if (Input.is_action_just_pressed(\"inner_radius_toggle\") and $SpellReach/AnimatedSprite2D2.visible):
-		$SpellReach/AnimatedSprite2D2.visible = false
-	elif (Input.is_action_just_pressed(\"inner_radius_toggle\")):
-		$SpellReach/AnimatedSprite2D2.visible = true
-	updateSpriteDirection(delta)
-	
-	
-	
-	# CONTROLLER FOR DIRECTIONAL HITBOX THAT FOLLOWS THE CURSOR
-	var L2 = get_global_mouse_position().y - global_position.y
-	var L1 = get_global_mouse_position().x - global_position.x
-	
-	#print(L2,\" \", L1)
-	$CursorRotation.rotation = atan2(L2,L1) + deg_to_rad(-90)
-
-	
-	
-	
-	
-	# CharacterBody2D movement function call
-	move_and_slide()
-
 
 # MAIN SPRITE CONTROLLER
 func updateSpriteDirection(delta: float): 
@@ -368,6 +382,10 @@ func getCurrStr():
 #re-setter for the strength variable
 func resetCurrStr():
 	currStr = 0
+
+
+func getChargedCooldown() -> float:
+	return charged_cooldown
 
 
 # setter for the sprites modulation  depending on the strength and the dashing state
@@ -561,6 +579,42 @@ region = Rect2(64, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ml5w0"]
 atlas = ExtResource("1_uvjml")
 region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kiffv"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eew5c"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reojh"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5hfl"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mp2so"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wawfh"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qb1f2"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mrf8"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkt34"]
+atlas = ExtResource("4_l3mny")
+region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ru3vb"]
 atlas = ExtResource("1_uvjml")
@@ -835,6 +889,38 @@ animations = [{
 "loop": 0,
 "name": &"Dash_R",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kiffv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eew5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reojh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5hfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mp2so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wawfh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qb1f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mrf8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jkt34")
+}],
+"loop": 0,
+"name": &"Death",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1171,6 +1257,7 @@ sprite_frames = SubResource("SpriteFrames_5gjqr")
 autoplay = "default"
 
 [node name="C_MainCollisionShape" type="CollisionShape2D" parent="." unique_id=743529005]
+visible = false
 z_index = 5
 position = Vector2(0, 0.5)
 scale = Vector2(1.2400022, 1)
@@ -1180,19 +1267,21 @@ debug_color = Color(0.97369593, 0, 0.43553197, 0.41960785)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1991025756]
 z_index = 4
 sprite_frames = SubResource("SpriteFrames_fp8aa")
-animation = &"Dash_B"
+animation = &"Death"
 autoplay = "Idle_F"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1530153060]
 libraries/ = SubResource("AnimationLibrary_5gjqr")
 
 [node name="Bullet_Hitbox" type="Area2D" parent="." unique_id=170754704]
+visible = false
 z_index = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_Hitbox" unique_id=1541480579]
 shape = SubResource("RectangleShape2D_fp8aa")
 
 [node name="CursorRotation" type="Area2D" parent="." unique_id=713945706]
+visible = false
 z_index = 99
 scale = Vector2(0.8, 0.8)
 
@@ -1216,5 +1305,7 @@ bus = &"SFX"
 [node name="dashFX" type="AudioStreamPlayer2D" parent="SOUNDS" unique_id=129089944]
 stream = ExtResource("4_kavk5")
 bus = &"SFX"
+
+[node name="Camera2D" parent="." unique_id=1655449525 instance=ExtResource("7_5q2eu")]
 
 [connection signal="area_entered" from="Overlap_Detector" to="." method="_on_overlap_detector_area_entered"]

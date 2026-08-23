@@ -1,54 +1,10 @@
-res://Scenes/MainMenu.tscn
-res://Theme/Cantrip_Theme.tres
-res://CANTRIP THEME/Disabled_C_Button.tres
-res://CANTRIP THEME/Normal_C_Button.tres
-res://CANTRIP THEME/LabeledSeperator_C_Button.tres
-res://HIGHERCONTROLER.gd
-res://CANTRIP THEME/Focus_C_Button.tres
-res://CANTRIP THEME/Hovered_C_Button.tres
-res://CANTRIP THEME/Pressedl_C_Button.tres
-res://Scenes/test_world.tscn
-res://Scripts/WORLD_CONTROLER.gd
-res://default_bus_layout.tres
-res://Characters/Cantrip/Player_Cantrip.tscn
-res://Characters/Cantrip/Spells/magic_bomb.tscn
-res://Characters/Cantrip/Spells/MagicMissile.tscn
-res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn
-res://HUDS/settings_menu.tscn
-res://Scripts/HIGHERCONTROLER.gd
-res://CANTRIP THEME/Disabled_C_Tab.tres
-res://CANTRIP THEME/Focus_C_Tab.tres
-res://CANTRIP THEME/Hovered_C_Tab.tres
-res://CANTRIP THEME/Normal_C_Tab.tres
-res://CANTRIP THEME/Pressed_C_Tab.tres
-res://Characters/Basic AI/Enemy_01.tscn
-res://Scripts/GLOBAL_SCRIPT_PLAYER.gd
-res://Characters/DummyEnemy/dummy_enemy.tscn
-res://HUDS/game_ui_cantrip.tscn
-res://Scenes/death_screen.tscn
-res://Theme/DEATH THEME/Normal_C_Button.tres
-res://Theme/DEATH THEME/Disabled_C_Button.tres
-res://Theme/DEATH THEME/Normal_C_Tab.tres
-res://Theme/DEATH THEME/Focus_C_Button.tres
-res://Theme/DEATH THEME/Hovered_BORDERLESS_C_Button.tres
-res://Theme/DEATH THEME/LabeledSeperator_C_Button.tres
-res://Theme/DEATH THEME/Focus_C_Tab.tres
-res://Theme/DEATH THEME/Hovered_C_Tab.tres
-res://Theme/DEATH THEME/Pressed_C_Tab.tres
-res://Theme/DEATH THEME/Disabled_C_Tab.tres
-res://Theme/DEATH THEME/Hovered_C_Button.tres
-res://Theme/DEATH THEME/Pressedl_C_Button.tres
-res://Theme/DEATH THEME/Disabled_DEATH_Button.tres
-res://Theme/DEATH THEME/Disabled_DEATH_Tab.tres
-res://Theme/DEATH THEME/Focus_DEATH_Button.tres
-res://Theme/DEATH THEME/Focus_DEATH_Tab.tres
-res://Theme/DEATH THEME/Hovered_BORDERLESS_DEATH_Button.tres
-res://Theme/DEATH THEME/Hovered_DEATH_Button.tres
-res://Theme/DEATH THEME/Hovered_DEATH_Tab.tres
-res://Theme/DEATH THEME/LabeledSeperator_DEATH_Button.tres
-res://Theme/DEATH THEME/Normal_DEATH_Button.tres
-res://Theme/DEATH THEME/Normal_DEATH_Tab.tres
-res://Theme/DEATH THEME/Pressedl_DEATH_Button.tres
-res://Theme/DEATH THEME/Pressed_DEATH_Tab.tres
-res://Theme/Death_Theme.tres
 res://Scenes/character_selection_screen.tscn
+res://Theme/Cantrip_Theme.tres
+res://Theme/Death_Theme.tres
+res://Characters/Cantrip/Player_Cantrip.tscn
+res://Scripts/WORLD_CONTROLER.gd
+res://Characters/Cantrip/Spells/MagicMissile.tscn
+res://Scenes/test_world.tscn
+res://Characters/Brutus/Player_Brutus.tscn
+res://Scenes/Camera.tscn
+res://HUDS/settings_menu.tscn

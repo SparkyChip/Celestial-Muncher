@@ -33,6 +33,9 @@ script/source = "extends Control
 func _ready() -> void:
 	settings_menu.hide()
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	play.focus_mode = Control.FOCUS_ALL
+	settings.focus_mode = Control.FOCUS_ALL
+	quit.focus_mode = Control.FOCUS_ALL
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -80,7 +83,11 @@ func _on_play_pressed() -> void:
 	clickFX.play()
 	play.disabled = true
 	await clickFX.finished
-	get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
+	settings_menu.mouse_filter = MOUSE_FILTER_IGNORE
+	
+	center_container.mouse_filter = MOUSE_FILTER_IGNORE
+	v_box_container.mouse_filter = MOUSE_FILTER_IGNORE
+	get_tree().change_scene_to_file(\"res://Scenes/character_selection_screen.tscn\")
 
 func _on_settings_pressed() -> void:
 	clickFX.play()

@@ -1,9 +1,12 @@
-res://Theme/
+res://Characters/Brutus/
 res://Scenes/
+res://Characters/Cantrip/
+res://ButtonGroups/
+res://Theme/
+res://TileSets/
 res://HUDS/
 res://Scripts/
 res://
-res://Characters/Cantrip/
 res://Scenes/UPGRADES/
 res://Characters/Basic AI/
 res://Characters/DummyEnemy/

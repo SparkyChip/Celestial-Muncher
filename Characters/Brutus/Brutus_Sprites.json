@@ -1,0 +1,446 @@
+{
+    "Height": 16,
+    "Width": 17,
+    "frames": [
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/QmxizADh/zLGKDQpZsDMAemFYXL048LE6AfZCaOR/YIsTqwZuPxCjBno7iXEp5UZ6P5CDgtK0hk59lPLDHT3k+MfUswAAD0yZkI=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBYTAfHaG/4TYxJgBwv9ljFFoUsyAmQPSC8Pk6MeFidEPshNGI/sFWZxYM3D5hRgz0N1LiE/IDGR3kBu/pNpPCzPQw46YsKTEDAAhkWSd",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/QmxizADh/zLGKDQpZsDMAemFYXL0Y8PE6gfZCaOR/UKKW2Bm4PILTJ7YOMHGp4YZpIYtzB/kmoGslhj3k+MnUuKHmmaQ6x9izQAAKlhmQg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/QmxizADh/zLGKDQpZsDMAemFYXL048LE6AfZCaOR/YIsTqwZuPxCjBno7iXEp5UZ6P5CDgtK0hk59lPLDHT3k+MfUswAAD0yZkI=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/QmxizADh/zLGKDQpZsDMAemFYVL1I7sFHZPjBmQ2SA5G4wMwNbj8QooZuOKCGP8Q0kOOGchhQQ5A1ktu3JLqB2L8RIk/qGUGPgAAKlhmQg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/QmxizMCFSXULpfr/yxhjYGLNAamF0TCzYDSyPDFmwNwPMwPmBmLMQHcvIT6tzMAVN5SmM3Lsp5YZ6OFPTHxQYgYAjDxiUg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBYTAfHaG/4TYxJiBC5PqFkr1/5cxxsDEmgNSC6NhZsFoZHlizIC5H2YGzA3EmIHuXkJ8YuIVPTxJjV9S7aeFGehhR0xYUmIGAPZ7YK0=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/QmxizMCFSXULpfr/yxhjYGL1w9SCaJhZyDQpZsDcD9ML00+Me9DtQudTwwxy44ZcM8hNW9T0A7awo4YZpKQxYs1EBgCaM2JS",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/QmxizMCFSXULpfr/yxhjYGLNAamF0TCzYDSyPDFmwNwPMwPmBmLMQHcvIT6tzMAVN5SmM3Lsp5YZ6OFPTHxQYgYAjDxiUg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/QmxizMCFSXULJfpB4L+M8X90TKpfYHqQaZjZxNiP7BeYGTA3kGIGrrggxj+E9JBrBjlxQmn6osQPhMwgJj4IxQ81zMAHAJozYlI=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwJW5Ax6TYj+wOmH+Q5Ug1A4ZJMQNfXBDrH2qYgS1eKE1blKQvSs1Adz85/iHFDAA1C1oX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBaSA+ewM/7GxSdEPwv9ljP/D2KSaAdILw5S4AR2TYj+yO2D+QZYj1QwYJsUMfHFBrH9g6tDdQGr8kms/tc1ADztiw5JcMwBVA1hy",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYGmA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwJW5Ax6TYj+wOmH+Q5Ug1A4ZJMQNfXBDrH2qYgS1uyE1fyHrJjVtK/YCuhxz/oOuhhhn4AABvGloX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwJW5Ax6TYj+wOmH+Q5Ug1A4ZJMQNfXBDrH2qYgS1eKE1blKQvSs1Adz85/iHFDAA1C1oX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYGmA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwJW5Ax6TYj+wOmH+Q5Ug1A4ZJMQNfXBDrH2qYgR4v1Ehb5JpDDT8QMpMcMygJF2LMAACBgloX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBYTAfHaG/9jYpJoBwv9ljP/D2OSaAzIDhsl1BzomVj/MTpg/kN1BrHuQ1aP7hVgz0N1MThwhq0N3B6nxg8899DQDPfzISSOkmAEAiNpYcg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHD5LoDHROrH2YnzB/I7iDWPcjq0f1CrBnobiYnjqhhBrq/yI0XQu6hpxno7ifHP6SYAQBo4loX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/bGxSzQDh/zLG/2Fscs0BmQHD5LoDHROrH2YnzB/I7iDWPcjq0f1CrBnobiYnjqhhBrq/yIkTbHaSaw4+P5Eax9Q0g5JwIcYMAKLxWhc=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHD5LoDHROrH2YnzB/I7iDWPcjq0f1CrBnobiYnjqhhBrq/yI0XQu6hpxno7ifHP6SYAQBo4loX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/bGxSzQDh/zLG/2Fscs0BmQHD5LoDHROrH2YnzB/I7iDWPcjq0f1CrBnobiYnjqhhBja/kRMv6GFDrhvw+YlcM0iJF3zqqWEGLgAAkIlaFw==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzUDH1DCHHP3/ZYxRMCnmgNQjuwNZP0yOHmagu5mcOKKGGbjihtJ0RokbKDUDPQ6IjRNyzQAAQCRU1w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBYTAfHaG/9jYpJqBjqlhDjn6/8sYo2BSzAGpR3YHsn6YHD3MQHczOXGErgc5TEkNW3zuoacZ6OFHbHiSawYAP0tTMg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/bGxSzUDH1DCHHP3/ZYxRMCnmgNQjuwNZP0yOHmagu5mcOKKGGdjiZqDTGT4+KfFDTTOIjVdSzEQGAEHEVNc=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzUDH1DCHHP3/ZYxRMCnmgNQjuwNZP0yOHmagu5mcOKKGGbjihtJ0RokbKDUDPQ6IjRNyzQAAQCRU1w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYvGA+O8N/bGxSzUDH1DCHHP3/ZYxRMCnmgNQjuwNZP0yOHmagu5mcOKKGGbjiZ6DSGj4/kWsGKfGCTz01zMAFAC9cVNc=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9KNjSs0gR/9/GWMUTIo5IPXI5iC7AyZHDzPwxQWx/qGGGdjihdK0RUn6otQM9PAnNj7INQMAFs1U1w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBaSA+ewM/7GxSdGPjik1gxz9/2WMUTAp5oDUI5uD7A6YHD3MwBcXxPoHpg5beJISJuTaT20z0MOO2LAk1wwAFfRTMg==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYGmA+O8N/bGxS9KNjSs0gR/9/GWMUTIo5IPXI5iC7AyZHDzPwxQWx/qGGGdjiZiDTFzX8gC2uSAHoeqhhBj4AABhtVNc=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9KNjSs0gR/9/GWMUTIo5IPXI5iC7AyZHDzPwxQWx/qGGGdjihdK0RUn6otQM9PAnNj7INQMAFs1U1w==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYGmA+O8N/bGxS9KNjSs0gR/9/GWMUTIo5IPXI5iC7AyZHDzPwxQWx/qGGGejxMlBpixp+wBb21DCD2Dgl1VwYAAAq1VTX",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwOfqR3UGuG9D9Qkl4wvxCiRnk+gE9XAeDGdTwy2AKD0LmAAA/wTk3",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBaSA+ewM/7GxSdEPwv9ljP/D2KSaAdILw+ToR3YHuW5A9wsl4QnzCyVmkOsH9HClZvoYSDOo4Rdi4gUAnNs26g==",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwOfqR3UGuG9D9Qkl4wvxCiRnk+gE9XKmhnxK3wPRSwwxy/YOsj9y4IUUfADrBQ2g=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwOfqR3UGuG9D9Qkl4wvxCiRnk+gFX3JILKPEHNd0xWPxCTNwCAEltOI8=",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYOWA+O8N/bGxS9IPwfxnj/zA2qWaA9MIwOfqR3UGuG9D9Qkl4wvxCiRnk+gFX3FKin1K/UOoWSt2BrI/cuCFFHwA/LULA",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHDlLiFEneAAKV+gZkBM4fSOKKGGZSmFXLjhNruGAx+ITaNAgD8TTiP",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AYBYTAfHaG/9jYpJoBwv9ljP/D2OSaAzIDhilxCyXuAAFK/QIzA2YOpXFEqRnkhieutDKQZlDqF2LTFwBPyjbq",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHDlLiFEneAAKV+gZkBM4fSOKLUDHLDEz1tUGIOzAxKw5QSM9DTFqXhQiitAgC2aUNo",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHDlLiFEneAAKV+gZkBM4fSOKKGGZSmFXLjhNruGAx+ITaNAgD8TTiP",
+                    "visible": true
+                }
+            ]
+        },
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAAEQHjaY2AY3mA+O8N/bGxSzQDh/zLG/2Fscs0BmQHDlLiFEneAAKV+gZkBM4fSOKKGGZToh8UHJebA9FIappSYgZ62yE1nuMxDBwDFVULA",
+                    "visible": true
+                }
+            ]
+        }
+    ]
+}

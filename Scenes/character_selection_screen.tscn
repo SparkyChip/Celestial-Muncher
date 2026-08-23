@@ -1,5 +1,82 @@
 [gd_scene format=3 uid="uid://0k8ayedax4ch"]
 
+[ext_resource type="Theme" uid="uid://vw057mm6fusk" path="res://Theme/Cantrip_Theme.tres" id="1_d2fhl"]
+[ext_resource type="Texture2D" uid="uid://birlkodcexgin" path="res://Characters/Cantrip/Cantrip_Icon.png" id="2_ojdrq"]
+[ext_resource type="ButtonGroup" uid="uid://c7gqoyov88udb" path="res://ButtonGroups/CharacterSelection.tres" id="3_e76wu"]
+[ext_resource type="Texture2D" uid="uid://ba01t1mer3up5" path="res://Characters/Placeholders/PlaceHolder02.png" id="4_nbj1f"]
+[ext_resource type="Texture2D" uid="uid://diyk2n1plg6tt" path="res://Characters/Placeholders/PlaceHolder03.png" id="5_e76wu"]
+[ext_resource type="Texture2D" uid="uid://caqlowp6hdv7i" path="res://Characters/Brutus/Brutus_Icon.png" id="5_l1ymi"]
+[ext_resource type="Theme" uid="uid://b7jxf4oa8ibwm" path="res://Theme/Death_Theme.tres" id="6_nbj1f"]
+[ext_resource type="AudioStream" uid="uid://bd7wph8qwnu1c" path="res://Music/Choir ah beat.mp3" id="8_iivpx"]
+[ext_resource type="AudioStream" uid="uid://4gg48ru7esdm" path="res://Music/CantripSelect.mp3" id="9_pbnxh"]
+[ext_resource type="AudioStream" uid="uid://ft57y6q4oj67" path="res://Music/Brutus_Select.mp3" id="10_en1qw"]
+[ext_resource type="AudioStream" uid="uid://cfn3xnyouyv34" path="res://Music/PlaceholderSelect.mp3" id="10_l1ymi"]
+
+[sub_resource type="GDScript" id="GDScript_d2fhl"]
+script/source = "extends Control
+
+@onready var cantrip_button: Button = $ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/Cantrip/buttonHolder/cantripButton
+@onready var brutus_button: Button = $ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer2/Control/BrutusButton
+@onready var place_holder_button_02: Button = $ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer3/Control/placeHolderButton02
+@onready var place_holder_button_03: Button = $ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer4/Control/placeHolderButton03
+
+@onready var character_info: Label = $\"ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer/MarginContainer/Character Info\"
+@onready var cantrip_select: AudioStreamPlayer2D = $SoundFX/CantripSelect
+@onready var place_holder_select: AudioStreamPlayer2D = $SoundFX/PlaceHolderSelect
+@onready var brutus_select: AudioStreamPlayer2D = $SoundFX/BrutusSelect
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Highercontroler.playGame()
+	cantrip_button.mouse_filter =Control.MOUSE_FILTER_PASS
+	brutus_button.mouse_filter =Control.MOUSE_FILTER_PASS
+	place_holder_button_02.mouse_filter =Control.MOUSE_FILTER_PASS
+	place_holder_button_03.mouse_filter =Control.MOUSE_FILTER_PASS
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_cantrip_button_pressed() -> void:
+	#brutus_button.button_pressed = false
+	#place_holder_button_02.button_pressed = false
+	#place_holder_button_03.button_pressed = false
+	
+	cantrip_select.play()
+	character_info.text = \"Cantrip, lone wizard of the valley.\"
+	GlobalScriptPlayer.selected_player = \"cantrip\"
+
+func _on_brutus_button_pressed() -> void:
+	#cantrip_button.button_pressed = false
+	#place_holder_button_02.button_pressed = false
+	#place_holder_button_03.button_pressed = false
+	brutus_select.play()
+	character_info.text = \"Brutus, the iron gallient.\"
+	GlobalScriptPlayer.selected_player = \"brutus\"
+
+func _on_place_holder_button_02_pressed() -> void:
+	#cantrip_button.button_pressed = false
+	#brutus_button.button_pressed = false
+	#place_holder_button_03.button_pressed = false
+	place_holder_select.play()
+	character_info.text = \"Placeholder02, this kid? eats rocks.\"
+	GlobalScriptPlayer.selected_player = \"placeholder02\"
+
+func _on_place_holder_button_03_pressed() -> void:
+	#cantrip_button.button_pressed = false
+	#brutus_button.button_pressed = false
+	#place_holder_button_02.button_pressed = false
+	place_holder_select.play()
+	character_info.text = \"Placeholder03, drinks pocari sweat\"
+	GlobalScriptPlayer.selected_player = \"placeholder03\"
+
+
+func _on_confirm_button_pressed() -> void:
+	get_tree().change_scene_to_file(\"res://Scenes/test_world.tscn\")
+"
+
 [node name="CharacterSelectionScreen" type="Control" unique_id=825915051]
 layout_mode = 3
 anchors_preset = 15
@@ -7,3 +84,291 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_d2fhl")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=25328144]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.04073602, 0.040736012, 0.040736005, 1)
+
+[node name="ScreenSpacing" type="MarginContainer" parent="." unique_id=332447889]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenSpacing" unique_id=984143753]
+layout_mode = 2
+size_flags_stretch_ratio = 4.2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ScreenSpacing/VBoxContainer" unique_id=1394895436]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+mouse_filter = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+
+[node name="Label" type="Label" parent="ScreenSpacing/VBoxContainer/MarginContainer" unique_id=1176490816]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("6_nbj1f")
+theme_override_font_sizes/font_size = 68
+text = "Character Selection"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Characters" type="MarginContainer" parent="ScreenSpacing/VBoxContainer" unique_id=1779773645]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+mouse_filter = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_right = 50
+
+[node name="MarginContainer" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/Characters" unique_id=212652069]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer" unique_id=1155735124]
+z_index = 1
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Cantrip" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer" unique_id=982460205]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 45
+
+[node name="buttonHolder" type="Control" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/Cantrip" unique_id=2068056758]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="cantripButton" type="Button" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/Cantrip/buttonHolder" unique_id=333483888]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("1_d2fhl")
+toggle_mode = true
+button_group = ExtResource("3_e76wu")
+icon = ExtResource("2_ojdrq")
+expand_icon = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer" unique_id=2083515581]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 45
+
+[node name="Control" type="Control" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer2" unique_id=1311377461]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BrutusButton" type="Button" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer2/Control" unique_id=178001098]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("1_d2fhl")
+toggle_mode = true
+button_group = ExtResource("3_e76wu")
+icon = ExtResource("5_l1ymi")
+expand_icon = true
+
+[node name="MarginContainer3" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer" unique_id=1211509897]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 45
+
+[node name="Control" type="Control" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer3" unique_id=291967480]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="placeHolderButton02" type="Button" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer3/Control" unique_id=404532512]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("1_d2fhl")
+toggle_mode = true
+button_group = ExtResource("3_e76wu")
+icon = ExtResource("4_nbj1f")
+expand_icon = true
+
+[node name="MarginContainer4" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer" unique_id=2039743541]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 45
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 45
+
+[node name="Control" type="Control" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer4" unique_id=1682418802]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="placeHolderButton03" type="Button" parent="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer4/Control" unique_id=1056460635]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -125.0
+offset_right = 125.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+theme = ExtResource("1_d2fhl")
+toggle_mode = true
+button_group = ExtResource("3_e76wu")
+icon = ExtResource("5_e76wu")
+expand_icon = true
+
+[node name="ColorRect" type="ColorRect" parent="ScreenSpacing/VBoxContainer/Characters" unique_id=457329013]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+metadata/_edit_lock_ = true
+
+[node name="additonalspace" type="MarginContainer" parent="ScreenSpacing/VBoxContainer" unique_id=1576285751]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+mouse_filter = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 200
+
+[node name="ColorRect2" type="ColorRect" parent="ScreenSpacing/VBoxContainer/additonalspace" unique_id=1104645722]
+z_index = -1
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.11119685, 0.11119684, 0.11119684, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScreenSpacing/VBoxContainer/additonalspace" unique_id=66815851]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer" unique_id=877154627]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Character Info" type="Label" parent="ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer/MarginContainer" unique_id=1537972603]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("6_nbj1f")
+
+[node name="MarginContainer2" type="MarginContainer" parent="ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer" unique_id=1709309106]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.6
+mouse_filter = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 20
+
+[node name="ConfirmButton" type="Button" parent="ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer/MarginContainer2" unique_id=291779548]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("6_nbj1f")
+text = "Confirm"
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="." unique_id=682019164]
+stream = ExtResource("8_iivpx")
+autoplay = true
+bus = &"Music"
+
+[node name="SoundFX" type="Node" parent="." unique_id=320056432]
+
+[node name="CantripSelect" type="AudioStreamPlayer2D" parent="SoundFX" unique_id=1329550188]
+stream = ExtResource("9_pbnxh")
+volume_db = 7.5
+bus = &"SFX"
+
+[node name="BrutusSelect" type="AudioStreamPlayer2D" parent="SoundFX" unique_id=2081876865]
+stream = ExtResource("10_en1qw")
+volume_db = 7.5
+bus = &"SFX"
+
+[node name="PlaceHolderSelect" type="AudioStreamPlayer2D" parent="SoundFX" unique_id=1876502470]
+stream = ExtResource("10_l1ymi")
+volume_db = 8.0
+bus = &"SFX"
+
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/Cantrip/buttonHolder/cantripButton" to="." method="_on_cantrip_button_pressed"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer2/Control/BrutusButton" to="." method="_on_brutus_button_pressed"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer3/Control/placeHolderButton02" to="." method="_on_place_holder_button_02_pressed"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/Characters/MarginContainer/HBoxContainer/MarginContainer4/Control/placeHolderButton03" to="." method="_on_place_holder_button_03_pressed"]
+[connection signal="pressed" from="ScreenSpacing/VBoxContainer/additonalspace/VBoxContainer/MarginContainer2/ConfirmButton" to="." method="_on_confirm_button_pressed"]

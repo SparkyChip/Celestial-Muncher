@@ -179,8 +179,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gsjds"]
-radius = 3.0
-height = 14.0
+radius = 0.4375
+height = 1.390625
 
 [node name="MagicMissile" type="Area2D" unique_id=1699465930 groups=["player_proj"]]
 z_index = 10
@@ -190,11 +190,9 @@ script = SubResource("GDScript_bwhmn")
 
 [node name="MissileSpriteAnim" type="AnimatedSprite2D" parent="." unique_id=1803186096]
 sprite_frames = SubResource("SpriteFrames_fp8aa")
-animation = &"explode"
-frame = 6
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=279974350]
+position = Vector2(-0.0546875, -5.8203125)
 shape = SubResource("CapsuleShape2D_gsjds")
 
 [node name="Sound_FX" type="Node2D" parent="." unique_id=632529826]

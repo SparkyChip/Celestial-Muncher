@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ckva2swjhvqeo" path="res://Scenes/UPGRADES/ATK_SPEED_UPGRADE_MAIN.tscn" id="8_0fcji"]
 [ext_resource type="Script" uid="uid://1j7u5rqe42bm" path="res://Scripts/WORLD_CONTROLER.gd" id="9_dqfvb"]
 [ext_resource type="PackedScene" uid="uid://fcewjfwh3cq1" path="res://HUDS/game_ui_cantrip.tscn" id="10_yrarp"]
+[ext_resource type="PackedScene" uid="uid://bkrt58kvsgcip" path="res://Characters/Brutus/Player_Brutus.tscn" id="11_5qo1a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iwv7r"]
 texture = ExtResource("2_au00k")
@@ -40,17 +41,17 @@ texture = ExtResource("2_au00k")
 0:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
 0:2/0/z_index = 1
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-0:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -0.2967682, -8, -0.2967682)
 1:2/0 = 0
 1:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
 1:2/0/z_index = 1
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-1:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -0.2967682, -8, -0.2967682)
 2:2/0 = 0
 2:2/0/modulate = Color(0.8076375, 0.8076375, 0.8076375, 1)
 2:2/0/z_index = 1
 2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -8, 8, 0.11079216, -8, 0.30863762)
-2:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:2/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, -0.2967682, -8, -0.2967682)
 
 [sub_resource type="TileSet" id="TileSet_iwv7r"]
 physics_layer_0/collision_layer = 1
@@ -151,9 +152,6 @@ tile_set = SubResource("TileSet_iwv7r")
 
 [node name="C_PlayerBody" parent="." unique_id=2113687282 instance=ExtResource("1_skmq4")]
 position = Vector2(-149, 46)
-
-[node name="Camera2D" type="Camera2D" parent="C_PlayerBody" unique_id=1075804820]
-zoom = Vector2(3, 3)
 
 [node name="FloorTileMap" type="TileMapLayer" parent="." unique_id=654557798]
 tile_map_data = PackedByteArray("AAD//wMAAAABAAEAAAD+/wMAAAABAAEAAAD+/wIAAAABAAEAAAD//wIAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAAAAAQAAAABAAEAAAD//wQAAAABAAEAAAABAAEAAAABAAEAAAAAAAMAAAABAAEAAAD//wEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAUAAAABAAEAAAAAAAUAAAABAAEAAAD//wUAAAABAAEAAAD+/wQAAAABAAEAAAD+/wEAAAABAAEAAAD+/wUAAAABAAEAAAACAAUAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAADAAUAAAABAAEAAAD9/wAAAAAAAAAAAAAEAAAAAAACAAAAAAAEAAUAAAACAAEAAAD9/wYAAAAAAAIAAAAEAAYAAAACAAIAAAAEAAQAAAACAAEAAAAEAAMAAAACAAEAAAAEAAIAAAACAAEAAAAEAAEAAAACAAEAAAADAAAAAAABAAAAAAACAAAAAAABAAAAAAABAAAAAAABAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAD9/wEAAAAAAAEAAAD9/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD+/wYAAAABAAIAAAD//wYAAAABAAIAAAAAAAYAAAABAAIAAAABAAYAAAABAAIAAAACAAYAAAABAAIAAAADAAYAAAABAAIAAAA=")
@@ -277,6 +275,9 @@ script = ExtResource("9_dqfvb")
 process_mode = 3
 
 [node name="GameUI_Cantrip" parent="UI_ELEMENTS" unique_id=1117205790 instance=ExtResource("10_yrarp")]
+
+[node name="B_PlayerBody" parent="." unique_id=325499900 instance=ExtResource("11_5qo1a")]
+position = Vector2(-133, 45.999996)
 
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCombat" to="WORLD_CONTROLLER" method="_on_music_switch_combat_body_entered"]
 [connection signal="body_entered" from="MusicSwitches/MusicSwitchCreepy" to="WORLD_CONTROLLER" method="_on_music_switch_creepy_body_entered"]

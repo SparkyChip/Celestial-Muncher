@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bd7wph8qwnu1c"
+path="res://.godot/imported/Choir ah beat.mp3-f4eb1b962c5174eb48eed57ebf3db3de.mp3str"
+
+[deps]
+
+source_file="res://Music/Choir ah beat.mp3"
+dest_files=["res://.godot/imported/Choir ah beat.mp3-f4eb1b962c5174eb48eed57ebf3db3de.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

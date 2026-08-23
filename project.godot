@@ -43,6 +43,11 @@ enemy=""
 player_proj=""
 atk_speed_upgrade=""
 
+[gui]
+
+theme/custom="uid://vw057mm6fusk"
+theme/custom_font="uid://bypjkjh4mpdfq"
+
 [input]
 
 w_up={
