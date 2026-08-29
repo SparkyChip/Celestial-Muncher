@@ -1,0 +1,17 @@
+{
+    "Height": 19,
+    "Width": 11,
+    "frames": [
+        {
+            "duration": 100,
+            "layers": [
+                {
+                    "name": "Layer 1",
+                    "opacity": 1,
+                    "pixels": "AAADRHjaY2BgYHhlbfc/gpUBjGFsdDGgMgYYe5K8EBiD2DCMLIasD10OXS9MLbIYslpkMWS16GrQzQepg7kZm7+Q7WbAAWD+JgbQSi0+940ktbQIX5g6UtWjAwCsOJBD",
+                    "visible": true
+                }
+            ]
+        }
+    ]
+}

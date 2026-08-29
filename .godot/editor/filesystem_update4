@@ -1,10 +1,3 @@
-res://Scenes/character_selection_screen.tscn
+res://Characters/Brutus/Player_Brutus.tscn
 res://Theme/Cantrip_Theme.tres
 res://Theme/Death_Theme.tres
-res://Characters/Cantrip/Player_Cantrip.tscn
-res://Scripts/WORLD_CONTROLER.gd
-res://Characters/Cantrip/Spells/MagicMissile.tscn
-res://Scenes/test_world.tscn
-res://Characters/Brutus/Player_Brutus.tscn
-res://Scenes/Camera.tscn
-res://HUDS/settings_menu.tscn
