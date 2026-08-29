@@ -46,11 +46,6 @@ animations = [{
 "loop": 1,
 "name": &"THROW",
 "speed": 20.0
-}, {
-"frames": [],
-"loop": 1,
-"name": &"hidden",
-"speed": 5.0
 }]
 
 [node name="Hammer_Thrown" type="Area2D" unique_id=491327162]
@@ -64,4 +59,3 @@ shape = SubResource("RectangleShape2D_jdn77")
 sprite_frames = SubResource("SpriteFrames_h4ebn")
 animation = &"THROW"
 autoplay = "THROW"
-frame = 3

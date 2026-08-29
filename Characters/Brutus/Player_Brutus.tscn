@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cbwakhd53xfa4" path="res://Characters/Brutus/50FuckingTonsPlusTheBar.png" id="3_ubc1p"]
 [ext_resource type="AudioStream" uid="uid://dr1j21e3a2nfb" path="res://Music/brutus_dash.mp3" id="4_r7akw"]
 [ext_resource type="PackedScene" uid="uid://cm58vnt04hc5r" path="res://Scenes/Camera.tscn" id="5_r7akw"]
-[ext_resource type="PackedScene" uid="uid://d26b25v4odbl7" path="res://Characters/Brutus/hammer_thrown.tscn" id="7_papb6"]
 
 [sub_resource type="GDScript" id="GDScript_cqnjk"]
 resource_name = "Brutus_Script"
@@ -32,6 +31,9 @@ var jumpCounter = 0
 @onready var hammerfittyton: Sprite2D = $CursorRotation/CollisionShape2D/hammer
 @onready var cursor_rotation: Area2D = $CursorRotation
 
+#hammer stuff
+var hammer_scene = preload(\"res://Characters/Brutus/hammer_thrown.tscn\")
+var isThrown:bool = false
 
 
 # DEATH VARIABLES
@@ -85,16 +87,17 @@ func _physics_process(delta: float) -> void:
 	if GlobalScriptPlayer.currHealth > 0:	
 		# general boolean for the jump button we barely use
 		
-		if Input.is_action_pressed(\"click(left)\"):
+		if Input.is_action_pressed(\"click(left)\") and !isThrown:
 			cursor_rotation.monitoring = true
 			cursor_rotation.monitorable = true
 			hammerfittyton.visible = true;
-			
 		else:
 			hammerfittyton.visible = false;
 			cursor_rotation.monitoring = false
 			cursor_rotation.monitorable = false
-		
+			
+		if Input.is_action_just_released(\"click(left)\") and !isThrown:
+			throw()
 		
 		
 		var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
@@ -350,6 +353,18 @@ func _on_overlap_detector_area_entered(area: Area2D) -> void:
 		
 		GlobalScriptPlayer.playerHurt()
 		hurt_fx.play()
+
+
+func throw():
+	isThrown = true;
+	var hammer_instance = hammer_scene.instantiate()
+	hammer_instance.global_position = global_position
+	
+	get_parent().add_child(hammer_instance)
+	await get_tree().create_timer(5.0).timeout
+	get_parent().remove_child(hammer_instance)
+	isThrown = false;
+	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kavk5"]
@@ -1115,9 +1130,5 @@ volume_db = 14.0
 bus = &"SFX"
 
 [node name="Camera2D" parent="." unique_id=1655449525 instance=ExtResource("5_r7akw")]
-
-[node name="Hammer_Thrown" parent="." unique_id=491327162 instance=ExtResource("7_papb6")]
-visible = false
-position = Vector2(14.851251, -3.8146973e-06)
 
 [connection signal="area_entered" from="Overlap_Detector" to="." method="_on_overlap_detector_area_entered"]
