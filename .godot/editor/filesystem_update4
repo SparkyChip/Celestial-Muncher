@@ -7,3 +7,5 @@ res://Characters/Cantrip/Player_Cantrip.tscn
 res://Scenes/test_world.tscn
 res://Scenes/Camera.tscn
 res://Characters/Cantrip/Spells/MagicMissile.tscn
+res://Characters/Basic AI/Enemy_01.tscn
+res://Characters/DummyEnemy/dummy_enemy.tscn
