@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://db1dhbudv51qt" path="res://Characters/Cantrip/Player_Cantrip.tscn" id="1_skmq4"]
 [ext_resource type="Texture2D" uid="uid://btar5c42ib2qj" path="res://TileSets/Wall.png" id="2_707cn"]
 [ext_resource type="Texture2D" uid="uid://cdikgp67xwac8" path="res://TileSets/Tiles.png" id="2_au00k"]
-[ext_resource type="PackedScene" uid="uid://db5go34p5ku8x" path="res://Scenes/cursor_tracker.tscn" id="4_mq1bj"]
 [ext_resource type="AudioStream" uid="uid://gyr0teu4f1vi" path="res://Music/combat.mp3" id="5_iwv7r"]
 [ext_resource type="PackedScene" uid="uid://dfkk2fpu2uarh" path="res://Characters/DummyEnemy/dummy_enemy.tscn" id="6_kt01x"]
 [ext_resource type="PackedScene" uid="uid://b6uojadpyusnk" path="res://Characters/Basic AI/Enemy_01.tscn" id="7_p7j4p"]
@@ -156,9 +155,6 @@ position = Vector2(-149, 46)
 [node name="FloorTileMap" type="TileMapLayer" parent="." unique_id=654557798]
 tile_map_data = PackedByteArray("AAD//wMAAAABAAEAAAD+/wMAAAABAAEAAAD+/wIAAAABAAEAAAD//wIAAAABAAEAAAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAEAAAABAAQAAAABAAEAAAAAAAQAAAABAAEAAAD//wQAAAABAAEAAAABAAEAAAABAAEAAAAAAAMAAAABAAEAAAD//wEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAUAAAABAAEAAAAAAAUAAAABAAEAAAD//wUAAAABAAEAAAD+/wQAAAABAAEAAAD+/wEAAAABAAEAAAD+/wUAAAABAAEAAAACAAUAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAADAAUAAAABAAEAAAD9/wAAAAAAAAAAAAAEAAAAAAACAAAAAAAEAAUAAAACAAEAAAD9/wYAAAAAAAIAAAAEAAYAAAACAAIAAAAEAAQAAAACAAEAAAAEAAMAAAACAAEAAAAEAAIAAAACAAEAAAAEAAEAAAACAAEAAAADAAAAAAABAAAAAAACAAAAAAABAAAAAAABAAAAAAABAAAAAAAAAAAAAAABAAAAAAD//wAAAAABAAAAAAD+/wAAAAABAAAAAAD9/wEAAAAAAAEAAAD9/wIAAAAAAAEAAAD9/wMAAAAAAAEAAAD9/wQAAAAAAAEAAAD9/wUAAAAAAAEAAAD+/wYAAAABAAIAAAD//wYAAAABAAIAAAAAAAYAAAABAAIAAAABAAYAAAABAAIAAAACAAYAAAABAAIAAAADAAYAAAABAAIAAAA=")
 tile_set = SubResource("TileSet_kt01x")
-
-[node name="CursorTracker" parent="." unique_id=1330314681 instance=ExtResource("4_mq1bj")]
-position = Vector2(-35, 48)
 
 [node name="Node2D" type="Node2D" parent="." unique_id=1410624855]
 z_index = 1

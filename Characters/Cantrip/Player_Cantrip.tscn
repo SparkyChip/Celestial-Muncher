@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dawcw2ds8oorv" path="res://Characters/Cantrip/Cantrip_die.png" id="4_l3mny"]
 [ext_resource type="AudioStream" uid="uid://cga4f31ehfepp" path="res://Music/hurt.mp3" id="4_vdlyc"]
 [ext_resource type="PackedScene" uid="uid://cm58vnt04hc5r" path="res://Scenes/Camera.tscn" id="7_5q2eu"]
+[ext_resource type="PackedScene" uid="uid://db5go34p5ku8x" path="res://Scenes/cursor_tracker.tscn" id="8_666pf"]
 
 [sub_resource type="GDScript" id="GDScript_fp8aa"]
 resource_name = "Cantrip_Script"
@@ -29,6 +30,7 @@ var jumpCounter = 0
 @onready var SFX: AudioStreamPlayer2D = $SOUNDS/soundFX #cantrips sound effects
 @onready var dash_fx: AudioStreamPlayer2D = $SOUNDS/dashFX
 @onready var hurt_fx: AudioStreamPlayer2D = $SOUNDS/hurtFX
+@onready var cursor_tracker: CharacterBody2D = $CursorTracker
 
 #spells from file
 
@@ -64,11 +66,11 @@ var Spell_List: Array
 var currStr = 0
 const MAX_STR = 15.0 
 const charged_cooldown = 1.0
-
+var isCharged: bool = false
 #Occurs on the player loading in
 func _ready() -> void:
 	#$CollisionShape2D.debug_color = Color.BLUE
-	
+	cursor_tracker.global_position = global_position
 	#set some booleans
 	isJump = false
 	isFall = false
@@ -76,53 +78,16 @@ func _ready() -> void:
 	
 	loadSpells() #load spell files into an array for access
 	
-
 var hurt:bool = false #when the player gets hurt, modulate red
 
-func loadSpells() -> void: #called on ready to load spells into an array
-	Spell_List.append(magicMissile)
-	Spell_List.append(magicBomb)
 
-func getIsDied()-> bool:
-	return isDead
-
-# getter for the spell list
-func getSpell(i: int):
-	if (i < Spell_List.size()):
-		return Spell_List.get(i)
-	else:
-		return false
-
-
-# BOMB HANDLING CODE
-func getMaxBombs() -> int:
-	return MAX_BOMBS
-	
-func getCurrBombs() -> int:
-	return curr_bombs
-
-func addCurrBombs():
-	curr_bombs += 1
-
-func decCurrBombs():
-	curr_bombs -= 1
-
-
-#PEW HANDLING CODE
-func getCooldown() -> float:
-	return PROJ_COOLDOWN
-
-func getLifeTime() -> float:
-	return LIFE_TIME
-func getFastCooldown() -> float:
-	return PROJ_COOLDOWN/COOLDOWN_DIVIDER
-	
-func getFastProjNum() -> int:
-	return FAST_PROJ_NUM
 
 
 # Occurs every frame
 func _physics_process(delta: float) -> void:
+	if (cursor_tracker.global_position.distance_to(global_position) > cursor_tracker.getRange()):
+		cursor_tracker.global_position = global_position
+
 	if GlobalScriptPlayer.currHealth > 0:	
 		# general boolean for the jump button we barely use
 		var jmpLock = not isJmpCD and not isJump and not isFall and not is_on_ceiling()
@@ -203,13 +168,29 @@ func _physics_process(delta: float) -> void:
 		$CursorRotation.rotation = atan2(L2,L1) + deg_to_rad(-90)
 
 		
+		if Input.is_action_just_pressed(\"click(right)\"):	
+			fireMagicBomb()
+				
+		if Input.is_action_just_pressed(\"click(left)\") and !is_cooldown_s01:
+			firePew()
 		
 		
 		
 		# CharacterBody2D movement function call
 		move_and_slide()
 	
-	
+		if Input.is_action_pressed(\"click(left)\") and isCharged == false:
+			addCurrStr(delta * 10)
+			setModulate(getCurrStr())
+		else:
+			resetCurrStr()
+			setModulate(getCurrStr())
+		
+		if getCurrStr() >= getMaxStr():
+			isCharged = true
+			fastFire()
+			strengthCooldown()
+
 	else:
 		if !STOPTHEGAME:
 			STOPTHEGAME = true
@@ -219,7 +200,51 @@ func _physics_process(delta: float) -> void:
 			await get_tree().create_timer(deathSceneLength).timeout
 			isDead = true;
 			
-		
+	
+
+
+func loadSpells() -> void: #called on ready to load spells into an array
+	Spell_List.append(magicMissile)
+	Spell_List.append(magicBomb)
+
+func getIsDied()-> bool:
+	return isDead
+
+# getter for the spell list
+func getSpell(i: int):
+	if (i < Spell_List.size()):
+		return Spell_List.get(i)
+	else:
+		return false
+
+
+# BOMB HANDLING CODE
+func getMaxBombs() -> int:
+	return MAX_BOMBS
+	
+func getCurrBombs() -> int:
+	return curr_bombs
+
+func addCurrBombs():
+	curr_bombs += 1
+
+func decCurrBombs():
+	curr_bombs -= 1
+
+
+#PEW HANDLING CODE
+func getCooldown() -> float:
+	return PROJ_COOLDOWN
+
+func getLifeTime() -> float:
+	return LIFE_TIME
+func getFastCooldown() -> float:
+	return PROJ_COOLDOWN/COOLDOWN_DIVIDER
+	
+func getFastProjNum() -> int:
+	return FAST_PROJ_NUM
+
+
 
 # MAIN SPRITE CONTROLLER
 func updateSpriteDirection(delta: float): 
@@ -418,6 +443,79 @@ func _on_overlap_detector_area_entered(area: Area2D) -> void:
 		
 func getAccuracy() -> float:
 	return ACCURACY
+
+
+
+var is_cooldown_s01 = false		
+func firePew():
+	#print(get_global_mouse_position())
+	var spell_instance = getSpell(0).instantiate()
+	#print(spell_instance)
+	spell_instance.global_position = cursor_tracker.global_position
+	#print(spell_instance.global_position)
+	pew(spell_instance)
+	return spell_instance
+	
+func pew(instance):
+	get_parent().add_child(instance)
+	instance.setOGPos(self)
+	instance.setRotation(calc_pew_dir(), getAccuracy())
+	set_pew_cooldown(instance)
+	await get_tree().create_timer(getLifeTime()).timeout
+	await instance.explode()
+	
+	get_parent().remove_child(instance)
+	
+func calc_pew_dir() -> Vector2:
+	var mouse_pos = get_global_mouse_position()
+	
+	var grad_x = (mouse_pos.x - global_position.x) 
+	var grad_y = mouse_pos.y - global_position.y
+	
+	var move_dir = Vector2(grad_x, grad_y)
+	
+	return move_dir.normalized()
+
+func set_pew_cooldown(instance):
+	is_cooldown_s01 = true
+	
+	print(\"cooldown: \", getCooldown())
+	await get_tree().create_timer(getCooldown()).timeout
+	is_cooldown_s01 = false
+		
+		
+		
+func fireMagicBomb():
+	var spell_instance = getSpell(1).instantiate()
+	if getCurrBombs() < getMaxBombs():
+		#print(spell_instance)
+		spell_instance.global_position = cursor_tracker.global_position
+		#print(spell_instance.global_position)
+		
+		
+		
+		spell01Fire(spell_instance)
+		addCurrBombs()
+		spell_instance.playSound()
+		
+func spell01Fire(instance):
+	
+	get_parent().add_child(instance)
+	
+	await get_tree().create_timer(instance.getLifeTime()).timeout
+	instance.playDeath()
+	
+	get_parent().remove_child(instance)
+	decCurrBombs()
+
+func fastFire():
+	for i in range(getFastProjNum()):
+		var instance = firePew()
+		await get_tree().create_timer(getFastCooldown()).timeout
+	
+func strengthCooldown():
+	await get_tree().create_timer(getChargedCooldown() *2).timeout
+	isCharged = false
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kavk5"]
@@ -1307,5 +1405,8 @@ stream = ExtResource("4_kavk5")
 bus = &"SFX"
 
 [node name="Camera2D" parent="." unique_id=1655449525 instance=ExtResource("7_5q2eu")]
+
+[node name="CursorTracker" parent="." unique_id=1526208956 instance=ExtResource("8_666pf")]
+position = Vector2(-35, 48)
 
 [connection signal="area_entered" from="Overlap_Detector" to="." method="_on_overlap_detector_area_entered"]

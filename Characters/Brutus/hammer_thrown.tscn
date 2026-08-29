@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d26b25v4odbl7"]
+
+[ext_resource type="Texture2D" uid="uid://dubqnhj1k1x7p" path="res://Characters/Brutus/50FuckingTonsPlusTheBarTHROWN.png" id="1_un5tc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jdn77"]
+size = Vector2(18.722694, 8.005999)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_coyl2"]
+atlas = ExtResource("1_un5tc")
+region = Rect2(0, 0, 19, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fpdv"]
+atlas = ExtResource("1_un5tc")
+region = Rect2(19, 0, 19, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_po0j3"]
+atlas = ExtResource("1_un5tc")
+region = Rect2(38, 0, 19, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjmbp"]
+atlas = ExtResource("1_un5tc")
+region = Rect2(57, 0, 19, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jpfc"]
+atlas = ExtResource("1_un5tc")
+region = Rect2(76, 0, 19, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h4ebn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_coyl2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fpdv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_po0j3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjmbp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jpfc")
+}],
+"loop": 1,
+"name": &"THROW",
+"speed": 20.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"hidden",
+"speed": 5.0
+}]
+
+[node name="Hammer_Thrown" type="Area2D" unique_id=491327162]
+scale = Vector2(1.1, 1.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1030219605]
+position = Vector2(-0.06530762, 0.47288036)
+shape = SubResource("RectangleShape2D_jdn77")
+
+[node name="throwanim" type="AnimatedSprite2D" parent="." unique_id=1868888802]
+sprite_frames = SubResource("SpriteFrames_h4ebn")
+animation = &"THROW"
+autoplay = "THROW"
+frame = 3

@@ -1,3 +1,6 @@
+AnimatedSprite2D
+CollisionShape2D
+Area2D
 Sprite2D
 Camera2D
 CharacterBody2D
@@ -9,7 +12,3 @@ MarginContainer
 Button
 VBoxContainer
 HBoxContainer
-ColorRect
-CheckButton
-BoxContainer
-MenuButton

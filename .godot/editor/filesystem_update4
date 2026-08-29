@@ -1,3 +1,9 @@
 res://Characters/Brutus/Player_Brutus.tscn
 res://Theme/Cantrip_Theme.tres
 res://Theme/Death_Theme.tres
+res://Characters/Brutus/hammer_thrown.tscn
+res://Scripts/WORLD_CONTROLER.gd
+res://Characters/Cantrip/Player_Cantrip.tscn
+res://Scenes/test_world.tscn
+res://Scenes/Camera.tscn
+res://Characters/Cantrip/Spells/MagicMissile.tscn
